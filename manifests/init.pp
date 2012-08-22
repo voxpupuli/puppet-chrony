@@ -25,5 +25,5 @@ class chrony (
         hasrestart => true,
         enable     => true,
         require    => Package['chrony'],
-     }
+    }
 }
