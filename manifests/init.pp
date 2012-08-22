@@ -1,5 +1,5 @@
 class chrony (
-  $ntpservers = [ 
+  $ntpservers = [
     '0.nl.pool.ntp.org',
     '1.nl.pool.ntp.org',
     '2.nl.pool.ntp.org',
