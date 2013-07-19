@@ -1,5 +1,8 @@
 Language: ruby
 rvm: 1.9.3
 
+gemfile:
+  - Gemfile
+
 env:
   - PUPPET_VERSION=3.2.3
