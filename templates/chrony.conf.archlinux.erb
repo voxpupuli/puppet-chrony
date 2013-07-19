@@ -46,7 +46,7 @@
 ! server ntp0.your-isp.com
 ! server ntp1.your-isp.com
 ! server ntp.public-server.org
-<% scope.lookupvar('ntpservers').each do |server| -%>
+<% [@servers].flatten.each do |server| -%>
 server <%= server %> iburst
 <% end -%>
 
