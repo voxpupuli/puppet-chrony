@@ -3,7 +3,6 @@
 	<name>puppet-chrony</name>
 	<comment></comment>
 	<projects>
-		<project>.org_cloudsmith_geppetto_pptp_target</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
