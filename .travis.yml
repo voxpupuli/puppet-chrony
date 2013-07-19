@@ -1,5 +1,5 @@
 Language: ruby
-rvm: stable
+rvm: 2.0.0
 
 gemfile:
   - Gemfile
