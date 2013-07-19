@@ -1,30 +1,33 @@
 class chrony (
-  $ntpservers = [
-    '0.nl.pool.ntp.org',
-    '1.nl.pool.ntp.org',
-    '2.nl.pool.ntp.org',
-    '3.nl.pool.ntp.org', ]
-){
-    package { 'chrony':
-        ensure => present,
-    }
+  $autoupdate      = $chrony::params::autoupdate,
+  $config          = $chrony::params::config,
+  $config_template = $chrony::params::config_template,
+  $config_keys     = $chrony::params::config_keys,
+  $config_keys_template     = $chrony::params::config_keys_template,
+  $chrony_password = $chrony::params::chrony_password,
+  $package_ensure  = $chrony::params::package_ensure,
+  $package_name    = $chrony::params::package_name,
+  $servers         = $chrony::params::servers,
+  $service_enable  = $chrony::params::service_enable,
+  $service_ensure  = $chrony::params::service_ensure,
+  $service_manage  = $chrony::params::service_manage,
+  $service_name    = $chrony::params::service_name,) inherits chrony::params {
+  if $autoupdate {
+    notice('autoupdate parameter has been deprecated and replaced with package_ensure.  Set this to latest for the same behavior as autoupdate => true.'
+    )
+  }
 
-    file { '/etc/chrony.conf':
-        ensure   => present,
-        owner    => root,
-        group    => root,
-        mode     => '0644',
-        content  => template('chrony/chrony.conf.erb'),
-        require  => Package['chrony'],
-        notify   => Service['chrony.service'],
-    }
+  include '::chrony::install'
+  include '::chrony::config'
+  include '::chrony::service'
 
-    service { 'chrony.service':
-        ensure     => running,
-        provider   => systemd,
-        hasstatus  => true,
-        hasrestart => true,
-        enable     => true,
-        require    => Package['chrony'],
-    }
+  # Anchor this as per #8140 - this ensures that classes won't float off and
+  # mess everything up.  You can read about this at:
+  # http://docs.puppetlabs.com/puppet/2.7/reference/lang_containment.html#known-issues
+  anchor { 'chrony::begin': }
+  anchor { 'chrony::end': }
+
+  Anchor['chrony::begin'] -> Class['::chrony::install'] -> Class['::chrony::config']
+    ~> Class['::chrony::service'] -> Anchor['chrony::end']
+
 }
