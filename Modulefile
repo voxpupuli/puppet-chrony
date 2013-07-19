@@ -6,3 +6,6 @@ source 'git://github.com/aboe76/puppet-chrony.git'
 project_page 'https://github.com/aboe76/puppet-chrony'
 summary 'UKNOWN'
 description 'Manage chrony daemon on Archlinux'
+
+## Add dependencies, if any:
+dependency 'puppetlabs/stdlib', '>= 2.2.1'
