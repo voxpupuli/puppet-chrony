@@ -7,6 +7,7 @@ class chrony (
   $package_ensure       = $chrony::params::package_ensure,
   $package_name         = $chrony::params::package_name,
   $servers              = $chrony::params::servers,
+  $queryhosts           = $chrony::params::queryhosts,
   $service_enable       = $chrony::params::service_enable,
   $service_ensure       = $chrony::params::service_ensure,
   $service_manage       = $chrony::params::service_manage,

@@ -74,6 +74,13 @@ class [ '::chrony':
 }
 ```
 
+###Allow some hosts
+```puppet
+class [ '::chrony':
+  queryhosts  => [ '192.168/16', ],
+}
+```
+
 ##Reference
 
 ###Classes
@@ -118,6 +125,10 @@ This determines the name of the package to install.
 ####`servers`
 
 This selects the servers to use for ntp peers.
+
+####`queryhosts`
+
+This adds the networks, hosts that are allowed to query the daemon.
 
 ####`service_enable`
 
