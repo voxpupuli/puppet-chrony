@@ -1,9 +1,0 @@
-eclipse.preferences.version=1
-ensureEndsWithNewLine=true
-org.cloudsmith.geppetto.pp.dsl.PP.environment.useProjectSettings=true
-org.cloudsmith.geppetto.pp.dsl.PP.saveactions.useProjectSettings=true
-org.cloudsmith.geppetto.pp.dsl.PP.searchPath.useProjectSettings=true
-puppetEnvironment=production
-puppetPath=lib/*\:environments/$environment/*\:manifests/*\:modules/*\:
-replaceFunkySpaces=true
-trimLines=true

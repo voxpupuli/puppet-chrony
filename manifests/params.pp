@@ -4,6 +4,7 @@ class chrony::params {
   $service_ensure = 'running'
   $service_manage = true
   $chrony_password = 'xyzzy'
+  $queryhosts = undef
 
   case $::osfamily {
     'Archlinux' : {
@@ -18,8 +19,7 @@ class chrony::params {
 
     default     : {
       fail("The ${module_name} module is not supported
-      on an ${::osfamily} based system."
-      )
+      on an ${::osfamily} based system.")
     }
   }
 }

@@ -13,7 +13,6 @@ class chrony (
   $service_manage       = $chrony::params::service_manage,
   $service_name         = $chrony::params::service_name,) inherits
 chrony::params {
-
   include '::chrony::install'
   include '::chrony::config'
   include '::chrony::service'
@@ -22,7 +21,6 @@ chrony::params {
 
   anchor { 'chrony::end': }
 
-  Anchor['chrony::begin'] -> Class['::chrony::install'
-    ] -> Class['::chrony::config'] ~> Class['::chrony::service'
-    ] -> Anchor['chrony::end']
+  Anchor['chrony::begin'] -> Class['::chrony::install'] -> Class['::chrony::config'
+    ] ~> Class['::chrony::service'] -> Anchor['chrony::end']
 }
