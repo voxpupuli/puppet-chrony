@@ -182,6 +182,10 @@ dumpdir /var/log/chrony
 
 ! allow 192.168/16
 
+<% [@queryhosts].flatten.each do |allowed| -%>
+allow <%= allowed %>
+<% end -%>
+
 # .. but disallow the 192.168.100.* subnet of that,
 
 ! deny 192.168.100/24
