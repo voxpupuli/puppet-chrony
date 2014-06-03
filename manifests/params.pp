@@ -10,7 +10,7 @@ class chrony::params {
     'Archlinux' : {
       $config = '/etc/chrony.conf'
       $config_template = 'chrony/chrony.conf.archlinux.erb'
-      $config_keys = 'etc/chrony.keys'
+      $config_keys = '/etc/chrony.keys'
       $config_keys_template = 'chrony/chrony.keys.archlinux.erb'
       $package_name = ['chrony']
       $service_name = 'chrony'
@@ -19,7 +19,7 @@ class chrony::params {
     'RedHat' : {
       $config = '/etc/chrony.conf'
       $config_template = 'chrony/chrony.conf.redhat.erb'
-      $config_keys = 'etc/chrony.keys'
+      $config_keys = '/etc/chrony.keys'
       $config_keys_template = 'chrony/chrony.keys.redhat.erb'
       $package_name = ['chrony']
       $service_name = 'chronyd'
