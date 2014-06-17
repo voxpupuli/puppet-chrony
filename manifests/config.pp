@@ -17,7 +17,7 @@ class chrony::config (
     ensure  => file,
     owner   => 0,
     group   => 0,
-    mode    => '0644',
+    mode    => '0640',
     content => template($config_keys_template),
   }
 
