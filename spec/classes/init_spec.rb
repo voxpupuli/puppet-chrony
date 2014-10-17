@@ -28,6 +28,19 @@ describe 'chrony', :type => 'class' do
       end
     end
   end
+  context 'on redhat with params' do
+    let(:facts){
+      {
+        :osfamily => 'RedHat'
+      }
+    }
+    let(:params){
+      {
+        :queryhosts => ['192.168/16' ]
+      }
+      it { should contain_file('/etc/chrony.conf').with_content(/^allow 192\.168\/16$/) }
+    }
+  end
   context 'on any other system' do
     it { expect {
       should compile
