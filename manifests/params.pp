@@ -1,10 +1,10 @@
 class chrony::params {
-  $package_ensure = 'present'
-  $service_enable = true
-  $service_ensure = 'running'
-  $service_manage = true
-  $chrony_password = 'xyzzy'
-  $queryhosts = undef
+  $package_ensure   = 'present'
+  $service_enable   = true
+  $service_ensure   = 'running'
+  $service_manage   = true
+  $chrony_password  = 'xyzzy'
+  $queryhosts       = []
 
   case $::osfamily {
     'Archlinux' : {
@@ -27,8 +27,7 @@ class chrony::params {
     }
 
     default     : {
-      fail("The ${module_name} module is not supported
-      on an ${::osfamily} based system.")
+      fail("The ${module_name} module is not supported on an ${::osfamily} based system.")
     }
   }
 }

@@ -46,7 +46,7 @@
 ! server ntp0.your-isp.com
 ! server ntp1.your-isp.com
 ! server ntp.public-server.org
-<% [@servers].flatten.each do |server| -%>
+<% Array(@servers).each do |server| -%>
 server <%= server %> iburst
 <% end -%>
 
@@ -182,7 +182,7 @@ dumpdir /var/log/chrony
 
 ! allow 192.168/16
 
-<% [@queryhosts].flatten.each do |allowed| -%>
+<% Array(@queryhosts).each do |allowed| -%>
 allow <%= allowed %>
 <% end -%>
 
