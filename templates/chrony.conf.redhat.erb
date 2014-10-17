@@ -27,6 +27,9 @@ allow <%= allowed %>
 bindcmdaddress 127.0.0.1
 bindcmdaddress ::1
 
+# http://chrony.tuxfamily.org/manual.html#port-directive
+port <%= @port %>
+
 # Serve time even if not synchronized to any NTP server.
 local stratum 10
 
