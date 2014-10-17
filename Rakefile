@@ -9,6 +9,10 @@ PuppetLint::RakeTask.new :lint do |config|
   # Pattern of files to check, defaults to `**/*.pp`
   config.log_format = '%{path}:%{linenumber}:%{KIND}: %{message}'
   config.ignore_paths = ["spec/**/*.pp", "vendor/**/*.pp"]
+  # TODO: remove this check once the relative config
+  # is supported by puppet-lint release
+  config.disable_checks = [ 'autoloader_layout' ]
+  #config.relative = true
 end
 
 # use librarian-puppet to manage fixtures instead of .fixtures.yml
