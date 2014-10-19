@@ -5,6 +5,7 @@ class chrony::params {
   $service_manage   = true
   $chrony_password  = 'xyzzy'
   $queryhosts       = []
+  $port             = 0
 
   case $::osfamily {
     'Archlinux' : {

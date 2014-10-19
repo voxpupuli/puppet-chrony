@@ -192,6 +192,10 @@ allow <%= allowed %>
 
 # You can have as many allow and deny directives as you need.  The order
 # is unimportant.
+#
+
+# http://chrony.tuxfamily.org/manual.html#port-directive
+port <%= @port %>
 
 # If you want chronyd to act as an NTP broadcast server, enable and edit
 # (and maybe copy) the following line.  This means that a broadcast
