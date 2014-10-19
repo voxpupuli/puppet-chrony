@@ -1,5 +1,5 @@
 name 'aboe-chrony'
-version '0.0.8'
+version '0.0.9'
 author 'aboe'
 license 'Apache License, Version 2.0'
 source 'git://github.com/aboe76/puppet-chrony.git'
