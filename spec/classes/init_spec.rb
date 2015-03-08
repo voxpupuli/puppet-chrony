@@ -48,7 +48,7 @@ describe 'chrony', :type => 'class' do
   context 'on any other system' do
     it { expect {
       should compile
-    }.to raise_error(Puppet::Error,/The chrony module is not supported on an  based system\./) }
+    }.to raise_error(/The chrony module is not supported on an  based system\./) }
   end
 end
 

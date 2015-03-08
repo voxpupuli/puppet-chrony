@@ -4,3 +4,4 @@
 .librarian
 spec/fixtures
 *.lock
+.tmp
