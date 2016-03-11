@@ -68,15 +68,23 @@ class { '::chrony':
 
 ###I'd like to make sure a secret password is used:
 ```puppet
-class [ '::chrony':
+class { '::chrony':
   servers         => [ 'ntp1.corp.com', 'ntp2.corp.com', ],
   chrony_password => 'secret_password',
 }
 ```
 
+###I'd like chronyd to auto generate a command key at startup:
+```puppet
+class { '::chrony':
+   chrony_password    => 'unset',
+   config_keys_manage => false,
+}
+```
+
 ###Allow some hosts
 ```puppet
-class [ '::chrony':
+class { '::chrony':
   queryhosts  => [ '192.168/16', ],
 }
 ```
@@ -95,7 +103,10 @@ The following parameters are available in the chrony module
 
 ####`chrony_password`
 
-This sets the chrony password to be used in the key file.
+This sets the chrony password to be used in the key file. 
+By default a short fixed string is used. If set explicitly
+to 'unset' then no password will setting will be added 
+to the keys file by puppet.
 
 ####`config`
 
@@ -108,6 +119,20 @@ This determines which template puppet should use for the chrony configuration.
 ####`config_keys`
 
 This sets the file to write chrony keys into.
+
+####`config_keys_owner`
+
+Specify unix owner of chrony keys file, defaults to 0.
+
+####`config_keys_group`
+
+Specify unix group of chrony keys files, defaults to 0 on ArchLinux
+and chrony on Redhat.
+
+####`config_keys_mode`
+
+Specify unix mode of chrony keys files, defaults to 0644 on ArchLinux
+and 0640 on Redhat.
 
 ####`config_keys_template`
 
