@@ -109,6 +109,20 @@ This determines which template puppet should use for the chrony configuration.
 
 This sets the file to write chrony keys into.
 
+####`config_keys_owner`
+
+Specify unix owner of chrony keys file, defaults to 0.
+
+####`config_keys_group`
+
+Specify unix group of chrony keys files, defaults to 0 on ArchLinux
+and chrony on Redhat.
+
+####`config_keys_mode`
+
+Specify unix mode of chrony keys files, defaults to 0644 on ArchLinux
+and 0640 on Redhat.
+
 ####`config_keys_template`
 
 This determines which template puppet should use for the chrony key file.

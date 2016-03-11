@@ -14,6 +14,9 @@ describe 'chrony', :type => 'class' do
       ['0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org'].each do |s|
         it { should contain_file('/etc/chrony.conf').with_content(/^server #{s} iburst$/) }
       end
+      it { should contain_file('/etc/chrony.keys').with_mode('0640') }
+      it { should contain_file('/etc/chrony.keys').with_owner('0') }
+      it { should contain_file('/etc/chrony.keys').with_group('chrony') }
     end
 
     context 'on archlinux' do
@@ -28,6 +31,9 @@ describe 'chrony', :type => 'class' do
       ['0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org'].each do |s|
         it { should contain_file('/etc/chrony.conf').with_content(/^server #{s} iburst$/) }
       end
+      it { should contain_file('/etc/chrony.keys').with_mode('0644') }
+      it { should contain_file('/etc/chrony.keys').with_owner('0') }
+      it { should contain_file('/etc/chrony.keys').with_group('0') }
     end
   end
   context 'on redhat with params' do
@@ -39,11 +45,17 @@ describe 'chrony', :type => 'class' do
     let(:params){
       {
         :queryhosts => ['192.168/16' ],
-        :port => '123'
+        :port => '123',
+        :config_keys_mode  => '0123',
+        :config_keys_owner => 'steve',
+        :config_keys_group => 'mrt',      
       }
     }
     it { should contain_file('/etc/chrony.conf').with_content(/^port 123$/) }
     it { should contain_file('/etc/chrony.conf').with_content(/^allow 192\.168\/16$/) }
+    it { should contain_file('/etc/chrony.keys').with_mode('0123') }
+    it { should contain_file('/etc/chrony.keys').with_owner('steve') }
+    it { should contain_file('/etc/chrony.keys').with_group('mrt') }
   end
   context 'on any other system' do
     it { expect {
