@@ -1,0 +1,15 @@
+{
+  "name": "puppet-chrony",
+  "version": "0.1.1",
+  "author": "aboe",
+  "summary": "Manage chrony daemon on Linux",
+  "license": "Apache-2.0",
+  "source": "git://github.com/aboe76/puppet-chrony.git",
+  "project_page": "https://github.com/aboe76/puppet-chrony",
+  "issues_url": "https://github.com/aboe76/puppet-chrony/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 2.2.1"}
+  ],
+  "data_provider": null
+}
+
