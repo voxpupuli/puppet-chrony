@@ -68,7 +68,7 @@ class { '::chrony':
 
 ###I'd like to make sure a secret password is used:
 ```puppet
-class [ '::chrony':
+class { '::chrony':
   servers         => [ 'ntp1.corp.com', 'ntp2.corp.com', ],
   chrony_password => 'secret_password',
 }
@@ -84,7 +84,7 @@ class { '::chrony':
 
 ###Allow some hosts
 ```puppet
-class [ '::chrony':
+class { '::chrony':
   queryhosts  => [ '192.168/16', ],
 }
 ```
