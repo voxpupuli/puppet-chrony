@@ -41,9 +41,9 @@ describe 'chrony', :type => 'class' do
         :queryhosts => ['192.168/16' ],
         :port => '123'
       }
-      it { should contain_file('/etc/chrony.conf').with_content(/^port 123$/) }
-      it { should contain_file('/etc/chrony.conf').with_content(/^allow 192\.168\/16$/) }
     }
+    it { should contain_file('/etc/chrony.conf').with_content(/^port 123$/) }
+    it { should contain_file('/etc/chrony.conf').with_content(/^allow 192\.168\/16$/) }
   end
   context 'on any other system' do
     it { expect {
