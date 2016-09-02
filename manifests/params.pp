@@ -1,4 +1,6 @@
 class chrony::params {
+  $commandkey       = 0
+  $keys             = []
   $package_ensure   = 'present'
   $service_enable   = true
   $service_ensure   = 'running'
@@ -19,7 +21,11 @@ class chrony::params {
       $config_keys_mode  = '0644'
       $package_name = 'chrony'
       $service_name = 'chrony'
-      $servers = ['0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org',]
+      $servers = {
+        '0.pool.ntp.org' => ['iburst'],
+        '1.pool.ntp.org' => ['iburst'],
+        '2.pool.ntp.org' => ['iburst'],
+      }
     }
     'RedHat' : {
       $config = '/etc/chrony.conf'
@@ -31,7 +37,11 @@ class chrony::params {
       $config_keys_mode  = '0640'
       $package_name = 'chrony'
       $service_name = 'chronyd'
-      $servers = ['0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org',]
+      $servers = {
+        '0.pool.ntp.org' => ['iburst'],
+        '1.pool.ntp.org' => ['iburst'],
+        '2.pool.ntp.org' => ['iburst'],
+      }
     }
 
     default     : {

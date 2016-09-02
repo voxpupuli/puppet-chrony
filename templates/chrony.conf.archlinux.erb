@@ -46,9 +46,11 @@
 ! server ntp0.your-isp.com
 ! server ntp1.your-isp.com
 ! server ntp.public-server.org
-<% Array(@servers).each do |server| -%>
+<% if @servers.is_a?(Hash) then @servers.each do |server, options| -%>
+server <%= server %> <%= options.join(' ') %>
+<% end else Array(@servers).each do |server| -%>
 server <%= server %> iburst
-<% end -%>
+<% end end -%>
 
 #server 0.nl.pool.ntp.org
 #server 1.nl.pool.ntp.org
@@ -112,7 +114,7 @@ keyfile /etc/chrony.keys
 # for chronyc. (You can pick any integer up to 2**32-1.  '1' is just a
 # default.  Using another value will _NOT_ increase security.)
 
-commandkey 1
+commandkey <%= @commandkey %>
 
 # chronyd can save the measurement history for the servers to files when
 # it it exits.  This is useful in 2 situations:
