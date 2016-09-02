@@ -1,8 +1,10 @@
 # Use public servers from the pool.ntp.org project.
 # Please consider joining the pool (http://www.pool.ntp.org/join.html).
-<% Array(@servers).each do |server| -%>
+<% if @servers.is_a?(Hash) then @servers.each do |server, options| -%>
+server <%= server %> <%= options.join(' ') %>
+<% end else Array(@servers).each do |server| -%>
 server <%= server %> iburst
-<% end -%>
+<% end end -%>
 
 # Ignore stratum in source selection.
 stratumweight 0
@@ -36,7 +38,7 @@ local stratum 10
 keyfile /etc/chrony.keys
 
 # Specify the key used as password for chronyc.
-commandkey 1
+commandkey <%= @commandkey %>
 
 # Generate command key if missing.
 generatecommandkey

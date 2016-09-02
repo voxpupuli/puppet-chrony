@@ -66,11 +66,24 @@ class { '::chrony':
 }
 ```
 
-###I'd like to make sure a secret password is used:
+###I'd like to make sure a secret password is used for chronyc:
 ```puppet
 class { '::chrony':
   servers         => [ 'ntp1.corp.com', 'ntp2.corp.com', ],
   chrony_password => 'secret_password',
+}
+```
+
+###I'd like to use NTP authentication:
+```puppet
+class { '::chrony':
+  keys            => [
+    '25 SHA1 HEX:1dc764e0791b11fa67efc7ecbc4b0d73f68a070c',
+  ],
+  servers         => {
+    'ntp1.corp.com' => ['key 25', 'iburst'],
+    'ntp2.corp.com' => ['key 25', 'iburst'],
+  },
 }
 ```
 
@@ -108,6 +121,10 @@ By default a short fixed string is used. If set explicitly
 to 'unset' then no password will setting will be added 
 to the keys file by puppet.
 
+####`commandkey`
+
+This sets the key ID used by chronyc to authenticate to chronyd.
+
 ####`config`
 
 This sets the file to write chrony configuration into.
@@ -138,6 +155,10 @@ and 0640 on Redhat.
 
 This determines which template puppet should use for the chrony key file.
 
+####`keys`
+
+An array of key lines.  These are printed as-is into the chrony key file.
+
 ####`package_ensure`
 
 This can be set to 'present' or 'latest' or a specific version to choose the
@@ -149,7 +170,8 @@ This determines the name of the package to install.
 
 ####`servers`
 
-This selects the servers to use for ntp peers.
+This selects the servers to use for ntp peers.  It can be an array of servers
+or a hash of servers to their respective options.
 
 ####`queryhosts`
 

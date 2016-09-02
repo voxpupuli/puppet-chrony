@@ -1,4 +1,5 @@
 class chrony (
+  $commandkey           = $chrony::params::commandkey,
   $config               = $chrony::params::config,
   $config_template      = $chrony::params::config_template,
   $config_keys          = $chrony::params::config_keys,
@@ -8,6 +9,7 @@ class chrony (
   $config_keys_group    = $chrony::params::config_keys_group,
   $config_keys_mode     = $chrony::params::config_keys_mode,
   $config_keys_manage   = $chrony::params::config_keys_manage,
+  $keys                 = $chrony::params::keys,
   $package_ensure       = $chrony::params::package_ensure,
   $package_name         = $chrony::params::package_name,
   $servers              = $chrony::params::servers,
@@ -22,7 +24,6 @@ chrony::params {
   if ! $config_keys_manage and $chrony_password != 'unset'  {
     fail("Setting \$config_keys_manage false and \$chrony_password at same time in ${module_name} is not possible.")
   }
-
 
   include '::chrony::install'
   include '::chrony::config'

@@ -18,7 +18,7 @@ describe 'chrony', :type => 'class' do
       it { should contain_file('/etc/chrony.keys').with_owner('0') }
       it { should contain_file('/etc/chrony.keys').with_group('chrony') }
       it { should contain_file('/etc/chrony.keys').with_replace(true) }
-      it { should contain_file('/etc/chrony.keys').with_content("1 xyzzy\n") }
+      it { should contain_file('/etc/chrony.keys').with_content("0 xyzzy\n") }
     end
 
     context 'on archlinux' do
@@ -61,7 +61,7 @@ describe 'chrony', :type => 'class' do
     it { should contain_file('/etc/chrony.keys').with_owner('steve') }
     it { should contain_file('/etc/chrony.keys').with_group('mrt') }
     it { should contain_file('/etc/chrony.keys').with_replace(true) }
-    it { should contain_file('/etc/chrony.keys').with_content("1 sunny\n") }
+    it { should contain_file('/etc/chrony.keys').with_content("0 sunny\n") }
   end
   context 'on redhat with an unmanaged chrony.keys file' do
     let(:facts){
