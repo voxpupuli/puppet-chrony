@@ -46,8 +46,8 @@
 ! server ntp0.your-isp.com
 ! server ntp1.your-isp.com
 ! server ntp.public-server.org
-<% if @servers.is_a?(Hash) then @servers.each do |server, options| -%>
-server <%= server %> <%= options.join(' ') %>
+<% if @servers.is_a?(Hash) then @servers.keys.sort.each do |server| -%>
+server <%= server %> <%= @servers[server].join(' ') %>
 <% end else Array(@servers).each do |server| -%>
 server <%= server %> iburst
 <% end end -%>
