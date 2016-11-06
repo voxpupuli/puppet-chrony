@@ -11,3 +11,7 @@ gem 'puppet-lint', '>=0.3.2'
 gem 'puppetlabs_spec_helper', '>=0.2.0'
 gem 'rake', '>=0.9.2.2'
 gem 'librarian-puppet', '>=1.0.0'
+
+if RUBY_VERSION.to_i < 2.0
+  gem 'json_pure', '< 2.0.2'
+end
