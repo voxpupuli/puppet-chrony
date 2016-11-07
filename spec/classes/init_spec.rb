@@ -94,9 +94,14 @@ describe 'chrony', :type => 'class' do
     }.to raise_error(/Setting \$config_keys_manage false and \$chrony_password at same time in chrony is not possible\./) }
   end
   context 'on any other system' do
+    let(:facts){
+      {
+        :osfamily => 'Debian',
+      }
+    }
     it { expect {
       should compile
-    }.to raise_error(/The chrony module is not supported on an  based system\./) }
+    }.to raise_error(/The chrony module is not supported on an Debian based system\./) }
   end
 end
 
