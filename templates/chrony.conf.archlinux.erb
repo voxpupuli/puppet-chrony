@@ -110,12 +110,6 @@ driftfile /etc/chrony.drift
 
 keyfile /etc/chrony.keys
 
-# Tell chronyd which numbered key in the file is used as the password
-# for chronyc. (You can pick any integer up to 2**32-1.  '1' is just a
-# default.  Using another value will _NOT_ increase security.)
-
-commandkey <%= @commandkey %>
-
 # chronyd can save the measurement history for the servers to files when
 # it it exits.  This is useful in 2 situations:
 #
