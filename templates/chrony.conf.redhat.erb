@@ -37,12 +37,6 @@ local stratum 10
 
 keyfile /etc/chrony.keys
 
-# Specify the key used as password for chronyc.
-commandkey <%= @commandkey %>
-
-# Generate command key if missing.
-generatecommandkey
-
 # Disable logging of client accesses.
 noclientlog
 
