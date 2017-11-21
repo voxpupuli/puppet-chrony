@@ -45,3 +45,7 @@ logchange 0.5
 
 logdir /var/log/chrony
 #log measurements statistics tracking
+
+<% Array(@refclocks).each do |refclock| -%>
+refclock <%= refclock %>
+<% end -%>

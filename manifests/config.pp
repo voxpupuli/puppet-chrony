@@ -10,6 +10,7 @@ class chrony::config (
   $config_keys_manage   = $chrony::config_keys_manage,
   $chrony_password      = $chrony::chrony_password,
   $keys                 = $chrony::keys,
+  $refclocks            = $chrony::refclocks,
   $servers              = $chrony::servers,) inherits chrony {
   file { $config:
     ensure  => file,
