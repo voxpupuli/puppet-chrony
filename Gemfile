@@ -1,17 +1,18 @@
-source "https://rubygems.org"
+source ENV['GEM_SOURCE'] || 'https://rubygems.org'
 
-if ENV.key?('PUPPET_VERSION')
-    puppetversion = "~> #{ENV['PUPPET_VERSION']}"
-else
-    puppetversion = ['>= 3.7.4']
-end
-
+puppetversion = ENV.key?('PUPPET_VERSION') ? ENV['PUPPET_VERSION'] : ['>= 3.3']
+gem 'metadata-json-lint'
 gem 'puppet', puppetversion
-gem 'puppet-lint', '>=0.3.2'
-gem 'puppetlabs_spec_helper', '>=0.2.0'
-gem 'rake', '>=0.9.2.2'
-gem 'librarian-puppet', '>=1.0.0'
+gem 'puppetlabs_spec_helper', '>= 1.0.0'
+gem 'puppet-lint', '>= 1.0.0'
+gem 'facter', '>= 1.7.0'
+gem 'rspec-puppet'
 
-if RUBY_VERSION.to_i < 2.0
-  gem 'json_pure', '< 2.0.2'
+# rspec must be v2 for ruby 1.8.7
+if RUBY_VERSION >= '1.8.7' && RUBY_VERSION < '1.9'
+  gem 'rspec', '~> 2.0'
+  gem 'rake', '~> 10.0'
+else
+  # rubocop requires ruby >= 1.9
+  gem 'rubocop'
 end
