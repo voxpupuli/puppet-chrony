@@ -36,7 +36,7 @@ class chrony::params {
       $config_keys = '/etc/chrony/chrony.keys'
       $config_keys_owner = 0
       $config_keys_group = 0
-      $config_keys_mode  = '0644'
+      $config_keys_mode  = '0640'
       $service_name = 'chrony'
     }
 
