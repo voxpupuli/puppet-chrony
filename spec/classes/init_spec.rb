@@ -57,6 +57,7 @@ describe 'chrony', :type => 'class' do
       it { should contain_file('/etc/chrony.keys').with_group('0') }
     end
   end
+
   context 'on redhat with params' do
     let(:facts){
       {
@@ -69,8 +70,8 @@ describe 'chrony', :type => 'class' do
         :port => '123',
         :config_keys_mode   => '0123',
         :config_keys_owner  => 'steve',
-        :config_keys_group  => 'mrt',      
-        :config_keys_manage => true,      
+        :config_keys_group  => 'mrt',
+        :config_keys_manage => true,
         :chrony_password    => 'sunny',
       }
     }
@@ -82,6 +83,7 @@ describe 'chrony', :type => 'class' do
     it { should contain_file('/etc/chrony.keys').with_replace(true) }
     it { should contain_file('/etc/chrony.keys').with_content("0 sunny\n") }
   end
+
   context 'on redhat with an unmanaged chrony.keys file' do
     let(:facts){
       {
@@ -90,13 +92,14 @@ describe 'chrony', :type => 'class' do
     }
     let(:params){
       {
-        :config_keys_manage => false,      
+        :config_keys_manage => false,
         :chrony_password    => 'unset',
       }
     }
     it { should contain_file('/etc/chrony.keys').with_replace(false) }
     it { should contain_file('/etc/chrony.keys').with_content("") }
   end
+
   context 'on redhat with an unmanaged chrony.keys file and password' do
     let(:facts){
       {
@@ -105,13 +108,14 @@ describe 'chrony', :type => 'class' do
     }
     let(:params){
       {
-        :config_keys_manage => false,      
+        :config_keys_manage => false,
       }
     }
     it { expect {
       should compile
     }.to raise_error(/Setting \$config_keys_manage false and \$chrony_password at same time in chrony is not possible\./) }
   end
+
   context 'on any other system' do
     let(:facts){
       {
