@@ -16,7 +16,6 @@ class chrony::params {
       $config = '/etc/chrony.conf'
       $config_template = 'chrony/chrony.conf.archlinux.erb'
       $config_keys = '/etc/chrony.keys'
-      $config_keys_template = 'chrony/chrony.keys.archlinux.erb'
       $config_keys_owner = 0
       $config_keys_group = 0
       $config_keys_mode  = '0644'
@@ -32,7 +31,6 @@ class chrony::params {
       $config = '/etc/chrony.conf'
       $config_template = 'chrony/chrony.conf.redhat.erb'
       $config_keys = '/etc/chrony.keys'
-      $config_keys_template = 'chrony/chrony.keys.redhat.erb'
       $config_keys_owner = 0
       $config_keys_group = chrony
       $config_keys_mode  = '0640'
@@ -49,4 +47,7 @@ class chrony::params {
       fail("The ${module_name} module is not supported on an ${::osfamily} based system.")
     }
   }
+
+  $config_keys_template = 'chrony/chrony.keys.erb'
+
 }
