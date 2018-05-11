@@ -10,6 +10,23 @@
   "dependencies": [
     {"name":"puppetlabs-stdlib","version_requirement":">= 2.2.1"}
   ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Archlinux"
+    }
+  ],
   "data_provider": null
 }
 
