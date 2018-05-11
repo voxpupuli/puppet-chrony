@@ -26,14 +26,10 @@ chrony::params {
     fail("Setting \$config_keys_manage false and \$chrony_password at same time in ${module_name} is not possible.")
   }
 
-  include '::chrony::install'
-  include '::chrony::config'
-  include '::chrony::service'
+  contain '::chrony::install'
+  contain '::chrony::config'
+  contain '::chrony::service'
 
-  anchor { 'chrony::begin': }
-
-  anchor { 'chrony::end': }
-
-  Anchor['chrony::begin'] -> Class['::chrony::install'] -> Class['::chrony::config'
-    ] ~> Class['::chrony::service'] -> Anchor['chrony::end']
+  Class['::chrony::install'] -> Class['::chrony::config']
+  ~> Class['::chrony::service']
 }
