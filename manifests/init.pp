@@ -15,6 +15,8 @@ class chrony (
   $refclocks            = $chrony::params::refclocks,
   $servers              = $chrony::params::servers,
   $queryhosts           = $chrony::params::queryhosts,
+  $mailonchange         = $chrony::params::mailonchange,
+  Float $threshold      = $chrony::params::threshold,
   $port                 = $chrony::params::port,
   $service_enable       = $chrony::params::service_enable,
   $service_ensure       = $chrony::params::service_ensure,

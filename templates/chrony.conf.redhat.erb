@@ -43,6 +43,11 @@ noclientlog
 # Send a message to syslog if a clock adjustment is larger than 0.5 seconds.
 logchange 0.5
 
+<% if defined?(@mailonchange) -%>
+# Send mail  if chronyd applied a correction exceeding given threshold.
+mailonchange <%= @mailonchange %> <%= @threshold %>
+<% end -%>
+
 logdir /var/log/chrony
 #log measurements statistics tracking
 

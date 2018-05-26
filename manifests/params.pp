@@ -10,6 +10,8 @@ class chrony::params {
   $queryhosts       = []
   $port             = 0
   $config_keys_manage = true
+  $mailonchange       = undef
+  $threshold          = 0.5
 
   case $::osfamily {
     'Archlinux' : {
