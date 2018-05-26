@@ -193,6 +193,18 @@ This selects if puppet should manage the service in the first place.
 
 This selects the name of the chrony service for puppet to manage.
 
+#### `mailonchange`
+
+Specify the mail you wanna alert when chronyd execute a sync grater than threshold.
+
+#### `threshold`
+
+Specify the time limit for triggering events.
+
+#### `lock_all`
+
+Force chrony to only use RAM & prevent swapping.
+
 ## Limitations
 
 This module has been built on and tested against Puppet 3.2.3 and higher.

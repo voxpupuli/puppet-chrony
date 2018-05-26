@@ -244,6 +244,10 @@ port <%= @port %>
 # for them and use the address of that.)
 
 ! mailonchange wibble@foobar.org 0.5
+<% if defined?(@mailonchange) -%>
+# Send mail  if chronyd applied a correction exceeding given threshold.
+mailonchange <%= @mailonchange %> <%= @threshold %>
+<% end -%>
 
 #######################################################################
 ### COMMAND ACCESS
@@ -322,3 +326,6 @@ rtconutc
 # command-line switch will also enable this feature.
 
 ! lock_all
+<% if @lock_all -%>
+lock_all
+<% end -%>
