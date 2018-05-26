@@ -12,6 +12,7 @@ class chrony::params {
   $config_keys_manage = true
   $mailonchange       = undef
   $threshold          = 0.5
+  $lock_all           = false
 
   case $::osfamily {
     'Archlinux' : {

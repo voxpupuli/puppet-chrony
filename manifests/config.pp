@@ -13,6 +13,7 @@ class chrony::config (
   $refclocks            = $chrony::refclocks,
   $mailonchange         = $chrony::mailonchange,
   $threshold            = $chrony::threshold,
+  $lock_all             = $chrony::lock_all,
   $servers              = $chrony::servers,) inherits chrony {
   file { $config:
     ensure  => file,

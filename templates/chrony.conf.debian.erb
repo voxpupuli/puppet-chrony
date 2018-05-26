@@ -54,3 +54,8 @@ logdir /var/log/chrony
 <% Array(@refclocks).each do |refclock| -%>
 refclock <%= refclock %>
 <% end -%>
+
+<% if @lock_all -%>
+# Lock chrony to RAM.
+lock_all
+<% end -%>
