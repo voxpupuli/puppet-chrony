@@ -14,6 +14,8 @@ class chrony (
   $package_name         = $chrony::params::package_name,
   $refclocks            = $chrony::params::refclocks,
   $servers              = $chrony::params::servers,
+  $makestep_seconds     = $chrony::params::makestep_seconds,
+  $makestep_updates     = $chrony::params::makestep_updates,
   $queryhosts           = $chrony::params::queryhosts,
   $mailonchange         = $chrony::params::mailonchange,
   Float $threshold      = $chrony::params::threshold,

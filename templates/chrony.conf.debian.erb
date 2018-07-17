@@ -15,9 +15,9 @@ driftfile /var/lib/chrony/drift
 # Enable kernel RTC synchronization.
 rtcsync
 
-# In first three updates step the system clock instead of slew
-# if the adjustment is larger than 10 seconds.
-makestep 10 3
+# In first <%= @makestep_updates %> updates step the system clock instead of slew
+# if the adjustment is larger than <%= @makestep_seconds %> seconds.
+makestep <%= @makestep_seconds %> <%= @makestep_updates %>
 
 # Allow client access from local network.
 #allow 192.168/16

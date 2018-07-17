@@ -173,6 +173,18 @@ This determines the name of the package to install.
 This selects the servers to use for ntp peers.  It can be an array of servers
 or a hash of servers to their respective options.
 
+#### `makestep_updates`, `makestep_seconds`
+
+This configures the `makestep` parameter of `chronyd`.
+Usually, `chronyd` never steps the time, but applies a slew
+after the initial synchronization.
+This setting configures for how many _updates_ the time may be stepped
+if the adjustment is larger than specified _seconds_.
+
+For virtual machines which are suspended and resumed for a prolonged time,
+stepping the time may be wanted. In this case, set `makestep_updates` to `-1`
+to allow stepping the time for any update.
+
 #### `queryhosts`
 
 This adds the networks, hosts that are allowed to query the daemon.

@@ -329,3 +329,7 @@ rtconutc
 <% if @lock_all -%>
 lock_all
 <% end -%>
+
+# In first <%= @makestep_updates %> updates step the system clock instead of slew
+# if the adjustment is larger than <%= @makestep_seconds %> seconds.
+makestep <%= @makestep_seconds %> <%= @makestep_updates %>
