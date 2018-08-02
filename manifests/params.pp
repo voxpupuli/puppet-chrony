@@ -13,6 +13,7 @@ class chrony::params {
   $mailonchange       = undef
   $threshold          = 0.5
   $lock_all           = false
+  $clientloglimit     = undef
 
   case $::osfamily {
     'Archlinux' : {
@@ -23,6 +24,7 @@ class chrony::params {
       $config_keys_group = 0
       $config_keys_mode  = '0644'
       $service_name      = 'chrony'
+      $clientlog         = true
     }
     'RedHat' : {
       $config            = '/etc/chrony.conf'
@@ -32,6 +34,7 @@ class chrony::params {
       $config_keys_group = chrony
       $config_keys_mode  = '0640'
       $service_name      = 'chronyd'
+      $clientlog         = false
     }
     'Debian' : {
       $config            = '/etc/chrony/chrony.conf'
@@ -41,6 +44,7 @@ class chrony::params {
       $config_keys_group = 0
       $config_keys_mode  = '0640'
       $service_name      = 'chrony'
+      $clientlog         = false
     }
 
     default     : {
