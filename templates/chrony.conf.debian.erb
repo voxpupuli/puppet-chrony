@@ -37,8 +37,17 @@ local stratum 10
 
 keyfile <%= @config_keys %>
 
+<% if !@clientlog -%>
 # Disable logging of client accesses.
 noclientlog
+<% end -%>
+
+<% if defined?(@clientloglimit) -%>
+# The clientlog size is limited to 512KB by default.  If you have many
+# clients, especially in many different subnets, you might want to
+# increase the limit.
+clientloglimit <%= @clientloglimit %>
+<% end -%>
 
 # Send a message to syslog if a clock adjustment is larger than 0.5 seconds.
 logchange 0.5

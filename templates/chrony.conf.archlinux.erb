@@ -219,12 +219,18 @@ port <%= @port %>
 # clients.
 
 ! noclientlog
+<% if !@clientlog -%>
+noclientlog
+<% end -%>
 
 # The clientlog size is limited to 512KB by default.  If you have many
 # clients, especially in many different subnets, you might want to
 # increase the limit. 
 
 ! clientloglimit 4194304
+<% if defined?(@clientloglimit) -%>
+clientloglimit <%= @clientloglimit %>
+<% end -%>
 
 #######################################################################
 ### REPORTING BIG CLOCK CHANGES
