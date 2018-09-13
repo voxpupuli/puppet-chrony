@@ -10,6 +10,7 @@ class chrony::config (
   $config_keys_manage   = $chrony::config_keys_manage,
   $chrony_password      = $chrony::chrony_password,
   $keys                 = $chrony::keys,
+  $log_options          = $chrony::log_options,
   $refclocks            = $chrony::refclocks,
   $mailonchange         = $chrony::mailonchange,
   $threshold            = $chrony::threshold,

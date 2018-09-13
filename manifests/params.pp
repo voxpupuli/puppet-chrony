@@ -1,6 +1,7 @@
 class chrony::params {
   $commandkey         = 0
   $keys               = []
+  $log_options        = undef
   $package_ensure     = 'present'
   $refclocks          = []
   $service_enable     = true

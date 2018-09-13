@@ -159,6 +159,10 @@ This determines which template puppet should use for the chrony key file.
 
 An array of key lines.  These are printed as-is into the chrony key file.
 
+#### `log_options`
+
+Specify which information is to be logged.
+
 #### `package_ensure`
 
 This can be set to 'present' or 'latest' or a specific version to choose the

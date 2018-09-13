@@ -10,6 +10,7 @@ class chrony (
   $config_keys_mode                 = $chrony::params::config_keys_mode,
   $config_keys_manage               = $chrony::params::config_keys_manage,
   $keys                             = $chrony::params::keys,
+  $log_options                      = $chrony::params::log_options,
   $package_ensure                   = $chrony::params::package_ensure,
   $package_name                     = $chrony::params::package_name,
   $refclocks                        = $chrony::params::refclocks,
