@@ -58,7 +58,9 @@ mailonchange <%= @mailonchange %> <%= @threshold %>
 <% end -%>
 
 logdir /var/log/chrony
-#log measurements statistics tracking
+<%- if defined?(@log_options) -%>
+log <%= @log_options %>
+<%- end -%>
 
 <% Array(@refclocks).each do |refclock| -%>
 refclock <%= refclock %>
