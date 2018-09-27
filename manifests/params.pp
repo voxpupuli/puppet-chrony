@@ -4,11 +4,13 @@ class chrony::params {
   $log_options        = undef
   $package_ensure     = 'present'
   $refclocks          = []
+  $peers              = []
   $service_enable     = true
   $service_ensure     = 'running'
   $service_manage     = true
   $chrony_password    = 'xyzzy'
   $queryhosts         = []
+  $local_stratum      = 10
   $port               = 0
   $config_keys_manage = true
   $mailonchange       = undef
@@ -27,7 +29,7 @@ class chrony::params {
       $service_name      = 'chrony'
       $clientlog         = true
     }
-    'RedHat' : {
+    'Suse', 'RedHat' : {
       $config            = '/etc/chrony.conf'
       $config_template   = 'chrony/chrony.conf.redhat.erb'
       $config_keys       = '/etc/chrony.keys'

@@ -159,6 +159,11 @@ This determines which template puppet should use for the chrony key file.
 
 An array of key lines.  These are printed as-is into the chrony key file.
 
+#### `local_stratum`
+
+Override the stratum of the server which will be reported to clients
+when the local reference is active. Defaults to 10
+
 #### `log_options`
 
 Specify which information is to be logged.
@@ -172,9 +177,14 @@ chrony package to be installed.
 
 This determines the name of the package to install.
 
+#### `peers`
+
+This selects the servers to use for NTP peers (symmetric association).
+It is an array of servers.
+
 #### `servers`
 
-This selects the servers to use for ntp peers.  It can be an array of servers
+This selects the servers to use for NTP servers.  It can be an array of servers
 or a hash of servers to their respective options.
 
 #### `makestep_updates`, `makestep_seconds`
@@ -229,3 +239,4 @@ The module has been tested on:
  * Arch Linux
  * Red Hat
  * Debian (9)
+ * Suse 12.3
