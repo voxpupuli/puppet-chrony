@@ -15,6 +15,7 @@ class chrony::config (
   $mailonchange         = $chrony::mailonchange,
   $threshold            = $chrony::threshold,
   $lock_all             = $chrony::lock_all,
+  $peers                = $chrony::peers,
   $servers              = $chrony::servers,) inherits chrony {
   file { $config:
     ensure  => file,

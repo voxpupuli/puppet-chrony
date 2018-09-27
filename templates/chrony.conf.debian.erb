@@ -6,6 +6,10 @@ server <%= server %> <%= @servers[server].join(' ') %>
 server <%= server %> iburst
 <% end end -%>
 
+<% Array(@peers).each do |peer| -%>
+peer <%= peer %>
+<% end -%>
+
 # Ignore stratum in source selection.
 stratumweight 0
 
@@ -33,7 +37,7 @@ bindcmdaddress ::1
 port <%= @port %>
 
 # Serve time even if not synchronized to any NTP server.
-local stratum 10
+local stratum <%= @local_stratum %>
 
 keyfile <%= @config_keys %>
 
