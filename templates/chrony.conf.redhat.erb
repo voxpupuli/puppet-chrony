@@ -16,8 +16,10 @@ stratumweight 0
 # Record the rate at which the system clock gains/losses time.
 driftfile /var/lib/chrony/drift
 
+<% if @rtcsync -%>
 # Enable kernel RTC synchronization.
 rtcsync
+<% end -%>
 
 # In first <%= @makestep_updates %> updates step the system clock instead of slew
 # if the adjustment is larger than <%= @makestep_seconds %> seconds.

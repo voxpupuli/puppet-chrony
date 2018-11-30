@@ -15,6 +15,7 @@ class chrony (
   $package_ensure                   = $chrony::params::package_ensure,
   $package_name                     = $chrony::params::package_name,
   $refclocks                        = $chrony::params::refclocks,
+  $rtcsync                          = $chrony::params::rtcsync,
   $peers                            = $chrony::params::peers,
   $servers                          = $chrony::params::servers,
   $makestep_seconds                 = $chrony::params::makestep_seconds,

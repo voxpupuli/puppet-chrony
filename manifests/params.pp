@@ -4,6 +4,7 @@ class chrony::params {
   $log_options        = undef
   $package_ensure     = 'present'
   $refclocks          = []
+  $rtcsync            = true
   $peers              = []
   $service_enable     = true
   $service_ensure     = 'running'

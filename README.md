@@ -177,6 +177,10 @@ chrony package to be installed.
 
 This determines the name of the package to install.
 
+#### `rtcsync`
+
+This will enable or disable rtcsync
+
 #### `peers`
 
 This selects the servers to use for NTP peers (symmetric association).
