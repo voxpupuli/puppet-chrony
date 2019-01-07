@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v0.2.4](https://forge.puppet.com/v3/files/aboe-chrony-0.2.4.tar.gz) (2019-01-07)
+
+[Full Changelog]()
+
+  **Merged pull requests:**
+
+  - More complex support for refclock [\#36](https://github.com/aboe76/puppet-chrony/pull/36) ([jcpunk](https://github.com/jcpunk))
+
+
 ## [v0.2.3](https://forge.puppet.com/v3/files/aboe-chrony-0.2.3.tar.gz) (2018-10-05)
 
 [Full Changelog]()

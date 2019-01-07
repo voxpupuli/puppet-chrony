@@ -1,6 +1,6 @@
 {
   "name": "aboe-chrony",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "author": "aboe",
   "summary": "Manage chrony daemon on Linux",
   "license": "Apache-2.0",
