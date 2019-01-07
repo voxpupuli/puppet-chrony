@@ -187,6 +187,19 @@ It is an array of servers.
 This selects the servers to use for NTP servers.  It can be an array of servers
 or a hash of servers to their respective options.
 
+#### `refclocks`
+
+This should be a Hash of hardware reference clock drivers to use.  They hash
+can either list a single list of options for the driver, or any array of
+multiple options if the same driver is used for multiple hardware clocks.
+
+Example:
+```
+refclocks = { 'PPS' => [ '/dev/pps0 lock NMEA refid GPS',
+                         '/dev/pps1:clear refid GPS2' ],
+              'SHM' => '0 offset 0.5 delay 0.2 refid NMEA noselect' }
+```
+
 #### `makestep_updates`, `makestep_seconds`
 
 This configures the `makestep` parameter of `chronyd`.
