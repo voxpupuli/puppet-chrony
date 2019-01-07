@@ -2,9 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
-## [v0.2.4](https://forge.puppet.com/v3/files/aboe-chrony-0.2.4.tar.gz) (2019-01-07)
+[Full Changelog](https://github.com/aboe76/puppet-chrony/blob/master/CHANGELOG.md)
 
-[Full Changelog]()
+## [v0.2.4](https://forge.puppet.com/v3/files/aboe-chrony-0.2.4.tar.gz) (2019-01-07)
 
   **Merged pull requests:**
 
@@ -13,15 +13,11 @@ All notable changes to this project will be documented in this file.
 
 ## [v0.2.3](https://forge.puppet.com/v3/files/aboe-chrony-0.2.3.tar.gz) (2018-10-05)
 
-[Full Changelog]()
-
 **Merged pull requests:**
 
 - support for peers, variable local stratum, SUSE 12 [\#32](https://github.com/aboe76/puppet-chrony/pull/32) ([Warblefly](https://github.com/Warblefly))
 
 ## [v0.2.2](https://forge.puppet.com/v3/files/aboe-chrony-0.2.2.tar.gz) (2018-09-26)
-
-[Full Changelog]()
 
 **Merged pull requests:**
 
@@ -31,8 +27,6 @@ All notable changes to this project will be documented in this file.
 - add debian in readme tested os [\#26](https://github.com/aboe76/puppet-chrony/pull/26) ([othalla](https://github.com/othalla))
 
 ## [v0.2.1](https://forge.puppet.com/v3/files/aboe-chrony-0.2.1.tar.gz) (2018-05-26)
-
-[Full Changelog]()
 
 **Merged pull requests:**
 
