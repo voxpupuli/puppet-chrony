@@ -313,6 +313,22 @@ rtconutc
 
 ! rtcdevice /dev/misc/rtc
 
+<%- if defined?(@refclocks) -%>
+# Hardware reference clock drivers
+<% if @refclocks.is_a?(Hash) then @refclocks.keys.sort.each do |driver| -%>
+<%   if @refclocks.is_a?(Hash) then @refclocks.keys.sort.each do |driver| -%>
+<%       if @refclocks[driver].is_a(Array) then @refclocks[driver].sort.each do | instance | -%>
+refclock <%= driver %> <%= instance %>
+<%   end end end -%>
+<%   else -%>
+refclock <%= driver %> <%= @refclocks[driver] %>
+<%   end end -%>
+<% else -%>
+<%   Array(@refclocks).sort.each do |refclock| -%>
+refclock <%= refclock %>
+<%   end end -%>
+<% end -%>
+
 #######################################################################
 ### REAL TIME SCHEDULER
 # This directive tells chronyd to use the real-time FIFO scheduler with the
