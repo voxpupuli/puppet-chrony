@@ -73,10 +73,14 @@ describe 'chrony', :type => 'class' do
         :config_keys_group  => 'mrt',
         :config_keys_manage => true,
         :chrony_password    => 'sunny',
+        :pools              => ['0.pool.ntp.org', '1.pool.ntp.org'],
       }
     }
     it { should contain_file('/etc/chrony.conf').with_content(/^port 123$/) }
     it { should contain_file('/etc/chrony.conf').with_content(/^allow 192\.168\/16$/) }
+    ['0.pool.ntp.org', '1.pool.ntp.org'].each do |s|
+      it { should contain_file('/etc/chrony.conf').with_content(/^pool #{s} iburst$/) }
+    end
     it { should contain_file('/etc/chrony.keys').with_mode('0123') }
     it { should contain_file('/etc/chrony.keys').with_owner('steve') }
     it { should contain_file('/etc/chrony.keys').with_group('mrt') }
