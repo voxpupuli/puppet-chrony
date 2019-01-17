@@ -63,6 +63,7 @@ class chrony::params {
     '2.pool.ntp.org' => ['iburst'],
     '3.pool.ntp.org' => ['iburst'],
   }
+  $pools                = {}
   $makestep_seconds = 10
   $makestep_updates = 3
 

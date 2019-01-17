@@ -16,7 +16,8 @@ class chrony::config (
   $threshold            = $chrony::threshold,
   $lock_all             = $chrony::lock_all,
   $peers                = $chrony::peers,
-  $servers              = $chrony::servers,) inherits chrony {
+  $servers              = $chrony::servers,
+  $pools                = $chrony::pools,) inherits chrony {
   file { $config:
     ensure  => file,
     owner   => 0,

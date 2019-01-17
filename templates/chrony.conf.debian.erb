@@ -6,6 +6,12 @@ server <%= server %> <%= @servers[server].join(' ') %>
 server <%= server %> iburst
 <% end end -%>
 
+<% if @pools.is_a?(Hash) then @pools.keys.sort.each do |pool| -%>
+pool <%= pool %> <%= @pools[pool].join(' ') %>
+<% end else Array(@pools).each do |pool| -%>
+pool <%= pool %> iburst
+<% end end -%>
+
 <% Array(@peers).each do |peer| -%>
 peer <%= peer %>
 <% end -%>

@@ -17,6 +17,7 @@ class chrony (
   $refclocks                        = $chrony::params::refclocks,
   $peers                            = $chrony::params::peers,
   $servers                          = $chrony::params::servers,
+  $pools                            = $chrony::params::pools,
   $makestep_seconds                 = $chrony::params::makestep_seconds,
   $makestep_updates                 = $chrony::params::makestep_updates,
   $queryhosts                       = $chrony::params::queryhosts,

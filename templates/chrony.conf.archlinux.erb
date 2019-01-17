@@ -66,6 +66,12 @@ server <%= server %> iburst
 ! server ntp1.your-isp.com offline
 ! server ntp.public-server.org offline
 
+<% if @pools.is_a?(Hash) then @pools.keys.sort.each do |pool| -%>
+pool <%= pool %> <%= @pools[pool].join(' ') %>
+<% end else Array(@pools).each do |pool| -%>
+pool <%= pool %> iburst
+<% end end -%>
+
 # You may want to specify NTP 'peers' instead.  If you run a network
 # with a lot of computers and want several computers running chrony to
 # have the 'front-line' interface to the public NTP servers, you can
