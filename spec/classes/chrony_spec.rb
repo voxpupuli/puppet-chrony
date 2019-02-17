@@ -76,7 +76,7 @@ describe 'chrony' do
             chrony_password: 'sunny'
           }
         end
-        
+
         context 'chrony::config' do
           case facts[:osfamily]
           when 'Archinux'
@@ -116,8 +116,8 @@ describe 'chrony' do
       context 'unmanaged chrony.keys file' do
         let(:params) do
           {
-            :config_keys_manage => false,
-            :chrony_password    => 'unset',
+            config_keys_manage: false,
+            chrony_password: 'unset'
           }
         end
 
@@ -126,17 +126,17 @@ describe 'chrony' do
           when 'Archlinux'
             context 'unmanaged chrony.keys file' do
               it { is_expected.to contain_file('/etc/chrony.keys').with_replace(false) }
-              it { is_expected.to contain_file('/etc/chrony.keys').with_content("") }
+              it { is_expected.to contain_file('/etc/chrony.keys').with_content('') }
             end
           when 'RedHat'
             context 'unmanaged chrony.keys file' do
               it { is_expected.to contain_file('/etc/chrony.keys').with_replace(false) }
-              it { is_expected.to contain_file('/etc/chrony.keys').with_content("") }
+              it { is_expected.to contain_file('/etc/chrony.keys').with_content('') }
             end
           when 'Debian'
             context 'unmanaged chrony.keys file' do
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_replace(false) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_content("") }
+              it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_content('') }
             end
           end
         end
@@ -145,16 +145,17 @@ describe 'chrony' do
       context 'unmanaged chrony.keys file and password' do
         let(:params) do
           {
-            :config_keys_manage => false,
+            config_keys_manage: false
           }
         end
+
         it { is_expected.to raise_error(/Setting \$config_keys_manage false and \$chrony_password at same time in chrony is not possible\./) }
       end
 
       context 'on any other system' do
         let(:facts) do
           {
-            :osfamily => 'UnsupportedOS'
+            osfamily: 'UnsupportedOS'
           }
         end
 
