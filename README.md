@@ -42,7 +42,7 @@ with systemd.
 
 ### Requirements
 
-  * Puppet 4.6.1 or later.  Puppet 3 was supported up until release 0.6.0.
+  * Puppet 4.6.1 or later.  Puppet 3 was supported up until release 0.2.0.
 
 ### Beginning with chrony
 
