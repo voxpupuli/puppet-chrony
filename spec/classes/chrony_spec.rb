@@ -19,6 +19,7 @@ describe 'chrony' do
         case facts[:osfamily]
         when 'Archlinux'
           context 'using defaults' do
+            it { is_expected.to contain_class('chrony::service') }
             it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*port 0$}) }
             ['0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org'].each do |s|
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*server #{s} iburst$}) }
@@ -72,8 +73,22 @@ describe 'chrony' do
             service_enable: true
           }
         end
-
-        it { is_expected.to contain_service('chrony').with_ensure('running') }
+        context 'chrony::service' do
+          case facts[:osfamily]
+          when 'Archlinux'
+            context 'chrony::service' do
+              it { is_expected.to contain_service('chrony').with_ensure('running') }
+            end
+          when 'RedHat'
+            context 'chrony::service' do
+              it { is_expected.to contain_service('chronyd').with_ensure('running') }
+            end
+          when 'Debian'
+            context 'chrony::service' do
+              it { is_expected.to contain_service('chrony').with_ensure('running') }
+            end
+          end
+        end
       end
 
       context 'with some params passed in' do
