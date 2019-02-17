@@ -149,7 +149,7 @@ describe 'chrony' do
           }
         end
 
-        it { is_expected.to raise_error(/Setting \$config_keys_manage false and \$chrony_password at same time in chrony is not possible\./) }
+        it { is_expected.to raise_error(Puppet::Error, %r{Setting \$config_keys_manage false and \$chrony_password at same time in chrony is not possible}) }
       end
 
       context 'on any other system' do
@@ -159,7 +159,7 @@ describe 'chrony' do
           }
         end
 
-        it { is_expected.to raise_error(/The chrony module is not supported on an UnsupportedOS based system\./) }
+        it { is_expected.to raise_error(Puppet::Errror, 'The chrony module is not supported on an UnsupportedOS based system\.') }
       end
 
       context 'chrony::service' do
