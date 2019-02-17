@@ -10,27 +10,33 @@
   "dependencies": [
     {
       "name": "puppetlabs-stdlib",
-      "version_requirement": ">= 2.2.1"
+      "version_requirement": ">= 5.0.0 < 6.0.0"
     }
   ],
   "operatingsystem_support": [
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
+        "6",
         "7"
       ]
     },
     {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
+        "6",
         "7"
       ]
     },
     {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
+        "8",
         "9"
       ]
+    },
+    {
+      "operatingsystem": "SLES"
     },
     {
       "operatingsystem": "Archlinux"
@@ -39,7 +45,7 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 4.7.0 < 6.0.0"
+      "version_requirement": ">= 5.5.8 < 7.0.0"
     }
   ],
   "pdk-version": "1.7.0",

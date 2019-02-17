@@ -1,6 +1,7 @@
 # puppet-chrony
 
 [![Build Status](https://secure.travis-ci.org/aboe76/puppet-chrony.png?branch=master)](http://travis-ci.org/aboe76/puppet-chrony)
+[![Coverage Status](https://coveralls.io/repos/github/aboe76/puppet-chrony/badge.svg?branch=master)](https://coveralls.io/github/aboe76/puppet-chrony?branch=master)
 
 ## Table of Contents
 
