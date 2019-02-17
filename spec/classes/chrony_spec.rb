@@ -12,7 +12,7 @@ describe 'chrony' do
         it { is_expected.to contain_class('chrony') }
         it { is_expected.to contain_class('chrony::params') }
         it { is_expected.to contain_class('chrony::install').that_comes_before('Class[chrony::config]') }
-        it { is expected.to contain_class('chrony::config').that_comes_before('Class[chrony::service]') }
+        it { is_expected.to contain_class('chrony::config').that_notifies('Class[chrony::service]') }
         it { is_expected.to contain_class('chrony::service') }
       end
 
@@ -82,32 +82,32 @@ describe 'chrony' do
           when 'Archinux'
             context 'with some params passed in' do
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*port 123$}) }
-				      it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^s*allow 192\.168\/16$}) }
-				      it { is_expected.to contain_file('/etc/chrony.keys').with_mode('0123') }
-				      it { is_expected.to contain_file('/etc/chrony.keys').with_owner('steve') }
-				      it { is_expected.to contain_file('/etc/chrony.keys').with_group('mrt') }
-				      it { is_expected.to contain_file('/etc/chrony.keys').with_replace(true) }
-				      it { is_expected.to contain_file('/etc/chrony.keys').with_content("0 sunny\n") }
-		        end
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^s*allow 192\.168\/16$}) }
+              it { is_expected.to contain_file('/etc/chrony.keys').with_mode('0123') }
+              it { is_expected.to contain_file('/etc/chrony.keys').with_owner('steve') }
+              it { is_expected.to contain_file('/etc/chrony.keys').with_group('mrt') }
+              it { is_expected.to contain_file('/etc/chrony.keys').with_replace(true) }
+              it { is_expected.to contain_file('/etc/chrony.keys').with_content("0 sunny\n") }
+            end
           when 'RedHat'
             context 'with some params passed in' do
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*port 123$}) }
-				      it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^s*allow 192\.168\/16$}) }
-				      it { is_expected.to contain_file('/etc/chrony.keys').with_mode('0123') }
-				      it { is_expected.to contain_file('/etc/chrony.keys').with_owner('steve') }
-				      it { is_expected.to contain_file('/etc/chrony.keys').with_group('mrt') }
-				      it { is_expected.to contain_file('/etc/chrony.keys').with_replace(true) }
-				      it { is_expected.to contain_file('/etc/chrony.keys').with_content("0 sunny\n") }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^s*allow 192\.168\/16$}) }
+              it { is_expected.to contain_file('/etc/chrony.keys').with_mode('0123') }
+              it { is_expected.to contain_file('/etc/chrony.keys').with_owner('steve') }
+              it { is_expected.to contain_file('/etc/chrony.keys').with_group('mrt') }
+              it { is_expected.to contain_file('/etc/chrony.keys').with_replace(true) }
+              it { is_expected.to contain_file('/etc/chrony.keys').with_content("0 sunny\n") }
             end
           when 'Debian'
             context 'with some params passed in' do
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*port 123$}) }
-				      it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^s*allow 192\.168\/16$}) }
-				      it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_mode('0123') }
-				      it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_owner('steve') }
-				      it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_group('mrt') }
-				      it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_replace(true) }
-				      it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_content("0 sunny\n") }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^s*allow 192\.168\/16$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_mode('0123') }
+              it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_owner('steve') }
+              it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_group('mrt') }
+              it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_replace(true) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_content("0 sunny\n") }
             end
           end
         end
@@ -142,7 +142,7 @@ describe 'chrony' do
         end
       end
 
-			context 'unmanaged chrony.keys file and password' do
+      context 'unmanaged chrony.keys file and password' do
         let(:params) do
           {
             :config_keys_manage => false,
@@ -151,15 +151,15 @@ describe 'chrony' do
         it { is_expected.to raise_error(/Setting \$config_keys_manage false and \$chrony_password at same time in chrony is not possible\./) }
       end
 
-		  context 'on any other system' do
-			  let(:facts) do
+      context 'on any other system' do
+        let(:facts) do
           {
             :osfamily => 'UnsupportedOS'
           }
         end
 
         it { is_expected.to raise_error(/The chrony module is not supported on an UnsupportedOS based system\./) }
-		  end
+      end
 
       context 'chrony::service' do
         let :params do
