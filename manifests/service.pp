@@ -8,7 +8,7 @@ class chrony::service (
   }
 
   if $service_manage == true {
-    service { $service_name':
+    service { $service_name:
       ensure     => $service_ensure,
       enable     => $service_enable,
       name       => $service_name,
