@@ -7,7 +7,7 @@ describe 'chrony' do
         facts
       end
 
-      context 'with default values' do
+      context 'with defaults' do
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_class('chrony') }
         it { is_expected.to contain_class('chrony::params') }
@@ -15,6 +15,13 @@ describe 'chrony' do
         it { is expected.to contain_class('chrony::config').that_comes_before('Class[chrony::service]') }
         it { is_expected.to contain_class('chrony::service') }
       end
+
+      context 'chrony::package' do
+        context 'using defaults' do
+          it { is_expected.to contain_package('chrony').with_ensure('present') }
+        end
+      end
+
       context 'chrony::config' do
         case facts[:osfamily]
         when 'Archlinux'
@@ -53,40 +60,6 @@ describe 'chrony' do
             it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_group('chrony') }
             it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_replace(true) }
             it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_content("0 xyzzy\n") }
-          end
-        end
-      end
-
-      context 'with parameter package_ensure is set to present' do
-        Let(:params) do
-          {
-            package_ensure: 'present'
-          }
-        end
-        it { is_expected.to contain_package('chrony').with_ensure('present') }
-      end
-
-      context 'with paramater service_ensure is set to running' do
-        let(:params) do
-          {
-            service_ensure: 'running',
-            service_enable: true
-          }
-        end
-        context 'chrony::service' do
-          case facts[:osfamily]
-          when 'Archlinux'
-            context 'chrony::service' do
-              it { is_expected.to contain_service('chrony').with_ensure('running') }
-            end
-          when 'RedHat'
-            context 'chrony::service' do
-              it { is_expected.to contain_service('chronyd').with_ensure('running') }
-            end
-          when 'Debian'
-            context 'chrony::service' do
-              it { is_expected.to contain_service('chrony').with_ensure('running') }
-            end
           end
         end
       end
@@ -176,7 +149,8 @@ describe 'chrony' do
           }
         end
         it { is_expected.to raise_error(/Setting \$config_keys_manage false and \$chrony_password at same time in chrony is not possible\./) }
-		  end
+      end
+
 		  context 'on any other system' do
 			  let(:facts) do
           {
@@ -186,6 +160,52 @@ describe 'chrony' do
 
         it { is_expected.to raise_error(/The chrony module is not supported on an UnsupportedOS based system\./) }
 		  end
+
+      context 'chrony::service' do
+        let :params do
+          {
+            service_ensure: 'running',
+            service_enable: true,
+            service_manage: true
+          }
+        end
+
+        case facts[:osfamily]
+        when 'Archlinux'
+          context 'using defaults' do
+            it do
+              is_expected.to contain_service('chrony').with(
+                ensure: 'running',
+                enable: true,
+                hasstatus: true,
+                hasrestart: true
+              )
+            end
+          end
+        when 'RedHat'
+          context 'using defaults' do
+            it do
+              is_expected.to contain_service('chronyd').with(
+                ensure: 'running',
+                enable: true,
+                hasstatus: true,
+                hasrestart: true
+              )
+            end
+          end
+        when 'Debian'
+          context 'using defaults' do
+            it do
+              is_expected.to contain_service('chrony').with(
+                ensure: 'running',
+                enable: true,
+                hasstatus: true,
+                hasrestart: true
+              )
+            end
+          end
+        end
+      end
     end
   end
 end
