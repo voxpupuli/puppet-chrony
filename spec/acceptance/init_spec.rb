@@ -5,7 +5,6 @@ describe 'chrony class' do
     # Using puppet_apply as a helper
     it 'works idempotently with no errors' do
       pp = 'include chrony'
-
       # Run it twice and test for idempotency
       apply_manifest(pp, catch_failures: true)
       apply_manifest(pp, catch_changes: true)
