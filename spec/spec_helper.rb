@@ -32,7 +32,6 @@ if Dir.exist?(File.expand_path('../../lib', __FILE__))
     add_filter '/vendor'
     add_filter '/.vendor'
   end
-  Coverals.wear!
 end
 
 RSpec.configure do |c|
