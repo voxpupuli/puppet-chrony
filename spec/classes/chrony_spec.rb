@@ -26,7 +26,6 @@ describe 'chrony' do
         case facts[:osfamily]
         when 'Archlinux'
           context 'using defaults' do
-            it { is_expected.to contain_class('chrony::service') }
             it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*port 0$}) }
             ['0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org'].each do |s|
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*server #{s} iburst$}) }
@@ -149,7 +148,7 @@ describe 'chrony' do
           }
         end
 
-        it { is_expected.to raise_error(Puppet::Error, %r{Setting \$config_keys_manage false and \$chrony_password at same time in chrony is not possible}) }
+        it { is_expected.to raise_error(%r{Setting \$config_keys_manage false and \$chrony_password at same time in chrony is not possible}) }
       end
 
       context 'on any other system' do
@@ -159,7 +158,7 @@ describe 'chrony' do
           }
         end
 
-        it { is_expected.to raise_error(Puppet::Errror, 'The chrony module is not supported on an UnsupportedOS based system\.') }
+        it { is_expected.to raise_error(%r{The chrony module is not supported on an UnsupportedOS based system\.}) }
       end
 
       context 'chrony::service' do
