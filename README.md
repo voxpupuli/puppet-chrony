@@ -116,9 +116,9 @@ The following parameters are available in the chrony module
 
 #### `chrony_password`
 
-This sets the chrony password to be used in the key file. 
+This sets the chrony password to be used in the key file.
 By default a short fixed string is used. If set explicitly
-to 'unset' then no password will setting will be added 
+to 'unset' then no password will setting will be added
 to the keys file by puppet.
 
 #### `commandkey`
