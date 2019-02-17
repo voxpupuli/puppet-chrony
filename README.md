@@ -24,7 +24,7 @@ Manage chrony time daemon on Archlinux and Redhat
 ## Module Description
 
 The Chrony module handles running chrony in Archlinux and Redhat systems
-with systemd. 
+with systemd.
 
 ## Setup
 
