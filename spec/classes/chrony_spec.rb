@@ -57,7 +57,7 @@ describe 'chrony' do
             end
             it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_mode('0640') }
             it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_owner('0') }
-            it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_group('chrony') }
+            it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_group('0') }
             it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_replace(true) }
             it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_content("0 xyzzy\n") }
           end
