@@ -68,7 +68,7 @@ describe 'chrony' do
       context 'with paramater service_ensure is set to running' do
         let(:params) do
           {
-            service_ensure: 'running'
+            service_ensure: 'running',
             service_enable: true
           }
         end
@@ -79,13 +79,13 @@ describe 'chrony' do
       context 'with some params passed in' do
         let(:params) do
           {
-            :queryhosts => ['192.168/16'],
-            :port => '123',
-            :config_keys_mode   => '0123',
-            :config_keys_owner  => 'steve',
-            :config_keys_group  => 'mrt',
-            :config_keys_manage => true,
-            :chrony_password    => 'sunny',
+            queryhosts: ['192.168/16'],
+            port: '123',
+            config_keys_mode: '0123',
+            config_keys_owner: 'steve',
+            config_keys_group: 'mrt',
+            config_keys_manage: true,
+            chrony_password: 'sunny'
           }
         end
         
