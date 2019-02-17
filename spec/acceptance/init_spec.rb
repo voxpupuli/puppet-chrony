@@ -15,7 +15,13 @@ describe 'chrony class' do
       it { is_expected.to be_installed }
     end
 
-    describe service('chrony') do
+    service = case fact('os.family')
+              when 'RedHat'
+                'chronyd'
+              else
+                'chrony'
+              end
+    describe service(service) do
       it { is_expected.to be_enabled }
       it { is_expected.to be_running }
     end
