@@ -88,5 +88,6 @@ branches:
     - /^v\d/
 
 notifications:
+  webhooks: https://coveralls.io/webhook
   email: false
 
