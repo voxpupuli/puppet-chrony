@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 [Full Changelog](https://github.com/aboe76/puppet-chrony/blob/master/CHANGELOG.md)
 
+
+## [v0.2.5](https://forge.puppet.com/v3/files/aboe-chrony-0.2.5.tar.gz) (2019-04-25)
+
+  **Merged pull requests:**
+
+  - Add support for pools [\#37|(https://github.com/aboe76/puppet-chrony/pull/37) ([giggsey](https://github.com/giggsey))
+
 ## [v0.2.4](https://forge.puppet.com/v3/files/aboe-chrony-0.2.4.tar.gz) (2019-01-07)
 
   **Merged pull requests:**
