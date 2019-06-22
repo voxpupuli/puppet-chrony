@@ -8,10 +8,6 @@
   "project_page": "https://github.com/aboe76/puppet-chrony",
   "issues_url": "https://github.com/aboe76/puppet-chrony/issues",
   "dependencies": [
-    {
-      "name": "puppetlabs-stdlib",
-      "version_requirement": ">= 5.0.0 < 6.0.0"
-    }
   ],
   "operatingsystem_support": [
     {
