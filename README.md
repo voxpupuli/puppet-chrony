@@ -123,6 +123,11 @@ class { '::chrony':
 
 The following parameters are available in the chrony module
 
+#### `bindcmdaddress`
+
+Array of addresses of interfaces on which chronyd will listen for monitoring
+command packets (defaults to localhost).
+
 #### `chrony_password`
 
 This sets the chrony password to be used in the key file.
