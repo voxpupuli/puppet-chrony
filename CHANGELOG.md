@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 [Full Changelog](https://github.com/aboe76/puppet-chrony/blob/master/CHANGELOG.md)
 
+## [v0.2.6](https://forge.puppet.com/v3/files/aboe-chrony-0.2.6.tar.gz) (2019-08-02)
+
+  **Merged pull requests:**
+
+  - Allow configuring bindcmdaddress [\#45|(https://github.com/aboe76/puppet-chrony/pull/45) ([nbarrientos](https://github.com/nbarrientos))
+  - remove dependency on puppetlabs-stdlib [\#42|(https://github.com/aboe76/puppet-chrony/pull/43) ([vchepkov](https://github.com/vchepkov))
+  - Don't ignore port setting [\#40|(https://github.com/aboe76/puppet-chrony/pull/40) ([bzed](https://github.com/bzed))
+
 
 ## [v0.2.5](https://forge.puppet.com/v3/files/aboe-chrony-0.2.5.tar.gz) (2019-04-25)
 
