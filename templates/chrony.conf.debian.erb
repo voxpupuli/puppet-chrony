@@ -35,9 +35,9 @@ makestep <%= @makestep_seconds %> <%= @makestep_updates %>
 allow <%= allowed %>
 <% end -%>
 
-# Listen for commands only on localhost.
-bindcmdaddress 127.0.0.1
-bindcmdaddress ::1
+<% @bindcmdaddress.each do |addr| -%>
+bindcmdaddress <%= addr %>
+<% end -%>
 
 # http://chrony.tuxfamily.org/manual.html#port-directive
 port <%= @port %>

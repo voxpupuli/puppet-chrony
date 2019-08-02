@@ -39,6 +39,8 @@ describe 'chrony' do
         when 'RedHat'
           context 'using defaults' do
             it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*port 0$}) }
+            it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*bindcmdaddress ::1$}) }
+            it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*bindcmdaddress 127\.0\.0\.1$}) }
             ['0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org'].each do |s|
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*server #{s} iburst$}) }
             end
@@ -51,6 +53,8 @@ describe 'chrony' do
         when 'Debian'
           context 'using defaults' do
             it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*port 0$}) }
+            it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*bindcmdaddress ::1$}) }
+            it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*bindcmdaddress 127\.0\.0\.1$}) }
             ['0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org'].each do |s|
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*server #{s} iburst$}) }
             end
@@ -72,7 +76,8 @@ describe 'chrony' do
             config_keys_owner: 'steve',
             config_keys_group: 'mrt',
             config_keys_manage: true,
-            chrony_password: 'sunny'
+            chrony_password: 'sunny',
+            bindcmdaddress: ['10.0.0.1']
           }
         end
 
@@ -92,6 +97,7 @@ describe 'chrony' do
             context 'with some params passed in' do
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*port 123$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^s*allow 192\.168\/16$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*bindcmdaddress 10\.0\.0\.1$}) }
               it { is_expected.to contain_file('/etc/chrony.keys').with_mode('0123') }
               it { is_expected.to contain_file('/etc/chrony.keys').with_owner('steve') }
               it { is_expected.to contain_file('/etc/chrony.keys').with_group('mrt') }
@@ -102,6 +108,7 @@ describe 'chrony' do
             context 'with some params passed in' do
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*port 123$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^s*allow 192\.168\/16$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*bindcmdaddress 10\.0\.0\.1$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_mode('0123') }
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_owner('steve') }
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_group('mrt') }

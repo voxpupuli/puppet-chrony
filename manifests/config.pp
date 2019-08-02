@@ -1,4 +1,5 @@
 class chrony::config (
+  $bindcmdaddress       = $chrony::bindcmdaddress,
   $commandkey           = $chrony::commandkey,
   $config               = $chrony::config,
   $config_template      = $chrony::config_template,
