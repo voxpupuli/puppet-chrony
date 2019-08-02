@@ -1,6 +1,6 @@
 {
   "name": "aboe-chrony",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "author": "aboe",
   "summary": "Manage chrony daemon on Linux",
   "license": "Apache-2.0",
@@ -8,6 +8,7 @@
   "project_page": "https://github.com/aboe76/puppet-chrony",
   "issues_url": "https://github.com/aboe76/puppet-chrony/issues",
   "dependencies": [
+
   ],
   "operatingsystem_support": [
     {
@@ -44,7 +45,7 @@
       "version_requirement": ">= 5.5.8 < 7.0.0"
     }
   ],
-  "pdk-version": "1.7.0",
-  "template-url": "file:///opt/puppetlabs/pdk/share/cache/pdk-templates.git",
-  "template-ref": "1.7.0-0-g57412ed"
+  "pdk-version": "1.11.1",
+  "template-url": "pdk-default#1.11.1",
+  "template-ref": "1.11.1-0-g2ff8c24"
 }
