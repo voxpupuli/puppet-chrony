@@ -4,14 +4,13 @@ describe 'chrony class' do
   it 'with defaults' do
     pp = <<-MANIFEST
       class { 'chrony': }
-		MANIFEST
+    MANIFEST
 
-
-		idempotent_apply(pp)
+    idempotent_apply(pp)
   end
 
-	describe package('chrony') do
-  	it { is_expected.to be_installed }
+  describe package('chrony') do
+    it { is_expected.to be_installed }
   end
 
   service = case fact('os.family')

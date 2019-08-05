@@ -2,13 +2,12 @@ require 'spec_helper_acceptance'
 
 describe 'chrony class:' do
   it 'with defaults' do
-		pp = <<-MANIFEST
-			class { 'chrony': }
-		MANIFEST
+    pp = <<-MANIFEST
+      class { 'chrony': }
+    MANIFEST
 
-		idempotent_apply(pp)
-	end
-
+    idempotent_apply(pp)
+  end
 
   describe package('chrony') do
     it { is_expected.to be_installed }
