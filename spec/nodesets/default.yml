@@ -1,0 +1,7 @@
+HOSTS:
+  centos-7:
+    platform: centos7
+    image: centos:centos7
+    hypervisor: docker
+CONFIG:
+  type: foss
