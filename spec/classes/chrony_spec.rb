@@ -81,7 +81,7 @@ describe 'chrony' do
             config_keys_manage: true,
             chrony_password: 'sunny',
             bindcmdaddress: ['10.0.0.1'],
-            cmdacl: ['cmdallow 1.2.3.4', 'cmddeny 1.2.3', 'cmdallow all 1.2']
+            cmdacl: ['cmdallow 1.2.3.4', 'cmddeny 1.2.3', 'cmdallow all 1.2'],
           }
         end
 
@@ -136,7 +136,7 @@ describe 'chrony' do
         let(:params) do
           {
             config_keys_manage: false,
-            chrony_password: 'unset'
+            chrony_password: 'unset',
           }
         end
 
@@ -164,7 +164,7 @@ describe 'chrony' do
       context 'unmanaged chrony.keys file and password' do
         let(:params) do
           {
-            config_keys_manage: false
+            config_keys_manage: false,
           }
         end
 
@@ -174,7 +174,7 @@ describe 'chrony' do
       context 'on any other system' do
         let(:facts) do
           {
-            osfamily: 'UnsupportedOS'
+            osfamily: 'UnsupportedOS',
           }
         end
 
@@ -186,7 +186,7 @@ describe 'chrony' do
           {
             service_ensure: 'running',
             service_enable: true,
-            service_manage: true
+            service_manage: true,
           }
         end
 
@@ -198,7 +198,7 @@ describe 'chrony' do
                 ensure: 'running',
                 enable: true,
                 hasstatus: true,
-                hasrestart: true
+                hasrestart: true,
               )
             end
           end
@@ -209,7 +209,7 @@ describe 'chrony' do
                 ensure: 'running',
                 enable: true,
                 hasstatus: true,
-                hasrestart: true
+                hasrestart: true,
               )
             end
           end
@@ -220,7 +220,7 @@ describe 'chrony' do
                 ensure: 'running',
                 enable: true,
                 hasstatus: true,
-                hasrestart: true
+                hasrestart: true,
               )
             end
           end

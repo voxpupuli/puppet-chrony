@@ -1,3 +1,4 @@
+# start the chrony service
 class chrony::service (
   $service_enable = $chrony::service_enable,
   $service_ensure = $chrony::service_ensure,

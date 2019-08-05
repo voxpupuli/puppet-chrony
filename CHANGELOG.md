@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 [Full Changelog](https://github.com/aboe76/puppet-chrony/blob/master/CHANGELOG.md)
 
+## [v0.3.0](https://forge.puppet.com/v3/files/aboe-chrony-0.3.0.tar.gz) (2019-08-05)
+
+  **Merged pull requests:**
+
+  - Confirmed RHEL 8 functionality [\#46|(https://github.com/aboe76/puppet-chrony/pull/46) ([stevekay](https://github.com/stevekay))
+  - Add parameter $cmdacl (\#47|(https://github.com/aboe76/puppet-chrony/pull/47) ([nbarrientos](https://github.com/nbarrientos))
+
 ## [v0.2.6](https://forge.puppet.com/v3/files/aboe-chrony-0.2.6.tar.gz) (2019-08-02)
 
   **Merged pull requests:**

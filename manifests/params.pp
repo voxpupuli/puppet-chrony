@@ -1,3 +1,4 @@
+# chrony class parameters
 class chrony::params {
   $commandkey         = 0
   $keys               = []

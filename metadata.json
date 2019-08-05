@@ -1,6 +1,6 @@
 {
   "name": "aboe-chrony",
-  "version": "0.2.6",
+  "version": "0.3.0",
   "author": "aboe",
   "summary": "Manage chrony daemon on Linux",
   "license": "Apache-2.0",
@@ -46,7 +46,7 @@
       "version_requirement": ">= 5.5.8 < 7.0.0"
     }
   ],
-  "pdk-version": "1.11.1",
-  "template-url": "pdk-default#1.11.1",
-  "template-ref": "1.11.1-0-g2ff8c24"
+  "pdk-version": "1.12.0",
+  "template-url": "pdk-default#1.12.0",
+  "template-ref": "1.12.0-0-g55d9ae2"
 }

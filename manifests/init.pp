@@ -1,3 +1,4 @@
+# main chrony class
 class chrony (
   Array[String] $bindcmdaddress     = $chrony::params::bindcmdaddress,
   Array[String] $cmdacl             = $chrony::params::cmdacl,

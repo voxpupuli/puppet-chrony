@@ -1,3 +1,4 @@
+# configure chrony
 class chrony::config (
   $bindcmdaddress       = $chrony::bindcmdaddress,
   $cmdacl               = $chrony::cmdacl,
