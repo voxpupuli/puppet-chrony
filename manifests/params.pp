@@ -20,6 +20,7 @@ class chrony::params {
 
   case $::osfamily {
     'Archlinux' : {
+      $cmdacl            = ['cmdallow 127.0.0.1']
       $config            = '/etc/chrony.conf'
       $config_template   = 'chrony/chrony.conf.archlinux.erb'
       $config_keys       = '/etc/chrony.keys'
@@ -30,6 +31,7 @@ class chrony::params {
       $clientlog         = true
     }
     'Suse', 'RedHat' : {
+      $cmdacl            = []
       $config            = '/etc/chrony.conf'
       $config_template   = 'chrony/chrony.conf.redhat.erb'
       $config_keys       = '/etc/chrony.keys'
@@ -40,6 +42,7 @@ class chrony::params {
       $clientlog         = false
     }
     'Debian' : {
+      $cmdacl            = []
       $config            = '/etc/chrony/chrony.conf'
       $config_template   = 'chrony/chrony.conf.debian.erb'
       $config_keys       = '/etc/chrony/chrony.keys'

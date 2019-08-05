@@ -288,7 +288,9 @@ mailonchange <%= @mailonchange %> <%= @threshold %>
 # necessary, and the problem is being investigated.  You can leave this
 # line enabled, as it's benign otherwise.
 
-cmdallow 127.0.0.1
+<% @cmdacl.each do |acl| -%>
+<%= acl %>
+<% end -%>
 
 #######################################################################
 ### REAL TIME CLOCK
