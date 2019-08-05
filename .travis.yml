@@ -12,9 +12,6 @@ script:
 bundler_args: --without system_tests
 rvm:
   - 2.5.3
-env:
-  global:
-    - PUPPET_GEM_VERSION="~> 6.0"
 stages:
   - static
   - spec
