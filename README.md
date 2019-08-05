@@ -135,6 +135,14 @@ By default a short fixed string is used. If set explicitly
 to 'unset' then no password will setting will be added
 to the keys file by puppet.
 
+#### `cmdacl`
+
+An array of ACLs for monitoring access. This expects a list of directives, for
+example: `['cmdallow 1.2.3.4', 'cmddeny 1.2.3']`. The order will be respected at
+the time of generating the configuration. The argument of the allow or deny
+commands can be an address, a partial address or a subnet (see manpage for more
+details).
+
 #### `commandkey`
 
 This sets the key ID used by chronyc to authenticate to chronyd.

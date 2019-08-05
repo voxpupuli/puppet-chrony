@@ -39,6 +39,10 @@ allow <%= allowed %>
 bindcmdaddress <%= addr %>
 <% end -%>
 
+<% @cmdacl.each do |acl| -%>
+<%= acl %>
+<% end -%>
+
 # http://chrony.tuxfamily.org/manual.html#port-directive
 port <%= @port %>
 
