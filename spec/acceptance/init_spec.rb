@@ -13,7 +13,7 @@ describe 'chrony class' do
     it { is_expected.to be_installed }
   end
 
-  service = case fact('os.family')
+  service = case os[:family]
             when 'RedHat'
               'chronyd'
             else
