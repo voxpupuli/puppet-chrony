@@ -28,7 +28,6 @@ group :development do
   gem "puppet-module-posix-dev-r#{minor_version}", '~> 0.3',     require: false, platforms: [:ruby]
   gem "puppet-module-win-default-r#{minor_version}", '~> 0.3',   require: false, platforms: [:mswin, :mingw, :x64_mingw]
   gem "puppet-module-win-dev-r#{minor_version}", '~> 0.3',       require: false, platforms: [:mswin, :mingw, :x64_mingw]
-  gem "puppet-lint-i18n",                                        require: false
   gem 'puppet_litmus', git: 'https://github.com/puppetlabs/puppet_litmus.git'
   gem 'serverspec'
 end
