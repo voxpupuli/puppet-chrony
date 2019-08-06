@@ -171,6 +171,16 @@ describe 'chrony' do
         it { is_expected.to raise_error(%r{Setting \$config_keys_manage false and \$chrony_password at same time in chrony is not possible}) }
       end
 
+      context 'queryhosts set but port left at default 0' do
+        let(:params) do
+          {
+            queryhosts: ['192.168/16'],
+          }
+        end
+
+        it { is_expected.to raise_error(%r{Setting \$queryhosts has no effect unless also setting \$port which defaults to 0 in chrony, refusing that}) }
+      end
+
       context 'on any other system' do
         let(:facts) do
           {
