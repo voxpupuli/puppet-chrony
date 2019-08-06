@@ -43,9 +43,9 @@ RSpec.configure do |c|
   end
   c.filter_run_excluding(bolt: true) unless ENV['GEM_BOLT']
   c.after(:suite) do
-    RSpec::Puppet::Coverage.report!
   end
 end
+at_exit { RSpec::Puppet::Coverage.report! }
 
 # Ensures that a module is defined
 # @param module_name Name of the module
