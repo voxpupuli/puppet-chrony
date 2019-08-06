@@ -108,8 +108,13 @@ class { '::chrony':
 ```puppet
 class { '::chrony':
   queryhosts  => [ '192.168/16', ],
+  port        => 123,
 }
 ```
+#### Note
+The parameter `port` is also set here,
+module default is `0` to ensure server mode is not activated accidentally.
+
 
 ## Reference
 
@@ -237,6 +242,12 @@ to allow stepping the time for any update.
 #### `queryhosts`
 
 This adds the networks, hosts that are allowed to query the daemon.
+Note that `port` needs to be set for this to work.
+
+#### `port`
+
+Port the service should listen on, to be used in combination with `queryhosts`.
+Module default is `0` to prevent accidental activation of server mode.
 
 #### `service_enable`
 
