@@ -40,6 +40,10 @@ chrony::params {
     fail("Setting \$config_keys_manage false and \$chrony_password at same time in ${module_name} is not possible.")
   }
 
+  if $queryhosts != [] and $port == 0 {
+    fail("Setting \$queryhosts has no effect unless also setting \$port which defaults to 0 in ${module_name}, refusing that.")
+  }
+
   contain '::chrony::install'
   contain '::chrony::config'
   contain '::chrony::service'
