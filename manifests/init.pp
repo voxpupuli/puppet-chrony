@@ -33,8 +33,8 @@ class chrony (
   $service_enable                   = $chrony::params::service_enable,
   $service_ensure                   = $chrony::params::service_ensure,
   $service_manage                   = $chrony::params::service_manage,
-  $service_name                     = $chrony::params::service_name,) inherits
-chrony::params {
+  $service_name                     = $chrony::params::service_name,
+) inherits chrony::params {
 
   if ! $config_keys_manage and $chrony_password != 'unset'  {
     fail("Setting \$config_keys_manage false and \$chrony_password at same time in ${module_name} is not possible.")

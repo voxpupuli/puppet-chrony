@@ -71,5 +71,4 @@ class chrony::params {
   $makestep_seconds = 10
   $makestep_updates = 3
   $bindcmdaddress = ['127.0.0.1', '::1']
-
 }
