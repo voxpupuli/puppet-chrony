@@ -2,6 +2,7 @@
 class chrony (
   Array[String] $bindcmdaddress     = $chrony::params::bindcmdaddress,
   Array[String] $cmdacl             = $chrony::params::cmdacl,
+  $cmdport                    = $chrony::params::cmdport,
   $commandkey                       = $chrony::params::commandkey,
   $config                           = $chrony::params::config,
   $config_template                  = $chrony::params::config_template,
