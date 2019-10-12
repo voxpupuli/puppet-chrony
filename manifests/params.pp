@@ -18,7 +18,7 @@ class chrony::params {
   $threshold          = 0.5
   $lock_all           = false
   $clientloglimit     = undef
-  $cmdport            = 257
+  $cmdport            = undef
 
   case $::osfamily {
     'Archlinux' : {
