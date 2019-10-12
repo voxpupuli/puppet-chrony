@@ -45,7 +45,6 @@ RSpec.configure do |c|
   c.after(:suite) do
   end
 end
-at_exit { RSpec::Puppet::Coverage.report! }
 
 # Ensures that a module is defined
 # @param module_name Name of the module
