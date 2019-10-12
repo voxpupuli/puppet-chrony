@@ -1,6 +1,7 @@
 # configure chrony
 class chrony::config (
   $bindcmdaddress       = $chrony::bindcmdaddress,
+  $cmdport              = $chrony::cmdport,
   $cmdacl               = $chrony::cmdacl,
   $commandkey           = $chrony::commandkey,
   $config               = $chrony::config,

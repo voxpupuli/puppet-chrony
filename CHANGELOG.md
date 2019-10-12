@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 [Full Changelog](https://github.com/aboe76/puppet-chrony/blob/master/CHANGELOG.md)
 
+## [v0.3.1](https://forge.puppet.com/v3/files/aboe-chrony-0.3.1.tar.gz) (2019-10-12)
+
+  **Merged pull requests:**
+
+- cmdport parameter [\#50|(<https://github.com/aboe76/puppet-chrony/pull/50)> ([stevekay](https://github.com/przemas75))
+
 ## [v0.3.0](https://forge.puppet.com/v3/files/aboe-chrony-0.3.0.tar.gz) (2019-08-05)
 
   **Merged pull requests:**
