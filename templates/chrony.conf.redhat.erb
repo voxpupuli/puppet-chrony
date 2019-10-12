@@ -35,7 +35,9 @@ makestep <%= @makestep_seconds %> <%= @makestep_updates %>
 allow <%= allowed %>
 <% end -%>
 
+<% if defined?(@cmdport) -%>
 cmdport <%= @cmdport %>
+<% end -%>
 
 <% @bindcmdaddress.each do |addr| -%>
 bindcmdaddress <%= addr %>
