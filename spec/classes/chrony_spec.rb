@@ -77,7 +77,7 @@ describe 'chrony' do
           {
             queryhosts: ['192.168/16'],
             port: '123',
-            cmdport: '257'.
+            cmdport: '257',
             config_keys_mode: '0123',
             config_keys_owner: 'steve',
             config_keys_group: 'mrt',
