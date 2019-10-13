@@ -45,7 +45,6 @@ RSpec.configure do |c|
   c.after(:suite) do
   end
 end
-at_exit { RSpec::Puppet::Coverage.report! }
 
 # Ensures that a module is defined
 # @param module_name Name of the module
@@ -55,5 +54,7 @@ def ensure_module_defined(module_name)
     last_module.const_get(next_module, false)
   end
 end
+
+at_exit { RSpec::Puppet::Coverage.report! }
 
 # 'spec_overrides' from sync.yml will appear below this line
