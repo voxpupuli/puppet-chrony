@@ -19,6 +19,9 @@ class chrony::params {
   $lock_all           = false
   $clientloglimit     = undef
   $cmdport            = undef
+  $smoothtime         = undef
+  $maxslewrate        = undef
+  $leapsecmode        = undef
 
   case $::osfamily {
     'Archlinux' : {
@@ -42,11 +45,6 @@ class chrony::params {
       $config_keys_mode  = '0640'
       $service_name      = 'chronyd'
       $clientlog         = false
-      if $::facts['os']['release']['major'] > '7' {
-        $smoothtime         = undef
-        $maxslewrate        = undef
-        $leapsecmode        = undef
-      }
     }
     'Debian' : {
       $cmdacl            = []
@@ -58,11 +56,6 @@ class chrony::params {
       $config_keys_mode  = '0640'
       $service_name      = 'chrony'
       $clientlog         = false
-      if $::facts['os']['distro']['release']['major'] > '8' {
-        $smoothtime         = undef
-        $maxslewrate        = undef
-        $leapsecmode        = undef
-      }
     }
 
     default     : {

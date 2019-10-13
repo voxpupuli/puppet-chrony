@@ -14,7 +14,6 @@ $config_keys_group                                                  = $chrony::p
 $config_keys_mode                                                   = $chrony::params::config_keys_mode,
 $config_keys_manage                                                 = $chrony::params::config_keys_manage,
 $keys                                                               = $chrony::params::keys,
-Optional[Enum['system', 'step', 'slew', 'ignore']] $leapsecmode     = $chrony::params::leapsecmode,
 $local_stratum                                                      = $chrony::params::local_stratum,
 $log_options                                                        = $chrony::params::log_options,
 $package_ensure                                                     = $chrony::params::package_ensure,
@@ -25,7 +24,6 @@ $servers                                                            = $chrony::p
 $pools                                                              = $chrony::params::pools,
 $makestep_seconds                                                   = $chrony::params::makestep_seconds,
 $makestep_updates                                                   = $chrony::params::makestep_updates,
-Optional[Float] $maxslewrate                                        = $chrony::params::maxslewrate,
 $queryhosts                                                         = $chrony::params::queryhosts,
 $mailonchange                                                       = $chrony::params::mailonchange,
 Float $threshold                                                    = $chrony::params::threshold,
@@ -38,6 +36,9 @@ $service_ensure                                                     = $chrony::p
 $service_manage                                                     = $chrony::params::service_manage,
 $service_name                                                       = $chrony::params::service_name,
 Optional[String] $smoothtime                                        = $chrony::params::smoothtime,
+Optional[Enum['system', 'step', 'slew', 'ignore']] $leapsecmode     = $chrony::params::leapsecmode,
+Optional[Float] $maxslewrate                                        = $chrony::params::maxslewrate,
+
 
 ) inherits chrony::params {
 
