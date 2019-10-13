@@ -42,6 +42,11 @@ class chrony::params {
       $config_keys_mode  = '0640'
       $service_name      = 'chronyd'
       $clientlog         = false
+      if $::facts['os']['release']['major'] > '7' {
+        $smoothtime         = undef
+        $maxslewrate        = undef
+        $leapsecmode        = undef
+      }
     }
     'Debian' : {
       $cmdacl            = []
