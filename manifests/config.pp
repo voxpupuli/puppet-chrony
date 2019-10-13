@@ -23,7 +23,9 @@ class chrony::config (
   $servers              = $chrony::servers,
   $pools                = $chrony::pools,
   $port                 = $chrony::port,
-
+  $leapsecmode          = $chrony::leapsecmode,
+  $maxslewrate          = $chrony::maxslewrate,
+  $smoothtime           = $chrony::smoothtime,
 ) inherits chrony {
   file { $config:
     ensure  => file,

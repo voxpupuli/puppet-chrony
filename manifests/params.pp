@@ -19,9 +19,6 @@ class chrony::params {
   $lock_all           = false
   $clientloglimit     = undef
   $cmdport            = undef
-  $smoothtime         = undef
-  $maxslewrate        = undef
-  $leapsecmode        = undef
 
   case $::osfamily {
     'Archlinux' : {
