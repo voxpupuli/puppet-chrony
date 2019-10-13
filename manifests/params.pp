@@ -53,6 +53,11 @@ class chrony::params {
       $config_keys_mode  = '0640'
       $service_name      = 'chrony'
       $clientlog         = false
+      if $::facts['os']['distro']['release']['major'] > '8' {
+        $smoothtime         = undef
+        $maxslewrate        = undef
+        $leapsecmode        = undef
+      }
     }
 
     default     : {

@@ -125,6 +125,9 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*cmdallow 1\.2\.3\.4$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*cmddeny 1\.2\.3$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*cmdallow all 1\.2$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*leapsecmode slew$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*maxslewrate 1000$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*smoothtime 400 0\.001 leaponly$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_mode('0123') }
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_owner('steve') }
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_group('mrt') }
