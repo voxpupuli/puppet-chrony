@@ -39,7 +39,6 @@ Optional[String] $smoothtime                                        = $chrony::p
 Optional[Enum['system', 'step', 'slew', 'ignore']] $leapsecmode     = $chrony::params::leapsecmode,
 Optional[Float] $maxslewrate                                        = $chrony::params::maxslewrate,
 
-
 ) inherits chrony::params {
 
   if ! $config_keys_manage and $chrony_password != 'unset'  {
