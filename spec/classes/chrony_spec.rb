@@ -133,11 +133,11 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_group('mrt') }
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_replace(true) }
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_content("0 sunny\n") }
-              if facts[:os]['distro']['release']['major'] > '8' {
+              if facts[:os]['distro']['release']['major'] > '8'
                 it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*leapsecmode slew$}) }
                 it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*maxslewrate 1000$}) }
                 it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*smoothtime 400 0\.001 leaponly$}) }
-              }
+              end
             end
           end
         end
