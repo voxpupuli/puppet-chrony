@@ -111,6 +111,16 @@ class { '::chrony':
   port        => 123,
 }
 ```
+
+### How to configure leap second
+```puppet
+class { '::chrony':
+  leapsecmode  => 'slew',
+  smoothtime   => '400 0.001 leaponly',
+  maxslewrate  => 1000.0
+}
+```
+
 #### Note
 The parameter `port` is also set here,
 module default is `0` to ensure server mode is not activated accidentally.
@@ -147,6 +157,10 @@ example: `['cmdallow 1.2.3.4', 'cmddeny 1.2.3']`. The order will be respected at
 the time of generating the configuration. The argument of the allow or deny
 commands can be an address, a partial address or a subnet (see manpage for more
 details).
+
+#### `cmdport`
+
+The cmdport directive allows the port that is used for run-time monitoring (via the chronyc program) to be altered from its default (323).
 
 #### `commandkey`
 
@@ -186,6 +200,10 @@ This determines which template puppet should use for the chrony key file.
 
 An array of key lines.  These are printed as-is into the chrony key file.
 
+### `leapsecmode`
+
+How to insert the leap second mode. Use one of possible values only: `leapsecmode ignore`. Or three other possible values (`system`, `step`, `slew`).
+
 #### `local_stratum`
 
 Override the stratum of the server which will be reported to clients
@@ -194,6 +212,10 @@ when the local reference is active. Defaults to 10
 #### `log_options`
 
 Specify which information is to be logged.
+
+### `maxslewrate`
+
+Maximum rate for chronyd to slew the time. Only float type values possible, for example: `maxslewrate 1000.0`.
 
 #### `package_ensure`
 
@@ -264,6 +286,9 @@ This selects if puppet should manage the service in the first place.
 #### `service_name`
 
 This selects the name of the chrony service for puppet to manage.
+
+### `smoothtime`
+Specify the smoothing of the time parameter as a string, for example `smoothtime 50000 0.01`.
 
 #### `mailonchange`
 
