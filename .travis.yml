@@ -1,5 +1,4 @@
 ---
-dist: xenial
 language: ruby
 cache: bundler
 before_install:
@@ -13,6 +12,9 @@ script:
 bundler_args: --without system_tests
 rvm:
   - 2.5.3
+env:
+  global:
+    - PUPPET_GEM_VERSION="~> 6.0"
 stages:
   - static
   - spec
@@ -24,50 +26,89 @@ matrix:
   fast_finish: true
   include:
     -
-      bundler_args: --with system_tests
+      bundler_args:
       dist: trusty
-      env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_set=ubuntu1404-64 BEAKER_TESTMODE=apply
-      rvm: 2.5.3
-      script: bundle exec rake beaker
+      env: PLATFORMS=deb_puppet5
+      rvm: 2.5.1
+      before_script:
+      - bundle exec rake 'litmus:provision_list[travis_deb]'
+      - bundle exec rake 'litmus:install_agent[puppet5]'
+      - bundle exec rake litmus:install_module
+      script:
+      - bundle exec rake litmus:acceptance:parallel
       services: docker
-      stage: acceptance
       sudo: required
+      stage: acceptance
     -
-      bundler_args: --with system_tests
+      bundler_args:
       dist: trusty
-      env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_set=ubuntu1604-64 BEAKER_TESTMODE=apply
-      rvm: 2.5.3
-      script: bundle exec rake beaker
+      env: PLATFORM=deb_puppet6
+      rvm: 2.5.1
+      before_script:
+      - bundle exec rake 'litmus:provision_list[travis_deb]'
+      - bundle exec rake 'litmus:install_agent[puppet6]'
+      - bundle exec rake litmus:install_module
+      script:
+      - bundle exec rake litmus:acceptance:parallel
       services: docker
-      stage: acceptance
       sudo: required
+      stage: acceptance
     -
-      bundler_args: --with system_tests
+      bundler_args:
       dist: trusty
-      env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_set=centos7-64 BEAKER_TESTMODE=apply
-      rvm: 2.5.3
-      script: bundle exec rake beaker
+      env: PLATFORMS=el7_puppet5
+      rvm: 2.5.1
+      before_script:
+      - bundle exec rake 'litmus:provision_list[travis_el7]'
+      - bundle exec rake 'litmus:install_agent[puppet5]'
+      - bundle exec rake litmus:install_module
+      script:
+      - bundle exec rake litmus:acceptance:parallel
       services: docker
-      stage: acceptance
       sudo: required
+      stage: acceptance
     -
-      bundler_args: --with system_tests
+      bundler_args:
       dist: trusty
-      env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_set=debian8-64 BEAKER_TESTMODE=apply
-      rvm: 2.5.3
-      script: bundle exec rake beaker
+      env: PLATFORM=el7_puppet6
+      rvm: 2.5.1
+      before_script:
+      - bundle exec rake 'litmus:provision_list[travis_el7]'
+      - bundle exec rake 'litmus:install_agent[puppet6]'
+      - bundle exec rake litmus:install_module
+      script:
+      - bundle exec rake litmus:acceptance:parallel
       services: docker
-      stage: acceptance
       sudo: required
+      stage: acceptance
     -
-      bundler_args: --with system_tests
+      bundler_args:
       dist: trusty
-      env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_set=debian9-64 BEAKER_TESTMODE=apply
+      env: PLATFORMS=el6_puppet5
       rvm: 2.5.3
-      script: bundle exec rake beaker
+      before_script:
+      - bundle exec rake 'litmus:provision_list[travis_el6]'
+      - bundle exec rake 'litmus:install_agent[puppet5]'
+      - bundle exec rake litmus:install_module
+      script:
+      - bundle exec rake litmus:acceptance:parallel
       services: docker
-      stage: acceptance
       sudo: required
+      stage: acceptance
+    -
+      bundler_args:
+      dist: trusty
+      env: PLATFORMS=el6_puppet6
+      rvm: 2.5.3
+      before_script:
+      - bundle exec rake 'litmus:provision_list[travis_el6]'
+      - bundle exec rake 'litmus:install_agent[puppet6]'
+      - bundle exec rake litmus:install_module
+      script:
+      - bundle exec rake litmus:acceptance:parallel
+      services: docker
+      sudo: required
+      stage: acceptance
     -
       env: CHECK="check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop syntax lint metadata_lint"
       stage: static
