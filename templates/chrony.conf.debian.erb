@@ -100,3 +100,18 @@ refclock <%= refclock %>
 # Lock chrony to RAM.
 lock_all
 <% end -%>
+
+# https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#leapsecmode
+<% if defined?(@leapsecmode) %>
+leapsecmode <%= @leapsecmode %>
+<% end -%>
+
+# https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#maxslewrate
+<% if defined?(@maxslewrate) %>
+maxslewrate <%= @maxslewrate %>
+<% end -%>
+
+# https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#smoothtime
+<% if defined?(@smoothtime) %>
+smoothtime <%= @smoothtime %>
+<% end -%>

@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file.
 
   **Merged pull requests:**
 
-- cmdport parameter [\#50|(<https://github.com/aboe76/puppet-chrony/pull/50)> ([stevekay](https://github.com/przemas75))
+- cmdport parameter [\#50|(https://github.com/aboe76/puppet-chrony/pull/50) ([przemas75](https://github.com/przemas75))
 
 ## [v0.3.0](https://forge.puppet.com/v3/files/aboe-chrony-0.3.0.tar.gz) (2019-08-05)
 
