@@ -4,6 +4,8 @@ class chrony::params {
   $keys               = []
   $log_options        = undef
   $package_ensure     = 'present'
+  $package_provider   = undef
+  $package_source     = undef
   $refclocks          = []
   $peers              = []
   $service_enable     = true
