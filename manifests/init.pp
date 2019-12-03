@@ -18,6 +18,8 @@ class chrony (
   $log_options                                                     = $chrony::params::log_options,
   $package_ensure                                                  = $chrony::params::package_ensure,
   $package_name                                                    = $chrony::params::package_name,
+  Optional[String] $package_source                                 = $chrony::params::package_source,
+  Optional[String] $package_provider                               = $chrony::params::package_provider,
   $refclocks                                                       = $chrony::params::refclocks,
   $peers                                                           = $chrony::params::peers,
   $servers                                                         = $chrony::params::servers,
