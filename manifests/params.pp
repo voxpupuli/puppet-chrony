@@ -24,6 +24,7 @@ class chrony::params {
   $smoothtime         = undef
   $leapsecmode        = undef
   $maxslewrate        = undef
+  $stratumweight      = undef
 
   case $::osfamily {
     'Archlinux' : {

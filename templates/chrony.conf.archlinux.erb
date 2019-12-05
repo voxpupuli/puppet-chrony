@@ -10,16 +10,16 @@
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of version 2 of the GNU General Public License as
 # published by the Free Software Foundation.
-# 
+#
 # This program is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License along
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-# 
+#
 #
 #######################################################################
 ### COMMENTS
@@ -56,7 +56,7 @@ server <%= server %> iburst
 #server 1.nl.pool.ntp.org
 #server 2.nl.pool.ntp.org
 #server 3.nl.pool.ntp.org
- 
+
 # However, for dial-up use you probably want these instead.  The word
 # 'offline' means that the server is not visible at boot time.  Use
 # chronyc's 'online' command to tell chronyd that these servers have
@@ -85,6 +85,10 @@ pool <%= pool %> iburst
 # probably useless, because you don't know which way the measurement
 # message got held up.)  Consult the full documentation for details.
 
+<% if @stratumweight -%>
+# How much distance should be added per stratum to the synchronisation distance when chronyd selects the synchronisation source from available sources.
+stratumweight <%= @stratumweight %>
+<% end -%>
 #######################################################################
 ### AVOIDING POTENTIALLY BOGUS CHANGES TO YOUR CLOCK
 #
@@ -231,7 +235,7 @@ noclientlog
 
 # The clientlog size is limited to 512KB by default.  If you have many
 # clients, especially in many different subnets, you might want to
-# increase the limit. 
+# increase the limit.
 
 ! clientloglimit 4194304
 <% if defined?(@clientloglimit) -%>

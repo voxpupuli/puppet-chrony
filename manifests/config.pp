@@ -26,6 +26,7 @@ class chrony::config (
   $leapsecmode          = $chrony::leapsecmode,
   $maxslewrate          = $chrony::maxslewrate,
   $smoothtime           = $chrony::smoothtime,
+  $stratumweight        = $chrony::stratumweight,
 ) inherits chrony {
   file { $config:
     ensure  => file,

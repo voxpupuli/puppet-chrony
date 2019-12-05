@@ -209,6 +209,11 @@ How to insert the leap second mode. Use one of possible values only: `leapsecmod
 Override the stratum of the server which will be reported to clients
 when the local reference is active. Defaults to 10
 
+#### `stratumweight`
+
+Sets how much distance should be added per stratum to the synchronisation distance when chronyd selects the synchronisation source from available sources.
+When not set, chronyd's default will be used, which since version 2.0 of chrony, is 0.001 seconds.
+
 #### `log_options`
 
 Specify which information is to be logged.
