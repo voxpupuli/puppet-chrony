@@ -112,6 +112,7 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*port 123$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmdport 257$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^s*allow 192\.168\/16$}) }
+
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*bindcmdaddress 10\.0\.0\.1$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmdallow 1\.2\.3\.4$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmddeny 1\.2\.3$}) }
@@ -140,6 +141,31 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_replace(true) }
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_content("0 sunny\n") }
             end
+          end
+        end
+      end
+
+      describe 'stratumweight' do
+        context 'by default' do
+          case facts[:osfamily]
+          when 'Archlinux', 'RedHat'
+            it { is_expected.not_to contain_file('/etc/chrony.conf').with_content(%r{stratumweight}) }
+          when 'Debian'
+            it { is_expected.not_to contain_file('/etc/chrony/chrony.conf').with_content(%r{stratumweight}) }
+          end
+        end
+        context 'when set' do
+          let(:params) do
+            {
+              stratumweight: 0,
+            }
+          end
+
+          case facts[:osfamily]
+          when 'Archlinux', 'RedHat'
+            it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^stratumweight 0$}) }
+          when 'Debian'
+            it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^stratumweight 0$}) }
           end
         end
       end

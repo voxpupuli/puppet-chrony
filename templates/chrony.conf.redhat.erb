@@ -16,9 +16,10 @@ pool <%= pool %> iburst
 peer <%= peer %>
 <% end -%>
 
-# Ignore stratum in source selection.
-stratumweight 0
-
+<% if @stratumweight -%>
+# How much distance should be added per stratum to the synchronisation distance when chronyd selects the synchronisation source from available sources.
+stratumweight <%= @stratumweight %>
+<% end -%>
 # Record the rate at which the system clock gains/losses time.
 driftfile /var/lib/chrony/drift
 

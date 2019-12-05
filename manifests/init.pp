@@ -40,6 +40,7 @@ class chrony (
   Optional[String] $smoothtime                                     = $chrony::params::smoothtime,
   Optional[Enum['system', 'step', 'slew', 'ignore']] $leapsecmode  = $chrony::params::leapsecmode,
   Optional[Float] $maxslewrate                                     = $chrony::params::maxslewrate,
+  Optional[Numeric] $stratumweight                                 = $chrony::params::stratumweight,
 ) inherits chrony::params {
 
   if ! $config_keys_manage and $chrony_password != 'unset'  {
