@@ -41,7 +41,7 @@ class chrony::config (
     owner   => $config_keys_owner,
     group   => $config_keys_group,
     mode    => $config_keys_mode,
-    content => template($config_keys_template),
+    content => Sensitive(template($config_keys_template)),
   }
 
 }

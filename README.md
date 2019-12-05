@@ -304,7 +304,7 @@ Force chrony to only use RAM & prevent swapping.
 
 ## Limitations
 
-This module has been built on and tested against Puppet 3.2.3 and higher.
+This module has been built on and tested against Puppet 5.5 and higher.
 
 The module has been tested on:
  * Arch Linux
