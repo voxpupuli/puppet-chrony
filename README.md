@@ -1,7 +1,6 @@
 # puppet-chrony
 
 [![Build Status](https://secure.travis-ci.org/aboe76/puppet-chrony.png?branch=master)](http://travis-ci.org/aboe76/puppet-chrony)
-[![Coverage Status](https://coveralls.io/repos/github/aboe76/puppet-chrony/badge.svg?branch=master)](https://coveralls.io/github/aboe76/puppet-chrony?branch=master)
 [![pdk version](https://img.shields.io/puppetforge/pdk-version/aboe/chrony.svg?style=flat)](https://forge.puppetlabs.com/aboe/chrony)
 [![Puppet Forge](https://img.shields.io/puppetforge/v/aboe/chrony.svg?style=flat)](https://forge.puppetlabs.com/aboe/chrony)
 [![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/aboe/chrony.svg?style=flat)](https://forge.puppetlabs.com/aboe/chrony)
