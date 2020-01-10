@@ -1,4 +1,6 @@
-# start the chrony service
+# @summary Manages the chrony service
+#
+# @api private
 class chrony::service (
   $service_enable = $chrony::service_enable,
   $service_ensure = $chrony::service_ensure,
