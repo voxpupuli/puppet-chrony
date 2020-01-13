@@ -37,6 +37,12 @@
 #     smoothtime  => '400 0.001 leaponly',
 #     maxslewrate => 1000.0
 #   }
+# @example Configure [makestep](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#makestep)
+#   # Step the system clock if the adjustment is larger than 1000 seconds, but only in the first ten clock updates.
+#   class { 'chrony':
+#     makestep_seconds => 1000,
+#     makestep_updates => 10,
+#   }
 #
 # @see https://chrony.tuxfamily.org
 #
@@ -105,25 +111,15 @@
 #                  'SHM' => '0 offset 0.5 delay 0.2 refid NMEA noselect' }
 #   ```
 # @param makestep_seconds
-#   Together with `makestep_updates`, this configures the `makestep` parameter of `chronyd`.
-#   Usually, `chronyd` never steps the time, but applies a slew
-#   after the initial synchronization.
-#   This setting configures for how many _updates_ the time may be stepped
-#   if the adjustment is larger than specified _seconds_.
-#
-#   For virtual machines which are suspended and resumed for a prolonged time,
-#   stepping the time may be wanted. In this case, set `makestep_updates` to `-1`
-#   to allow stepping the time for any update.
+#   Configures the [`makestep`](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#makestep) `threshold`.
+#   Normally chronyd will cause the system to gradually correct any time offset, by slowing down or speeding up the clock as required.
+#   If the adjustment is larger than `makestep_seconds`, chronyd will step the clock.
+#   Also see [`makestep_updates`](#makestep_updates). (Defaults to 10).
 # @param makestep_updates
-#   Together with `makestep_seconds`, this configures the `makestep` parameter of `chronyd`.
-#   Usually, `chronyd` never steps the time, but applies a slew
-#   after the initial synchronization.
-#   This setting configures for how many _updates_ the time may be stepped
-#   if the adjustment is larger than specified _seconds_.
-#
-#   For virtual machines which are suspended and resumed for a prolonged time,
-#   stepping the time may be wanted. In this case, set `makestep_updates` to `-1`
-#   to allow stepping the time for any update.
+#   Configures the [`makestep`](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#makestep) `limit`.
+#   Chronyd will step the time only if there have been no more than `makestep_updates` clock updates.
+#   Set to a negative value to disable the limit (useful for virtual machines and laptops that may get suspended for a prolonged time).
+#   Also see [`makestep_seconds`](#makestep_seconds). (Defaults to 3).
 # @param queryhosts
 #   This adds the networks, hosts that are allowed to query the daemon.
 #   Note that `port` needs to be set for this to work.
@@ -175,8 +171,8 @@ class chrony (
   $peers                                                           = $chrony::params::peers,
   $servers                                                         = $chrony::params::servers,
   $pools                                                           = $chrony::params::pools,
-  $makestep_seconds                                                = $chrony::params::makestep_seconds,
-  $makestep_updates                                                = $chrony::params::makestep_updates,
+  Numeric $makestep_seconds                                        = $chrony::params::makestep_seconds,
+  Integer $makestep_updates                                        = $chrony::params::makestep_updates,
   $queryhosts                                                      = $chrony::params::queryhosts,
   $mailonchange                                                    = $chrony::params::mailonchange,
   Float $threshold                                                 = $chrony::params::threshold,
