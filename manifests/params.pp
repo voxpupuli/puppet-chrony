@@ -1,4 +1,6 @@
-# chrony class parameters
+# @summary chrony class parameters
+#
+# @api private
 class chrony::params {
   $commandkey         = 0
   $keys               = []

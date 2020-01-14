@@ -111,6 +111,9 @@ class { '::chrony':
   port        => 123,
 }
 ```
+#### Note
+The parameter `port` is also set here,
+module default is `0` to ensure server mode is not activated accidentally.
 
 ### How to configure leap second
 ```puppet
@@ -121,191 +124,11 @@ class { '::chrony':
 }
 ```
 
-#### Note
-The parameter `port` is also set here,
-module default is `0` to ensure server mode is not activated accidentally.
-
-
 ## Reference
 
-### Classes
- * chrony: Main class, includes all the rest.
- * chrony::install: Handles the packages.
- * chrony::config: Handles the configuration and key file.
- * chrony::service: Handles the service.
-
-### Parameters
-
-The following parameters are available in the chrony module
-
-#### `bindcmdaddress`
-
-Array of addresses of interfaces on which chronyd will listen for monitoring
-command packets (defaults to localhost).
-
-#### `chrony_password`
-
-This sets the chrony password to be used in the key file.
-By default a short fixed string is used. If set explicitly
-to 'unset' then no password will setting will be added
-to the keys file by puppet.
-
-#### `cmdacl`
-
-An array of ACLs for monitoring access. This expects a list of directives, for
-example: `['cmdallow 1.2.3.4', 'cmddeny 1.2.3']`. The order will be respected at
-the time of generating the configuration. The argument of the allow or deny
-commands can be an address, a partial address or a subnet (see manpage for more
-details).
-
-#### `cmdport`
-
-The cmdport directive allows the port that is used for run-time monitoring (via the chronyc program) to be altered from its default (323).
-
-#### `commandkey`
-
-This sets the key ID used by chronyc to authenticate to chronyd.
-
-#### `config`
-
-This sets the file to write chrony configuration into.
-
-#### `config_template`
-
-This determines which template puppet should use for the chrony configuration.
-
-#### `config_keys`
-
-This sets the file to write chrony keys into.
-
-#### `config_keys_owner`
-
-Specify unix owner of chrony keys file, defaults to 0.
-
-#### `config_keys_group`
-
-Specify unix group of chrony keys files, defaults to 0 on ArchLinux
-and chrony on Redhat.
-
-#### `config_keys_mode`
-
-Specify unix mode of chrony keys files, defaults to 0644 on ArchLinux
-and 0640 on Redhat.
-
-#### `config_keys_template`
-
-This determines which template puppet should use for the chrony key file.
-
-#### `keys`
-
-An array of key lines.  These are printed as-is into the chrony key file.
-
-### `leapsecmode`
-
-How to insert the leap second mode. Use one of possible values only: `leapsecmode ignore`. Or three other possible values (`system`, `step`, `slew`).
-
-#### `local_stratum`
-
-Override the stratum of the server which will be reported to clients
-when the local reference is active. Defaults to 10
-
-#### `stratumweight`
-
-Sets how much distance should be added per stratum to the synchronisation distance when chronyd selects the synchronisation source from available sources.
-When not set, chronyd's default will be used, which since version 2.0 of chrony, is 0.001 seconds.
-
-#### `log_options`
-
-Specify which information is to be logged.
-
-### `maxslewrate`
-
-Maximum rate for chronyd to slew the time. Only float type values possible, for example: `maxslewrate 1000.0`.
-
-#### `package_ensure`
-
-This can be set to 'present' or 'latest' or a specific version to choose the
-chrony package to be installed.
-
-#### `package_name`
-
-This determines the name of the package to install.
-
-#### `peers`
-
-This selects the servers to use for NTP peers (symmetric association).
-It is an array of servers.
-
-#### `servers`
-
-This selects the servers to use for NTP servers.  It can be an array of servers
-or a hash of servers to their respective options.
-
-#### `refclocks`
-
-This should be a Hash of hardware reference clock drivers to use.  They hash
-can either list a single list of options for the driver, or any array of
-multiple options if the same driver is used for multiple hardware clocks.
-
-Example:
-```
-refclocks = { 'PPS' => [ '/dev/pps0 lock NMEA refid GPS',
-                         '/dev/pps1:clear refid GPS2' ],
-              'SHM' => '0 offset 0.5 delay 0.2 refid NMEA noselect' }
-```
-
-#### `makestep_updates`, `makestep_seconds`
-
-This configures the `makestep` parameter of `chronyd`.
-Usually, `chronyd` never steps the time, but applies a slew
-after the initial synchronization.
-This setting configures for how many _updates_ the time may be stepped
-if the adjustment is larger than specified _seconds_.
-
-For virtual machines which are suspended and resumed for a prolonged time,
-stepping the time may be wanted. In this case, set `makestep_updates` to `-1`
-to allow stepping the time for any update.
-
-#### `queryhosts`
-
-This adds the networks, hosts that are allowed to query the daemon.
-Note that `port` needs to be set for this to work.
-
-#### `port`
-
-Port the service should listen on, to be used in combination with `queryhosts`.
-Module default is `0` to prevent accidental activation of server mode.
-
-#### `service_enable`
-
-This determines if the service should be enabled at boot.
-
-#### `service_ensure`
-
-This determines if the service should be running or not.
-
-#### `service_manage`
-
-This selects if puppet should manage the service in the first place.
-
-#### `service_name`
-
-This selects the name of the chrony service for puppet to manage.
-
-### `smoothtime`
-Specify the smoothing of the time parameter as a string, for example `smoothtime 50000 0.01`.
-
-#### `mailonchange`
-
-Specify the mail you wanna alert when chronyd execute a sync grater than threshold.
-
-#### `threshold`
-
-Specify the time limit for triggering events.
-
-#### `lock_all`
-
-Force chrony to only use RAM & prevent swapping.
+Reference documentation for the chrony module is generated using
+[puppet-strings](https://puppet.com/docs/puppet/latest/puppet_strings.html) and
+available in [REFERENCE.md](REFERENCE.md)
 
 ## Limitations
 

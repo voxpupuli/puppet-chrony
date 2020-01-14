@@ -1,4 +1,6 @@
-# configure chrony
+# @summary Configures chrony
+#
+# @api private
 class chrony::config (
   $bindcmdaddress       = $chrony::bindcmdaddress,
   $cmdport              = $chrony::cmdport,
