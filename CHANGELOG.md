@@ -4,11 +4,24 @@ All notable changes to this project will be documented in this file.
 
 [Full Changelog](https://github.com/aboe76/puppet-chrony/blob/master/CHANGELOG.md)
 
+## [v0.3.2](https://forge.puppet.com/v3/files/aboe-chrony-0.3.2.tar.gz) (2020-01-14)
+
+  **Merged pull requests:**
+
+  - Remove 'Coverage status' badge [\#58|(https://github.com/aboe76/puppet-chrony/pull/58) ([alexjfisher](https://github.com/alexjfisher))
+  - Use full Apache 2.0 License text and add badge [\#57|(https://github.com/aboe76/puppet-chrony/pull/57) ([alexjfisher](https://github.com/alexjfisher))
+  - Use puppet-strings for reference docs [\#56|(https://github.com/aboe76/puppet-chrony/pull/56) ([alexjfisher](https://github.com/alexjfisher))
+  - Add stratumweight parameter [\#55|(https://github.com/aboe76/puppet-chrony/pull/55) ([alexjfisher](https://github.com/alexjfisher))
+  - Treat keys file content as Sensitive [\#54|(https://github.com/aboe76/puppet-chrony/pull/54) ([alexjfisher](https://github.com/alexjfisher))
+  - Support custom package source and provider [\#53|(https://github.com/aboe76/puppet-chrony/pull/53) ([JannikJ](https://github.com/JannikJ))
+  - Doc update [\#52|(https://github.com/aboe76/puppet-chrony/pull/52) ([przemas75](https://github.com/przemas75))
+  - skew second [\#51|(https://github.com/aboe76/puppet-chrony/pull/51) ([przemas75](https://github.com/przemas75))
+
 ## [v0.3.1](https://forge.puppet.com/v3/files/aboe-chrony-0.3.1.tar.gz) (2019-10-12)
 
   **Merged pull requests:**
 
-- cmdport parameter [\#50|(https://github.com/aboe76/puppet-chrony/pull/50) ([przemas75](https://github.com/przemas75))
+  - cmdport parameter [\#50|(https://github.com/aboe76/puppet-chrony/pull/50) ([przemas75](https://github.com/przemas75))
 
 ## [v0.3.0](https://forge.puppet.com/v3/files/aboe-chrony-0.3.0.tar.gz) (2019-08-05)
 
