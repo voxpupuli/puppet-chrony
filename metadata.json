@@ -46,7 +46,7 @@
       "version_requirement": ">= 5.5.8 < 7.0.0"
     }
   ],
-  "pdk-version": "1.14.0",
-  "template-url": "pdk-default#1.14.0",
-  "template-ref": "1.14.0-0-g1bf3a4e"
+  "pdk-version": "1.15.0",
+  "template-url": "pdk-default#1.15.0",
+  "template-ref": "tags/1.15.0-0-g0bc522e"
 }
