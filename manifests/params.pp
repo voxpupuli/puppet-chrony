@@ -2,32 +2,6 @@
 #
 # @api private
 class chrony::params {
-  $commandkey         = 0
-  $keys               = []
-  $log_options        = undef
-  $package_ensure     = 'present'
-  $package_provider   = undef
-  $package_source     = undef
-  $refclocks          = []
-  $peers              = []
-  $service_enable     = true
-  $service_ensure     = 'running'
-  $service_manage     = true
-  $chrony_password    = 'xyzzy'
-  $queryhosts         = []
-  $local_stratum      = 10
-  $port               = 0
-  $config_keys_manage = true
-  $mailonchange       = undef
-  $threshold          = 0.5
-  $lock_all           = false
-  $clientloglimit     = undef
-  $cmdport            = undef
-  $smoothtime         = undef
-  $leapsecmode        = undef
-  $maxslewrate        = undef
-  $stratumweight      = undef
-
   case $::osfamily {
     'Archlinux' : {
       $cmdacl            = ['cmdallow 127.0.0.1']
@@ -67,17 +41,4 @@ class chrony::params {
       fail("The ${module_name} module is not supported on an ${::osfamily} based system.")
     }
   }
-
-  $config_keys_template = 'chrony/chrony.keys.erb'
-  $package_name         = 'chrony'
-  $servers              = {
-    '0.pool.ntp.org' => ['iburst'],
-    '1.pool.ntp.org' => ['iburst'],
-    '2.pool.ntp.org' => ['iburst'],
-    '3.pool.ntp.org' => ['iburst'],
-  }
-  $pools                = {}
-  $makestep_seconds = 10
-  $makestep_updates = 3
-  $bindcmdaddress = ['127.0.0.1', '::1']
 }
