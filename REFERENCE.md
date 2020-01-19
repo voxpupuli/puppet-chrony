@@ -110,9 +110,9 @@ The following parameters are available in the `chrony` class.
 
 Data type: `Array[String]`
 
-Array of addresses of interfaces on which chronyd will listen for monitoring command packets (defaults to localhost).
+Array of addresses of interfaces on which chronyd will listen for monitoring command packets.
 
-Default value: $chrony::params::bindcmdaddress
+Default value: ['127.0.0.1', '::1']
 
 ##### `cmdacl`
 
@@ -133,7 +133,7 @@ Data type: `Any`
 The cmdport directive allows the port that is used for run-time monitoring (via the chronyc program)
 to be altered from its default (323).
 
-Default value: $chrony::params::cmdport
+Default value: `undef`
 
 ##### `commandkey`
 
@@ -141,7 +141,7 @@ Data type: `Any`
 
 This sets the key ID used by chronyc to authenticate to chronyd.
 
-Default value: $chrony::params::commandkey
+Default value: 0
 
 ##### `chrony_password`
 
@@ -151,7 +151,7 @@ This sets the chrony password to be used in the key file.
 By default a short fixed string is used. If set explicitly to
 'unset' then no password will be added to the keys file by puppet.
 
-Default value: $chrony::params::chrony_password
+Default value: 'xyzzy'
 
 ##### `config`
 
@@ -183,7 +183,7 @@ Data type: `Any`
 
 This determines which template puppet should use for the chrony key file.
 
-Default value: $chrony::params::config_keys_template
+Default value: 'chrony/chrony.keys.erb'
 
 ##### `config_keys_owner`
 
@@ -215,16 +215,16 @@ Data type: `Any`
 
 An array of key lines.  These are printed as-is into the chrony key file.
 
-Default value: $chrony::params::keys
+Default value: []
 
 ##### `local_stratum`
 
 Data type: `Any`
 
 Override the stratum of the server which will be reported to clients
-when the local reference is active. Defaults to 10.
+when the local reference is active.
 
-Default value: $chrony::params::local_stratum
+Default value: 10
 
 ##### `stratumweight`
 
@@ -234,7 +234,7 @@ Sets how much distance should be added per stratum to the synchronisation distan
 selects the synchronisation source from available sources.
 When not set, chronyd's default will be used, which since version 2.0 of chrony, is 0.001 seconds.
 
-Default value: $chrony::params::stratumweight
+Default value: `undef`
 
 ##### `log_options`
 
@@ -242,7 +242,7 @@ Data type: `Any`
 
 Specify which information is to be logged.
 
-Default value: $chrony::params::log_options
+Default value: `undef`
 
 ##### `package_ensure`
 
@@ -251,7 +251,7 @@ Data type: `Any`
 This can be set to 'present' or 'latest' or a specific version to choose the
 chrony package to be installed.
 
-Default value: $chrony::params::package_ensure
+Default value: 'present'
 
 ##### `package_name`
 
@@ -259,7 +259,7 @@ Data type: `Any`
 
 This determines the name of the package to install.
 
-Default value: $chrony::params::package_name
+Default value: 'chrony'
 
 ##### `peers`
 
@@ -268,7 +268,7 @@ Data type: `Any`
 This selects the servers to use for NTP peers (symmetric association).
 It is an array of servers.
 
-Default value: $chrony::params::peers
+Default value: []
 
 ##### `servers`
 
@@ -277,7 +277,12 @@ Data type: `Any`
 This selects the servers to use for NTP servers.  It can be an array of servers
 or a hash of servers to their respective options.
 
-Default value: $chrony::params::servers
+Default value: {
+    '0.pool.ntp.org' => ['iburst'],
+    '1.pool.ntp.org' => ['iburst'],
+    '2.pool.ntp.org' => ['iburst'],
+    '3.pool.ntp.org' => ['iburst'],
+  }
 
 ##### `refclocks`
 
@@ -294,7 +299,7 @@ refclocks => { 'PPS' => [ '/dev/pps0 lock NMEA refid GPS',
                'SHM' => '0 offset 0.5 delay 0.2 refid NMEA noselect' }
 ```
 
-Default value: $chrony::params::refclocks
+Default value: []
 
 ##### `makestep_seconds`
 
@@ -303,9 +308,9 @@ Data type: `Numeric`
 Configures the [`makestep`](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#makestep) `threshold`.
 Normally chronyd will cause the system to gradually correct any time offset, by slowing down or speeding up the clock as required.
 If the adjustment is larger than `makestep_seconds`, chronyd will step the clock.
-Also see [`makestep_updates`](#makestep_updates). (Defaults to 10).
+Also see [`makestep_updates`](#makestep_updates).
 
-Default value: $chrony::params::makestep_seconds
+Default value: 10
 
 ##### `makestep_updates`
 
@@ -314,9 +319,9 @@ Data type: `Integer`
 Configures the [`makestep`](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#makestep) `limit`.
 Chronyd will step the time only if there have been no more than `makestep_updates` clock updates.
 Set to a negative value to disable the limit (useful for virtual machines and laptops that may get suspended for a prolonged time).
-Also see [`makestep_seconds`](#makestep_seconds). (Defaults to 3).
+Also see [`makestep_seconds`](#makestep_seconds).
 
-Default value: $chrony::params::makestep_updates
+Default value: 3
 
 ##### `queryhosts`
 
@@ -325,7 +330,7 @@ Data type: `Any`
 This adds the networks, hosts that are allowed to query the daemon.
 Note that `port` needs to be set for this to work.
 
-Default value: $chrony::params::queryhosts
+Default value: []
 
 ##### `port`
 
@@ -334,7 +339,7 @@ Data type: `Any`
 Port the service should listen on, to be used in combination with `queryhosts`.
 Module default is `0` to prevent accidental activation of server mode.
 
-Default value: $chrony::params::port
+Default value: 0
 
 ##### `service_enable`
 
@@ -342,7 +347,7 @@ Data type: `Any`
 
 This determines if the service should be enabled at boot.
 
-Default value: $chrony::params::service_enable
+Default value: `true`
 
 ##### `service_ensure`
 
@@ -350,7 +355,7 @@ Data type: `Any`
 
 This determines if the service should be running or not.
 
-Default value: $chrony::params::service_ensure
+Default value: 'running'
 
 ##### `service_manage`
 
@@ -358,7 +363,7 @@ Data type: `Any`
 
 This selects if puppet should manage the service in the first place.
 
-Default value: $chrony::params::service_manage
+Default value: `true`
 
 ##### `service_name`
 
@@ -374,7 +379,7 @@ Data type: `Optional[String]`
 
 Specify the smoothing of the time parameter as a string, for example `smoothtime 50000 0.01`.
 
-Default value: $chrony::params::smoothtime
+Default value: `undef`
 
 ##### `mailonchange`
 
@@ -382,7 +387,7 @@ Data type: `Any`
 
 Specify the mail you wanna alert when chronyd executes a sync grater than the `threshold`.
 
-Default value: $chrony::params::mailonchange
+Default value: `undef`
 
 ##### `threshold`
 
@@ -390,7 +395,7 @@ Data type: `Float`
 
 Specify the time limit for triggering events.
 
-Default value: $chrony::params::threshold
+Default value: 0.5
 
 ##### `lock_all`
 
@@ -398,7 +403,7 @@ Data type: `Boolean`
 
 Force chrony to only use RAM & prevent swapping.
 
-Default value: $chrony::params::lock_all
+Default value: `false`
 
 ##### `leapsecmode`
 
@@ -406,7 +411,7 @@ Data type: `Optional[Enum['system', 'step', 'slew', 'ignore']]`
 
 Configures how to insert the leap second mode.
 
-Default value: $chrony::params::leapsecmode
+Default value: `undef`
 
 ##### `maxslewrate`
 
@@ -414,7 +419,7 @@ Data type: `Optional[Float]`
 
 Maximum rate for chronyd to slew the time. Only float type values possible, for example: `maxslewrate 1000.0`.
 
-Default value: $chrony::params::maxslewrate
+Default value: `undef`
 
 ##### `config_keys_manage`
 
@@ -422,7 +427,7 @@ Data type: `Any`
 
 
 
-Default value: $chrony::params::config_keys_manage
+Default value: `true`
 
 ##### `package_source`
 
@@ -430,7 +435,7 @@ Data type: `Optional[String]`
 
 
 
-Default value: $chrony::params::package_source
+Default value: `undef`
 
 ##### `package_provider`
 
@@ -438,7 +443,7 @@ Data type: `Optional[String]`
 
 
 
-Default value: $chrony::params::package_provider
+Default value: `undef`
 
 ##### `pools`
 
@@ -446,7 +451,7 @@ Data type: `Any`
 
 
 
-Default value: $chrony::params::pools
+Default value: {}
 
 ##### `clientlog`
 
@@ -462,5 +467,5 @@ Data type: `Optional[Integer]`
 
 
 
-Default value: $chrony::params::clientloglimit
+Default value: `undef`
 

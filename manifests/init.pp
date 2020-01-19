@@ -47,7 +47,7 @@
 # @see https://chrony.tuxfamily.org
 #
 # @param bindcmdaddress
-#   Array of addresses of interfaces on which chronyd will listen for monitoring command packets (defaults to localhost).
+#   Array of addresses of interfaces on which chronyd will listen for monitoring command packets.
 # @param cmdacl
 #   An array of ACLs for monitoring access. This expects a list of directives, for
 #   example: `['cmdallow 1.2.3.4', 'cmddeny 1.2.3']`. The order will be respected at
@@ -81,7 +81,7 @@
 #   An array of key lines.  These are printed as-is into the chrony key file.
 # @param local_stratum
 #   Override the stratum of the server which will be reported to clients
-#   when the local reference is active. Defaults to 10.
+#   when the local reference is active.
 # @param stratumweight
 #   Sets how much distance should be added per stratum to the synchronisation distance when chronyd
 #   selects the synchronisation source from available sources.
@@ -114,12 +114,12 @@
 #   Configures the [`makestep`](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#makestep) `threshold`.
 #   Normally chronyd will cause the system to gradually correct any time offset, by slowing down or speeding up the clock as required.
 #   If the adjustment is larger than `makestep_seconds`, chronyd will step the clock.
-#   Also see [`makestep_updates`](#makestep_updates). (Defaults to 10).
+#   Also see [`makestep_updates`](#makestep_updates).
 # @param makestep_updates
 #   Configures the [`makestep`](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#makestep) `limit`.
 #   Chronyd will step the time only if there have been no more than `makestep_updates` clock updates.
 #   Set to a negative value to disable the limit (useful for virtual machines and laptops that may get suspended for a prolonged time).
-#   Also see [`makestep_seconds`](#makestep_seconds). (Defaults to 3).
+#   Also see [`makestep_seconds`](#makestep_seconds).
 # @param queryhosts
 #   This adds the networks, hosts that are allowed to query the daemon.
 #   Note that `port` needs to be set for this to work.
@@ -147,47 +147,52 @@
 # @param maxslewrate
 #   Maximum rate for chronyd to slew the time. Only float type values possible, for example: `maxslewrate 1000.0`.
 class chrony (
-  Array[String] $bindcmdaddress                                    = $chrony::params::bindcmdaddress,
+  Array[String] $bindcmdaddress                                    = ['127.0.0.1', '::1'],
   Array[String] $cmdacl                                            = $chrony::params::cmdacl,
-  $cmdport                                                         = $chrony::params::cmdport,
-  $commandkey                                                      = $chrony::params::commandkey,
+  $cmdport                                                         = undef,
+  $commandkey                                                      = 0,
   $config                                                          = $chrony::params::config,
   $config_template                                                 = $chrony::params::config_template,
   $config_keys                                                     = $chrony::params::config_keys,
-  $config_keys_template                                            = $chrony::params::config_keys_template,
-  $chrony_password                                                 = $chrony::params::chrony_password,
+  $config_keys_template                                            = 'chrony/chrony.keys.erb',
+  $chrony_password                                                 = 'xyzzy',
   $config_keys_owner                                               = $chrony::params::config_keys_owner,
   $config_keys_group                                               = $chrony::params::config_keys_group,
   $config_keys_mode                                                = $chrony::params::config_keys_mode,
-  $config_keys_manage                                              = $chrony::params::config_keys_manage,
-  $keys                                                            = $chrony::params::keys,
-  $local_stratum                                                   = $chrony::params::local_stratum,
-  $log_options                                                     = $chrony::params::log_options,
-  $package_ensure                                                  = $chrony::params::package_ensure,
-  $package_name                                                    = $chrony::params::package_name,
-  Optional[String] $package_source                                 = $chrony::params::package_source,
-  Optional[String] $package_provider                               = $chrony::params::package_provider,
-  $refclocks                                                       = $chrony::params::refclocks,
-  $peers                                                           = $chrony::params::peers,
-  $servers                                                         = $chrony::params::servers,
-  $pools                                                           = $chrony::params::pools,
-  Numeric $makestep_seconds                                        = $chrony::params::makestep_seconds,
-  Integer $makestep_updates                                        = $chrony::params::makestep_updates,
-  $queryhosts                                                      = $chrony::params::queryhosts,
-  $mailonchange                                                    = $chrony::params::mailonchange,
-  Float $threshold                                                 = $chrony::params::threshold,
-  Boolean $lock_all                                                = $chrony::params::lock_all,
-  $port                                                            = $chrony::params::port,
+  $config_keys_manage                                              = true,
+  $keys                                                            = [],
+  $local_stratum                                                   = 10,
+  $log_options                                                     = undef,
+  $package_ensure                                                  = 'present',
+  $package_name                                                    = 'chrony',
+  Optional[String] $package_source                                 = undef,
+  Optional[String] $package_provider                               = undef,
+  $refclocks                                                       = [],
+  $peers                                                           = [],
+  $servers                                                         = {
+    '0.pool.ntp.org' => ['iburst'],
+    '1.pool.ntp.org' => ['iburst'],
+    '2.pool.ntp.org' => ['iburst'],
+    '3.pool.ntp.org' => ['iburst'],
+  },
+  $pools                                                           = {},
+  Numeric $makestep_seconds                                        = 10,
+  Integer $makestep_updates                                        = 3,
+  $queryhosts                                                      = [],
+  $mailonchange                                                    = undef,
+  Float $threshold                                                 = 0.5,
+  Boolean $lock_all                                                = false,
+  $port                                                            = 0,
   Boolean $clientlog                                               = $chrony::params::clientlog,
-  Optional[Integer] $clientloglimit                                = $chrony::params::clientloglimit,
-  $service_enable                                                  = $chrony::params::service_enable,
-  $service_ensure                                                  = $chrony::params::service_ensure,
-  $service_manage                                                  = $chrony::params::service_manage,
+  Optional[Integer] $clientloglimit                                = undef,
+  $service_enable                                                  = true,
+  $service_ensure                                                  = 'running',
+  $service_manage                                                  = true,
   $service_name                                                    = $chrony::params::service_name,
-  Optional[String] $smoothtime                                     = $chrony::params::smoothtime,
-  Optional[Enum['system', 'step', 'slew', 'ignore']] $leapsecmode  = $chrony::params::leapsecmode,
-  Optional[Float] $maxslewrate                                     = $chrony::params::maxslewrate,
-  Optional[Numeric] $stratumweight                                 = $chrony::params::stratumweight,
+  Optional[String] $smoothtime                                     = undef,
+  Optional[Enum['system', 'step', 'slew', 'ignore']] $leapsecmode  = undef,
+  Optional[Float] $maxslewrate                                     = undef,
+  Optional[Numeric] $stratumweight                                 = undef,
 ) inherits chrony::params {
 
   if ! $config_keys_manage and $chrony_password != 'unset'  {
