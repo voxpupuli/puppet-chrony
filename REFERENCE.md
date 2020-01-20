@@ -128,7 +128,7 @@ Default value: $chrony::params::cmdacl
 
 ##### `cmdport`
 
-Data type: `Any`
+Data type: `Optional[Stdlib::Port]`
 
 The cmdport directive allows the port that is used for run-time monitoring (via the chronyc program)
 to be altered from its default (323).
@@ -145,7 +145,7 @@ Default value: 0
 
 ##### `chrony_password`
 
-Data type: `Any`
+Data type: `String[1]`
 
 This sets the chrony password to be used in the key file.
 By default a short fixed string is used. If set explicitly to
@@ -155,7 +155,7 @@ Default value: 'xyzzy'
 
 ##### `config`
 
-Data type: `Any`
+Data type: `Stdlib::Unixpath`
 
 This sets the file to write chrony configuration into.
 
@@ -163,7 +163,7 @@ Default value: $chrony::params::config
 
 ##### `config_template`
 
-Data type: `Any`
+Data type: `String[1]`
 
 This determines which template puppet should use for the chrony configuration.
 
@@ -171,15 +171,23 @@ Default value: $chrony::params::config_template
 
 ##### `config_keys`
 
-Data type: `Any`
+Data type: `Stdlib::Unixpath`
 
 This sets the file to write chrony keys into.
 
 Default value: $chrony::params::config_keys
 
+##### `config_keys_manage`
+
+Data type: `Boolean`
+
+Determines whether puppet will manage the content of the keys file after it has been created for the first time.
+
+Default value: `true`
+
 ##### `config_keys_template`
 
-Data type: `Any`
+Data type: `String[1]`
 
 This determines which template puppet should use for the chrony key file.
 
@@ -187,7 +195,7 @@ Default value: 'chrony/chrony.keys.erb'
 
 ##### `config_keys_owner`
 
-Data type: `Any`
+Data type: `Variant[Integer[0],String[1]]`
 
 Specify unix owner of chrony keys file, defaults to 0.
 
@@ -195,7 +203,7 @@ Default value: $chrony::params::config_keys_owner
 
 ##### `config_keys_group`
 
-Data type: `Any`
+Data type: `Variant[Integer[0],String[1]]`
 
 Specify unix group of chrony keys files, defaults to 0 on ArchLinux and chrony on Redhat.
 
@@ -203,7 +211,7 @@ Default value: $chrony::params::config_keys_group
 
 ##### `config_keys_mode`
 
-Data type: `Any`
+Data type: `Stdlib::Filemode`
 
 Specify unix mode of chrony keys files, defaults to 0644 on ArchLinux and 0640 on Redhat.
 
@@ -211,7 +219,7 @@ Default value: $chrony::params::config_keys_mode
 
 ##### `keys`
 
-Data type: `Any`
+Data type: `Array[String[1]]`
 
 An array of key lines.  These are printed as-is into the chrony key file.
 
@@ -219,7 +227,7 @@ Default value: []
 
 ##### `local_stratum`
 
-Data type: `Any`
+Data type: `Integer[1,15]`
 
 Override the stratum of the server which will be reported to clients
 when the local reference is active.
@@ -238,7 +246,7 @@ Default value: `undef`
 
 ##### `log_options`
 
-Data type: `Any`
+Data type: `Optional[String[1]]`
 
 Specify which information is to be logged.
 
@@ -246,7 +254,7 @@ Default value: `undef`
 
 ##### `package_ensure`
 
-Data type: `Any`
+Data type: `String[1]`
 
 This can be set to 'present' or 'latest' or a specific version to choose the
 chrony package to be installed.
@@ -255,11 +263,29 @@ Default value: 'present'
 
 ##### `package_name`
 
-Data type: `Any`
+Data type: `String[1]`
 
 This determines the name of the package to install.
 
 Default value: 'chrony'
+
+##### `package_source`
+
+Data type: `Optional[String]`
+
+Source for the package when not wanting to install from a package repository.  This is required if
+[`package_provider`](#package_provider) is set to `rpm` or `dpkg`.
+
+Default value: `undef`
+
+##### `package_provider`
+
+Data type: `Optional[String]`
+
+Override the default package provider with a specific backend to use when installing the chrony package.
+Also see [`package_source`](#package_source).
+
+Default value: `undef`
 
 ##### `peers`
 
@@ -272,7 +298,7 @@ Default value: []
 
 ##### `servers`
 
-Data type: `Any`
+Data type: `Variant[Hash,Array[Stdlib::Host]]`
 
 This selects the servers to use for NTP servers.  It can be an array of servers
 or a hash of servers to their respective options.
@@ -283,6 +309,16 @@ Default value: {
     '2.pool.ntp.org' => ['iburst'],
     '3.pool.ntp.org' => ['iburst'],
   }
+
+##### `pools`
+
+Data type: `Variant[Hash,Array[Stdlib::Fqdn]]`
+
+This is used to specify one or more *pools* of NTP servers to use instead of individual NTP servers.
+Similar to [`server`](#server), it can be an array of pools or a hash of pools to their respective options.
+See [pool](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#pool)
+
+Default value: {}
 
 ##### `refclocks`
 
@@ -334,7 +370,7 @@ Default value: []
 
 ##### `port`
 
-Data type: `Any`
+Data type: `Stdlib::Port`
 
 Port the service should listen on, to be used in combination with `queryhosts`.
 Module default is `0` to prevent accidental activation of server mode.
@@ -343,7 +379,7 @@ Default value: 0
 
 ##### `service_enable`
 
-Data type: `Any`
+Data type: `Boolean`
 
 This determines if the service should be enabled at boot.
 
@@ -351,7 +387,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `Any`
+Data type: `Stdlib::Ensure::Service`
 
 This determines if the service should be running or not.
 
@@ -359,7 +395,7 @@ Default value: 'running'
 
 ##### `service_manage`
 
-Data type: `Any`
+Data type: `Boolean`
 
 This selects if puppet should manage the service in the first place.
 
@@ -367,7 +403,7 @@ Default value: `true`
 
 ##### `service_name`
 
-Data type: `Any`
+Data type: `String[1]`
 
 This selects the name of the chrony service for puppet to manage.
 
@@ -383,7 +419,7 @@ Default value: `undef`
 
 ##### `mailonchange`
 
-Data type: `Any`
+Data type: `Optional[String[1]]`
 
 Specify the mail you wanna alert when chronyd executes a sync grater than the `threshold`.
 
@@ -421,43 +457,11 @@ Maximum rate for chronyd to slew the time. Only float type values possible, for 
 
 Default value: `undef`
 
-##### `config_keys_manage`
-
-Data type: `Any`
-
-
-
-Default value: `true`
-
-##### `package_source`
-
-Data type: `Optional[String]`
-
-
-
-Default value: `undef`
-
-##### `package_provider`
-
-Data type: `Optional[String]`
-
-
-
-Default value: `undef`
-
-##### `pools`
-
-Data type: `Any`
-
-
-
-Default value: {}
-
 ##### `clientlog`
 
 Data type: `Boolean`
 
-
+Determines whether to log client accesses.
 
 Default value: $chrony::params::clientlog
 
@@ -465,7 +469,9 @@ Default value: $chrony::params::clientlog
 
 Data type: `Optional[Integer]`
 
-
+When set, specifies the maximum amount of memory in bytes that chronyd is allowed to allocate for logging of client accesses.
+If not set, chrony's, default will be used. In modern versions this is 524288 bytes.  Older versions defaulted to have no limit.
+See [clientloglimit](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#clientloglimit)
 
 Default value: `undef`
 
