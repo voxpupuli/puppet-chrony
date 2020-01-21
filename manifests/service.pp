@@ -11,7 +11,7 @@ class chrony::service (
     fail('service_ensure parameter must be running or stopped')
   }
 
-  if $service_manage == true {
+  if $service_manage {
     service { $service_name:
       ensure     => $service_ensure,
       enable     => $service_enable,

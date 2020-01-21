@@ -69,6 +69,8 @@
 #   This determines which template puppet should use for the chrony configuration.
 # @param config_keys
 #   This sets the file to write chrony keys into.
+# @param config_keys_manage
+#   Determines whether puppet will manage the content of the keys file after it has been created for the first time.
 # @param config_keys_template
 #   This determines which template puppet should use for the chrony key file.
 # @param config_keys_owner
@@ -93,12 +95,22 @@
 #   chrony package to be installed.
 # @param package_name
 #   This determines the name of the package to install.
+# @param package_source
+#   Source for the package when not wanting to install from a package repository.  This is required if
+#   [`package_provider`](#package_provider) is set to `rpm` or `dpkg`.
+# @param package_provider
+#   Override the default package provider with a specific backend to use when installing the chrony package.
+#   Also see [`package_source`](#package_source).
 # @param peers
 #   This selects the servers to use for NTP peers (symmetric association).
 #   It is an array of servers.
 # @param servers
 #   This selects the servers to use for NTP servers.  It can be an array of servers
 #   or a hash of servers to their respective options.
+# @param pools
+#   This is used to specify one or more *pools* of NTP servers to use instead of individual NTP servers.
+#   Similar to [`server`](#server), it can be an array of pools or a hash of pools to their respective options.
+#   See [pool](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#pool)
 # @param refclocks
 #   This should be a Hash of hardware reference clock drivers to use.  They hash
 #   can either list a single list of options for the driver, or any array of
@@ -146,49 +158,55 @@
 #   Configures how to insert the leap second mode.
 # @param maxslewrate
 #   Maximum rate for chronyd to slew the time. Only float type values possible, for example: `maxslewrate 1000.0`.
+# @param clientlog
+#   Determines whether to log client accesses.
+# @param clientloglimit
+#   When set, specifies the maximum amount of memory in bytes that chronyd is allowed to allocate for logging of client accesses.
+#   If not set, chrony's, default will be used. In modern versions this is 524288 bytes.  Older versions defaulted to have no limit.
+#   See [clientloglimit](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#clientloglimit)
 class chrony (
   Array[String] $bindcmdaddress                                    = ['127.0.0.1', '::1'],
   Array[String] $cmdacl                                            = $chrony::params::cmdacl,
-  $cmdport                                                         = undef,
+  Optional[Stdlib::Port] $cmdport                                  = undef,
   $commandkey                                                      = 0,
-  $config                                                          = $chrony::params::config,
-  $config_template                                                 = $chrony::params::config_template,
-  $config_keys                                                     = $chrony::params::config_keys,
-  $config_keys_template                                            = 'chrony/chrony.keys.erb',
-  $chrony_password                                                 = 'xyzzy',
-  $config_keys_owner                                               = $chrony::params::config_keys_owner,
-  $config_keys_group                                               = $chrony::params::config_keys_group,
-  $config_keys_mode                                                = $chrony::params::config_keys_mode,
-  $config_keys_manage                                              = true,
-  $keys                                                            = [],
-  $local_stratum                                                   = 10,
-  $log_options                                                     = undef,
-  $package_ensure                                                  = 'present',
-  $package_name                                                    = 'chrony',
+  Stdlib::Unixpath $config                                         = $chrony::params::config,
+  String[1] $config_template                                       = $chrony::params::config_template,
+  Stdlib::Unixpath $config_keys                                    = $chrony::params::config_keys,
+  String[1] $config_keys_template                                  = 'chrony/chrony.keys.erb',
+  String[1] $chrony_password                                       = 'xyzzy',
+  Variant[Integer[0],String[1]] $config_keys_owner                 = $chrony::params::config_keys_owner,
+  Variant[Integer[0],String[1]] $config_keys_group                 = $chrony::params::config_keys_group,
+  Stdlib::Filemode $config_keys_mode                               = $chrony::params::config_keys_mode,
+  Boolean $config_keys_manage                                      = true,
+  Array[String[1]] $keys                                           = [],
+  Integer[1,15] $local_stratum                                     = 10,
+  Optional[String[1]] $log_options                                 = undef,
+  String[1] $package_ensure                                        = 'present',
+  String[1] $package_name                                          = 'chrony',
   Optional[String] $package_source                                 = undef,
   Optional[String] $package_provider                               = undef,
   $refclocks                                                       = [],
   $peers                                                           = [],
-  $servers                                                         = {
+  Variant[Hash,Array[Stdlib::Host]] $servers                       = {
     '0.pool.ntp.org' => ['iburst'],
     '1.pool.ntp.org' => ['iburst'],
     '2.pool.ntp.org' => ['iburst'],
     '3.pool.ntp.org' => ['iburst'],
   },
-  $pools                                                           = {},
+  Variant[Hash,Array[Stdlib::Fqdn]] $pools                         = {},
   Numeric $makestep_seconds                                        = 10,
   Integer $makestep_updates                                        = 3,
   $queryhosts                                                      = [],
-  $mailonchange                                                    = undef,
+  Optional[String[1]] $mailonchange                                = undef,
   Float $threshold                                                 = 0.5,
   Boolean $lock_all                                                = false,
-  $port                                                            = 0,
+  Stdlib::Port $port                                               = 0,
   Boolean $clientlog                                               = $chrony::params::clientlog,
   Optional[Integer] $clientloglimit                                = undef,
-  $service_enable                                                  = true,
-  $service_ensure                                                  = 'running',
-  $service_manage                                                  = true,
-  $service_name                                                    = $chrony::params::service_name,
+  Boolean $service_enable                                          = true,
+  Stdlib::Ensure::Service $service_ensure                          = 'running',
+  Boolean $service_manage                                          = true,
+  String[1] $service_name                                          = $chrony::params::service_name,
   Optional[String] $smoothtime                                     = undef,
   Optional[Enum['system', 'step', 'slew', 'ignore']] $leapsecmode  = undef,
   Optional[Float] $maxslewrate                                     = undef,
