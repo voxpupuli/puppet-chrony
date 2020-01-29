@@ -156,6 +156,8 @@
 #   Force chrony to only use RAM & prevent swapping.
 # @param leapsecmode
 #   Configures how to insert the leap second mode.
+# @param leapsectz
+#   Specifies a timezone that chronyd can use to determine the offset between UTC and TAI.
 # @param maxslewrate
 #   Maximum rate for chronyd to slew the time. Only float type values possible, for example: `maxslewrate 1000.0`.
 # @param clientlog
@@ -209,6 +211,7 @@ class chrony (
   String[1] $service_name                                          = $chrony::params::service_name,
   Optional[String] $smoothtime                                     = undef,
   Optional[Enum['system', 'step', 'slew', 'ignore']] $leapsecmode  = undef,
+  Optional[String] $leapsectz                                      = undef,
   Optional[Float] $maxslewrate                                     = undef,
   Optional[Numeric] $stratumweight                                 = undef,
 ) inherits chrony::params {
