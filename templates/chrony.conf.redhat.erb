@@ -107,6 +107,11 @@ lock_all
 leapsecmode <%= @leapsecmode %>
 <% end -%>
 
+# https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#leapsectz
+<% if defined?(@leapsectz) %>
+leapsectz <%= @leapsectz %>
+<% end -%>
+
 # https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#maxslewrate
 <% if defined?(@maxslewrate) %>
 maxslewrate <%= @maxslewrate %>

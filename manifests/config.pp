@@ -26,6 +26,7 @@ class chrony::config (
   $pools                = $chrony::pools,
   $port                 = $chrony::port,
   $leapsecmode          = $chrony::leapsecmode,
+  $leapsectz            = $chrony::leapsectz,
   $maxslewrate          = $chrony::maxslewrate,
   $smoothtime           = $chrony::smoothtime,
   $stratumweight        = $chrony::stratumweight,
