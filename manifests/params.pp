@@ -13,6 +13,7 @@ class chrony::params {
       $config_keys_mode  = '0644'
       $service_name      = 'chrony'
       $clientlog         = true
+      $rtconutc          = true
     }
     'Suse', 'RedHat' : {
       $cmdacl            = []
@@ -24,6 +25,7 @@ class chrony::params {
       $config_keys_mode  = '0640'
       $service_name      = 'chronyd'
       $clientlog         = false
+      $rtconutc          = false
     }
     'Debian' : {
       $cmdacl            = []
@@ -35,6 +37,7 @@ class chrony::params {
       $config_keys_mode  = '0640'
       $service_name      = 'chrony'
       $clientlog         = false
+      $rtconutc          = false
     }
 
     default     : {

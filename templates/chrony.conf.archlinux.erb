@@ -317,7 +317,9 @@ rtcfile /etc/chrony.rtc
 # that will work better if your RTC maintains local time.  You take your
 # pick!
 
+<% if defined?(@rtconutc) %>
 rtconutc
+<% end -%>
 
 # By default chronyd assumes that the enhanced RTC device is accessed as
 # /dev/rtc.  If it's accessed somewhere else on your system (e.g. you're

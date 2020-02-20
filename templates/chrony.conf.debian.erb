@@ -121,3 +121,8 @@ maxslewrate <%= @maxslewrate %>
 <% if defined?(@smoothtime) %>
 smoothtime <%= @smoothtime %>
 <% end -%>
+
+# https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#rtconutc
+<% if defined?(@rtconutc) %>
+rtconutc
+<% end -%>
