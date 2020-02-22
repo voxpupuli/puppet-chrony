@@ -1,12 +1,12 @@
 {
-  "name": "aboe-chrony",
-  "version": "0.3.2",
-  "author": "aboe",
+  "name": "puppet-chrony",
+  "version": "0.4.0-rc0",
+  "author": "Vox Pupuli",
   "summary": "Manage chrony daemon on Linux",
   "license": "Apache-2.0",
-  "source": "git://github.com/aboe76/puppet-chrony.git",
-  "project_page": "https://github.com/aboe76/puppet-chrony",
-  "issues_url": "https://github.com/aboe76/puppet-chrony/issues",
+  "source": "git://github.com/voxpupuli/puppet-chrony.git",
+  "project_page": "https://github.com/voxpupuli/puppet-chrony",
+  "issues_url": "https://github.com/voxpupuli/puppet-chrony/issues",
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",

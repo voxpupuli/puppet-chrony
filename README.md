@@ -1,11 +1,11 @@
 # puppet-chrony
 
-[![License](https://img.shields.io/github/license/aboe76/puppet-chrony.svg)](https://github.com/aboe76/puppet-chrony/blob/master/LICENSE)
-[![Build Status](https://secure.travis-ci.org/aboe76/puppet-chrony.png?branch=master)](http://travis-ci.org/aboe76/puppet-chrony)
-[![pdk version](https://img.shields.io/puppetforge/pdk-version/aboe/chrony.svg?style=flat)](https://forge.puppetlabs.com/aboe/chrony)
-[![Puppet Forge](https://img.shields.io/puppetforge/v/aboe/chrony.svg?style=flat)](https://forge.puppetlabs.com/aboe/chrony)
-[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/aboe/chrony.svg?style=flat)](https://forge.puppetlabs.com/aboe/chrony)
-[![Puppet Forge - scores](https://img.shields.io/puppetforge/f/aboe/chrony.svg?style=flat)](https://forge.puppetlabs.com/aboe/chrony)
+[![License](https://img.shields.io/github/license/voxpupuli/puppet-chrony.svg)](https://github.com/voxpupuli/puppet-chrony/blob/master/LICENSE)
+[![Build Status](https://secure.travis-ci.org/voxpupuli/puppet-chrony.png?branch=master)](http://travis-ci.org/voxpupuli/puppet-chrony)
+[![pdk version](https://img.shields.io/puppetforge/pdk-version/puppet/chrony.svg?style=flat)](https://forge.puppetlabs.com/puppet/chrony)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/puppet/chrony.svg?style=flat)](https://forge.puppetlabs.com/puppet/chrony)
+[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/puppet/chrony.svg?style=flat)](https://forge.puppetlabs.com/puppet/chrony)
+[![Puppet Forge - scores](https://img.shields.io/puppetforge/f/puppet/chrony.svg?style=flat)](https://forge.puppetlabs.com/puppet/chrony)
 
 ## Table of Contents
 
@@ -18,6 +18,7 @@
 4. [Usage - Configuration options and additional functionality](#usage)
 5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 5. [Limitations - OS compatibility, etc.](#limitations)
+6. [Copyright and License](#copyright-and-license)
 
 ## Overview
 
@@ -139,3 +140,10 @@ The module has been tested on:
  * Red Hat
  * Debian (9)
  * Suse 12.3
+
+## Copyright and License
+
+This module is distributed under the [Apache License 2.0](LICENSE). Copyright belongs to the module's authors, including Niels Abspoel and [others](https://github.com/voxpupuli/puppet-chrony/graphs/contributors).
+
+The module was originally written by [Niels Abspoel](https://github.com/aboe76) and released as [aboe76/chrony](https://forge.puppet.com/aboe/chrony).
+Since version 0.4.0, it is maintained by [Vox Pupuli](https://voxpupuli.org/).
