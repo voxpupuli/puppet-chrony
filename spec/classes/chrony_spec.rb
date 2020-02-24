@@ -31,6 +31,7 @@ describe 'chrony' do
             ['0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org'].each do |s|
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*server #{s} iburst$}) }
             end
+            it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*rtconutc$}) }
             it { is_expected.to contain_file('/etc/chrony.keys').with_mode('0644') }
             it { is_expected.to contain_file('/etc/chrony.keys').with_owner('0') }
             it { is_expected.to contain_file('/etc/chrony.keys').with_group('0') }
@@ -87,6 +88,7 @@ describe 'chrony' do
             leapsectz: 'right/UTC',
             maxslewrate: 1000.0,
             smoothtime: '400 0.001 leaponly',
+            rtconutc: true,
           }
         end
 
@@ -99,6 +101,7 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmdallow 1\.2\.3\.4$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmddeny 1\.2\.3$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmdallow all 1\.2$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*rtconutc$}) }
               it { is_expected.to contain_file('/etc/chrony.keys').with_mode('0123') }
               it { is_expected.to contain_file('/etc/chrony.keys').with_owner('steve') }
               it { is_expected.to contain_file('/etc/chrony.keys').with_group('mrt') }
@@ -119,6 +122,7 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmdallow 1\.2\.3\.4$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmddeny 1\.2\.3$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmdallow all 1\.2$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*rtconutc$}) }
               it { is_expected.to contain_file('/etc/chrony.keys').with_mode('0123') }
               it { is_expected.to contain_file('/etc/chrony.keys').with_owner('steve') }
               it { is_expected.to contain_file('/etc/chrony.keys').with_group('mrt') }
@@ -138,6 +142,7 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*cmdallow 1\.2\.3\.4$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*cmddeny 1\.2\.3$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*cmdallow all 1\.2$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*rtconutc$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_mode('0123') }
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_owner('steve') }
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_group('mrt') }

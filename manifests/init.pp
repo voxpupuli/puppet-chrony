@@ -166,6 +166,10 @@
 #   When set, specifies the maximum amount of memory in bytes that chronyd is allowed to allocate for logging of client accesses.
 #   If not set, chrony's, default will be used. In modern versions this is 524288 bytes.  Older versions defaulted to have no limit.
 #   See [clientloglimit](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#clientloglimit)
+# @param rtconutc
+#   Keep RTC in UTC instead of local time.
+#   If not set, chrony's, default will be used. On Arch Linux the default is true instead.
+#   See [rtconutc](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#rtconutc)
 class chrony (
   Array[String] $bindcmdaddress                                    = ['127.0.0.1', '::1'],
   Array[String] $cmdacl                                            = $chrony::params::cmdacl,
@@ -214,6 +218,7 @@ class chrony (
   Optional[String] $leapsectz                                      = undef,
   Optional[Float] $maxslewrate                                     = undef,
   Optional[Numeric] $stratumweight                                 = undef,
+  Boolean $rtconutc                                                = $chrony::params::rtconutc,
 ) inherits chrony::params {
 
   if ! $config_keys_manage and $chrony_password != 'unset'  {
