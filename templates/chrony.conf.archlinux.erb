@@ -309,6 +309,7 @@ mailonchange <%= @mailonchange %> <%= @threshold %>
 
 rtcfile /etc/chrony.rtc
 
+<% if defined?(@rtconutc) %>
 # Your RTC can be set to keep Universal Coordinated Time (UTC) or local
 # time.  (Local time means UTC +/- the effect of your timezone.)  If you
 # use UTC, chronyd will function correctly even if the computer is off
@@ -317,7 +318,6 @@ rtcfile /etc/chrony.rtc
 # that will work better if your RTC maintains local time.  You take your
 # pick!
 
-<% if defined?(@rtconutc) %>
 rtconutc
 <% end -%>
 
