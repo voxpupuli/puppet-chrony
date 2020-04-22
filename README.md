@@ -10,22 +10,21 @@
 ## Table of Contents
 
 1. [Overview](#overview)
-2. [Module Description - What the module does and why it is useful](#module-description)
-3. [Setup - The basics of getting started with chrony](#setup)
+1. [Module Description - What the module does and why it is useful](#module-description)
+1. [Setup - The basics of getting started with chrony](#setup)
     * [What chrony affects](#what-chrony-affects)
     * [Setup requirements](#setup-requirements)
     * [Beginning with chrony](#beginning-with-chrony)
-4. [Usage - Configuration options and additional functionality](#usage)
-5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
-5. [Limitations - OS compatibility, etc.](#limitations)
-6. [Copyright and License](#copyright-and-license)
+1. [Usage - Configuration options and additional functionality](#usage)
+1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
+1. [Limitations - OS compatibility, etc.](#limitations)
+1. [Copyright and License](#copyright-and-license)
 
 ## Overview
 
-#### Chrony Puppet Module
+### Chrony Puppet Module
 
 Manage chrony time daemon on Archlinux and Redhat
-
 
 ## Module Description
 
@@ -36,14 +35,14 @@ with systemd.
 
 ### What chrony affects
 
- * chrony package.
- * chrony configuration file.
- * chrony key file.
- * chrony service.
+* chrony package.
+* chrony configuration file.
+* chrony key file.
+* chrony service.
 
 ### Requirements
 
-  * Puppet 4.6.1 or later.  Puppet 3 was supported up until release 0.2.0.
+* Puppet 4.6.1 or later.  Puppet 3 was supported up until release 0.2.0.
 
 ### Beginning with chrony
 
@@ -68,7 +67,7 @@ the main chrony class.
 include '::chrony'
 ```
 
-### I just want to tweak the servers, nothing else.
+### I just want to tweak the servers, nothing else
 
 ```puppet
 class { '::chrony':
@@ -76,7 +75,8 @@ class { '::chrony':
 }
 ```
 
-### I'd like to make sure a secret password is used for chronyc:
+### I'd like to make sure a secret password is used for chronyc
+
 ```puppet
 class { '::chrony':
   servers         => [ 'ntp1.corp.com', 'ntp2.corp.com', ],
@@ -84,7 +84,8 @@ class { '::chrony':
 }
 ```
 
-### I'd like to use NTP authentication:
+### I'd like to use NTP authentication
+
 ```puppet
 class { '::chrony':
   keys            => [
@@ -97,7 +98,8 @@ class { '::chrony':
 }
 ```
 
-### I'd like chronyd to auto generate a command key at startup:
+### I'd like chronyd to auto generate a command key at startup
+
 ```puppet
 class { '::chrony':
    chrony_password    => 'unset',
@@ -106,17 +108,21 @@ class { '::chrony':
 ```
 
 ### Allow some hosts
+
 ```puppet
 class { '::chrony':
   queryhosts  => [ '192.168/16', ],
   port        => 123,
 }
 ```
+
 #### Note
+
 The parameter `port` is also set here,
 module default is `0` to ensure server mode is not activated accidentally.
 
 ### How to configure leap second
+
 ```puppet
 class { '::chrony':
   leapsecmode  => 'slew',
@@ -136,14 +142,18 @@ available in [REFERENCE.md](REFERENCE.md)
 This module has been built on and tested against Puppet 5.5 and higher.
 
 The module has been tested on:
- * Arch Linux
- * Red Hat
- * Debian (9)
- * Suse 12.3
+
+* Arch Linux
+* Red Hat
+* Debian (9)
+* Suse 12.3
 
 ## Copyright and License
 
-This module is distributed under the [Apache License 2.0](LICENSE). Copyright belongs to the module's authors, including Niels Abspoel and [others](https://github.com/voxpupuli/puppet-chrony/graphs/contributors).
+This module is distributed under the [Apache License 2.0](LICENSE). Copyright
+belongs to the module's authors, including Niels Abspoel and
+[others](https://github.com/voxpupuli/puppet-chrony/graphs/contributors).
 
-The module was originally written by [Niels Abspoel](https://github.com/aboe76) and released as [aboe76/chrony](https://forge.puppet.com/aboe/chrony).
+The module was originally written by [Niels Abspoel](https://github.com/aboe76)
+and released as [aboe76/chrony](https://forge.puppet.com/aboe/chrony).
 Since version 0.4.0, it is maintained by [Vox Pupuli](https://voxpupuli.org/).
