@@ -88,7 +88,7 @@ describe 'chrony' do
             leapsectz: 'right/UTC',
             maxslewrate: 1000.0,
             smoothtime: '400 0.001 leaponly',
-            rtconutc: true,
+            rtconutc: true
           }
         end
 
@@ -165,7 +165,7 @@ describe 'chrony' do
         context 'when set' do
           let(:params) do
             {
-              stratumweight: 0,
+              stratumweight: 0
             }
           end
 
@@ -182,7 +182,7 @@ describe 'chrony' do
         let(:params) do
           {
             config_keys_manage: false,
-            chrony_password: 'unset',
+            chrony_password: 'unset'
           }
         end
 
@@ -210,7 +210,7 @@ describe 'chrony' do
       context 'unmanaged chrony.keys file and password' do
         let(:params) do
           {
-            config_keys_manage: false,
+            config_keys_manage: false
           }
         end
 
@@ -220,7 +220,7 @@ describe 'chrony' do
       context 'queryhosts set but port left at default 0' do
         let(:params) do
           {
-            queryhosts: ['192.168/16'],
+            queryhosts: ['192.168/16']
           }
         end
 
@@ -229,7 +229,7 @@ describe 'chrony' do
 
       context 'on any other system' do
         let(:facts) do
-          { :os => { 'family' => 'UnsupportedOS' } }
+          { os: { 'family' => 'UnsupportedOS' } }
         end
 
         it { is_expected.to raise_error(%r{The chrony module is not supported on an UnsupportedOS based system\.}) }
@@ -240,7 +240,7 @@ describe 'chrony' do
           {
             service_ensure: 'running',
             service_enable: true,
-            service_manage: true,
+            service_manage: true
           }
         end
 
@@ -252,7 +252,7 @@ describe 'chrony' do
                 ensure: 'running',
                 enable: true,
                 hasstatus: true,
-                hasrestart: true,
+                hasrestart: true
               )
             end
           end
@@ -263,7 +263,7 @@ describe 'chrony' do
                 ensure: 'running',
                 enable: true,
                 hasstatus: true,
-                hasrestart: true,
+                hasrestart: true
               )
             end
           end
@@ -274,7 +274,7 @@ describe 'chrony' do
                 ensure: 'running',
                 enable: true,
                 hasstatus: true,
-                hasrestart: true,
+                hasrestart: true
               )
             end
           end
