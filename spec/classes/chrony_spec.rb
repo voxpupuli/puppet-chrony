@@ -23,7 +23,7 @@ describe 'chrony' do
       end
 
       context 'chrony::config' do
-        case facts[:osfamily]
+        case facts[:os]['family']
         when 'Archlinux'
           context 'using defaults' do
             it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*port 0$}) }
@@ -93,7 +93,7 @@ describe 'chrony' do
         end
 
         context 'chrony::config' do
-          case facts[:osfamily]
+          case facts[:os]['family']
           when 'Archinux'
             context 'with some params passed in' do
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*port 123$}) }
@@ -155,7 +155,7 @@ describe 'chrony' do
 
       describe 'stratumweight' do
         context 'by default' do
-          case facts[:osfamily]
+          case facts[:os]['family']
           when 'Archlinux', 'RedHat'
             it { is_expected.not_to contain_file('/etc/chrony.conf').with_content(%r{stratumweight}) }
           when 'Debian'
@@ -169,7 +169,7 @@ describe 'chrony' do
             }
           end
 
-          case facts[:osfamily]
+          case facts[:os]['family']
           when 'Archlinux', 'RedHat'
             it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^stratumweight 0$}) }
           when 'Debian'
@@ -187,7 +187,7 @@ describe 'chrony' do
         end
 
         context 'chrony::config' do
-          case facts[:osfamily]
+          case facts[:os]['family']
           when 'Archlinux'
             context 'unmanaged chrony.keys file' do
               it { is_expected.to contain_file('/etc/chrony.keys').with_replace(false) }
@@ -229,9 +229,7 @@ describe 'chrony' do
 
       context 'on any other system' do
         let(:facts) do
-          {
-            osfamily: 'UnsupportedOS',
-          }
+          { :os => { 'family' => 'UnsupportedOS' } }
         end
 
         it { is_expected.to raise_error(%r{The chrony module is not supported on an UnsupportedOS based system\.}) }
@@ -246,7 +244,7 @@ describe 'chrony' do
           }
         end
 
-        case facts[:osfamily]
+        case facts[:os]['family']
         when 'Archlinux'
           context 'using defaults' do
             it do
