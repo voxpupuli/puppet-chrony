@@ -1,4 +1,4 @@
-FROM ruby:2.5.3
+FROM ruby:2.5.1
 
 WORKDIR /opt/puppet
 
@@ -15,7 +15,7 @@ RUN bundle install --without system_tests development release --path=${BUNDLE_PA
 COPY . .
 
 RUN bundle install
-RUN bundle exec rake release_checks
+RUN bundle exec release_checks
 
 # Container should not saved
 RUN exit 1
