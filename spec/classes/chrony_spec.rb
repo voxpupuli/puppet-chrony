@@ -304,7 +304,7 @@ describe 'chrony' do
         when 'Archlinux'
           context 'using defaults' do
             it do
-              is_expected.to contain_service('chrony').with(
+              is_expected.to contain_service('chronyd').with(
                 ensure: 'running',
                 enable: true,
               )
