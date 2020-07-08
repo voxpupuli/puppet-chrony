@@ -1,0 +1,127 @@
+# NTP servers
+<% $chrony::servers.each |$server| { -%>
+server <%= $server.flatten.join(' ') %>
+<% } -%>
+<% $chrony::pools.each |$pool| { -%>
+pool <%= $pool.flatten.join(' ') %>
+<% } -%>
+<% $chrony::peers.each |$pool| { -%>
+pool <%= $pool.flatten.join(' ') %>
+<% } -%>
+
+<% if $chrony::stratumweight { -%>
+
+# How much distance should be added per stratum to the synchronisation distance when
+# chronyd selects the synchronisation source from available sources.
+stratumweight <%= $chrony::stratumweight %>
+<% } -%>
+
+# Record the rate at which the system clock gains/losses time.
+driftfile /var/lib/chrony/drift
+
+# Enable kernel RTC synchronization.
+rtcsync
+<% if $chrony::makestep_seconds and $chrony::makestep_updates { -%>
+
+# In first <%= $chrony::makestep_updates %> updates step the system clock instead of slew
+# if the adjustment is larger than <%= $chrony::makestep_seconds %> seconds.
+makestep <%= $chrony::makestep_seconds %> <%= $chrony::makestep_updates %>
+<% } -%>
+<% if ! $chrony::queryhosts.empty { -%>
+
+# Allow client access.
+<%   $chrony::queryhosts.each |$allowed| { -%>
+allow <%= $allowed %>
+<%   } -%>
+<% } -%>
+<% if $chrony::cmdport { -%>
+cmdport <%= $chrony::cmdport %>
+<% } -%>
+<% if ! $chrony::bindcmdaddress.empty { -%>
+
+<%  $chrony::bindcmdaddress.each |$addr| { -%>
+bindcmdaddress <%= $addr %>
+<%   } -%>
+<% } -%>
+<% if ! $chrony::cmdacl.empty { -%>
+<%   $chrony::cmdacl.each |$acl| { -%>
+<%= $acl %>
+<%   } -%>
+<% } -%>
+
+<% if $chrony::port { -%>
+
+# http://chrony.tuxfamily.org/manual.html#port-directive
+port <%= $chrony::port %>
+<% } -%>
+<% if $chrony::local_stratum { -%>
+
+# Serve time even if not synchronized to any NTP server.
+local stratum <%= $chrony::local_stratum %>
+<% } -%>
+<% if $chrony::config_keys { -%>
+
+keyfile <%= $chrony::config_keys %>
+<% } -%>
+<% if ! $chrony::clientlog { -%>
+
+# Disable logging of client accesses.
+noclientlog
+<% } -%>
+<% if $chrony::clientloglimit { -%>
+
+# The clientlog size is limited to 512KB by default.  If you have many
+# clients, especially in many different subnets, you might want to
+# increase the limit.
+clientloglimit <%= $chrony::clientloglimit %>
+<% } -%>
+
+# Send a message to syslog if a clock adjustment is larger than 0.5 seconds.
+logchange 0.5
+
+<% if $chrony::mailonchange { -%>
+
+# Send mail  if chronyd applied a correction exceeding given threshold.
+mailonchange <%= $chrony::mailonchange %> <%= $chrony::threshold %>
+<% } -%>
+
+logdir /var/log/chrony
+<% if $chrony::log_options { -%>
+log <%= $chrony::log_options %>
+<% } -%>
+<% if $chrony::refclocks { -%>
+
+<%   $chrony::refclocks.each |$driver| { -%>
+refclock <%= $driver.flatten.join(' ') %>
+<%   } -%>
+<% } -%>
+<% if $chrony::lock_all { -%>
+
+# Lock chrony to RAM.
+lock_all
+<% } -%>
+<% if $chrony::leapsecmode { %>
+
+# https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#leapsecmode
+leapsecmode <%= $chrony::leapsecmode %>
+<% } -%>
+<% if $chrony::leapsectz { %>
+
+# https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#leapsectz
+leapsectz <%= $chrony::leapsectz %>
+<% } -%>
+<% if $chrony::maxslewrate { %>
+
+# https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#maxslewrate
+maxslewrate <%= $chrony::maxslewrate %>
+<% } -%>
+<% if $chrony::smoothtime { %>
+
+# https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#smoothtime
+smoothtime <%= $chrony::smoothtime %>
+<% } -%>
+<% if $chrony::rtconutc { %>
+
+# https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#rtconutc
+rtconutc
+<% } -%>

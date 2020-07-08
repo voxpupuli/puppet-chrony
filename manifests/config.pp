@@ -36,7 +36,7 @@ class chrony::config (
     owner   => 0,
     group   => 0,
     mode    => '0644',
-    content => template($config_template),
+    content => epp($config_template),
   }
 
   file { $config_keys:
