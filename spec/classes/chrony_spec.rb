@@ -26,7 +26,6 @@ describe 'chrony' do
         case facts[:osfamily]
         when 'Archlinux'
           context 'using defaults' do
-            it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*port 0$}) }
             it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmdallow 127\.0\.0\.1$}) }
             ['0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org'].each do |s|
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*server #{s} iburst$}) }
@@ -40,7 +39,6 @@ describe 'chrony' do
           end
         when 'RedHat'
           context 'using defaults' do
-            it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*port 0$}) }
             it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*bindcmdaddress ::1$}) }
             it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*bindcmdaddress 127\.0\.0\.1$}) }
             it { is_expected.not_to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmdallow.*$}) }
@@ -55,7 +53,6 @@ describe 'chrony' do
           end
         when 'Debian'
           context 'using defaults' do
-            it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*port 0$}) }
             it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*bindcmdaddress ::1$}) }
             it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*bindcmdaddress 127\.0\.0\.1$}) }
             it { is_expected.not_to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*cmdallow.*$}) }
@@ -215,16 +212,6 @@ describe 'chrony' do
         end
 
         it { is_expected.to raise_error(%r{Setting \$config_keys_manage false and \$chrony_password at same time in chrony is not possible}) }
-      end
-
-      context 'queryhosts set but port left at default 0' do
-        let(:params) do
-          {
-            queryhosts: ['192.168/16'],
-          }
-        end
-
-        it { is_expected.to raise_error(%r{Setting \$queryhosts has no effect unless also setting \$port which defaults to 0 in chrony, refusing that}) }
       end
 
       context 'on any other system' do

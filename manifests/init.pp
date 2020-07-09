@@ -206,7 +206,7 @@ class chrony (
   Optional[String[1]] $mailonchange                                = undef,
   Float $threshold                                                 = 0.5,
   Boolean $lock_all                                                = false,
-  Stdlib::Port $port                                               = 0,
+  Optional[Stdlib::Port] $port                                     = undef,
   Boolean $clientlog                                               = $chrony::params::clientlog,
   Optional[Integer] $clientloglimit                                = undef,
   Boolean $service_enable                                          = true,
@@ -223,10 +223,6 @@ class chrony (
 
   if ! $config_keys_manage and $chrony_password != 'unset'  {
     fail("Setting \$config_keys_manage false and \$chrony_password at same time in ${module_name} is not possible.")
-  }
-
-  if $queryhosts != [] and $port == 0 {
-    fail("Setting \$queryhosts has no effect unless also setting \$port which defaults to 0 in ${module_name}, refusing that.")
   }
 
   contain 'chrony::install'
