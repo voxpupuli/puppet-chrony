@@ -86,6 +86,7 @@ describe 'chrony' do
             maxslewrate: 1000.0,
             smoothtime: '400 0.001 leaponly',
             rtconutc: true,
+            hwtimestamps: ['eth0'],
           }
         end
 
@@ -99,6 +100,7 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmddeny 1\.2\.3$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmdallow all 1\.2$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*rtconutc$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*hwtimestamp eth0$}) }
               it { is_expected.to contain_file('/etc/chrony.keys').with_mode('0123') }
               it { is_expected.to contain_file('/etc/chrony.keys').with_owner('steve') }
               it { is_expected.to contain_file('/etc/chrony.keys').with_group('mrt') }
@@ -120,6 +122,7 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmddeny 1\.2\.3$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmdallow all 1\.2$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*rtconutc$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*hwtimestamp eth0$}) }
               it { is_expected.to contain_file('/etc/chrony.keys').with_mode('0123') }
               it { is_expected.to contain_file('/etc/chrony.keys').with_owner('steve') }
               it { is_expected.to contain_file('/etc/chrony.keys').with_group('mrt') }
@@ -140,6 +143,7 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*cmddeny 1\.2\.3$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*cmdallow all 1\.2$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*rtconutc$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*hwtimestamp eth0$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_mode('0123') }
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_owner('steve') }
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_group('mrt') }
@@ -201,6 +205,21 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_content('') }
             end
           end
+        end
+      end
+
+      context 'hwtimestamps as hash' do
+        let(:params) do
+          {
+            hwtimestamps: { 'eth0' => ['minpoll 1', 'maxpoll 7'] },
+          }
+        end
+
+        case facts[:osfamily]
+        when 'Archlinux', 'Redhat'
+          it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*hwtimestamp eth0 minpoll 1 maxpoll 7$}) }
+        when 'Debian'
+          it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*hwtimestamp eth0 minpoll 1 maxpoll 7$}) }
         end
       end
 

@@ -120,3 +120,12 @@ smoothtime <%= $chrony::smoothtime %>
 # https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#rtconutc
 rtconutc
 <% } -%>
+<% if ! $chrony::hwtimestamps.empty { -%>
+
+# Enable hardware timestamping of NTP packets sent to and received from the specified
+# network interface. If the specified interface is *, chronyd will try to enable HW
+# timestamping on all available interfaces.
+<%   $chrony::hwtimestamps.each |$interface| { -%>
+hwtimestamp <%= $interface.flatten.join(' ') %>
+<%   } -%>
+<% } -%>

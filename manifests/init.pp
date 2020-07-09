@@ -170,6 +170,9 @@
 #   Keep RTC in UTC instead of local time.
 #   If not set, chrony's, default will be used. On Arch Linux the default is true instead.
 #   See [rtconutc](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#rtconutc)
+# @param hwtimestamps
+#   This selects interfaces to enable hardware timestamps on. It can be an array of
+#   interfaces or a hash of interfaces to their respective options.
 class chrony (
   Array[String] $bindcmdaddress                                    = ['127.0.0.1', '::1'],
   Array[String] $cmdacl                                            = $chrony::params::cmdacl,
@@ -219,6 +222,7 @@ class chrony (
   Optional[Float] $maxslewrate                                     = undef,
   Optional[Numeric] $stratumweight                                 = undef,
   Boolean $rtconutc                                                = $chrony::params::rtconutc,
+  Variant[Hash,Array[String]] $hwtimestamps                        = [],
 ) inherits chrony::params {
 
   if ! $config_keys_manage and $chrony_password != 'unset'  {

@@ -473,3 +473,11 @@ See [clientloglimit](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#clien
 
 Default value: `undef`
 
+##### `hwtimestamps`
+
+Data type: `Variant[Hash,Array[String]]`
+
+This selects interfaces to enable hardware timestamps on. It can be an array of interfaces
+or a hash of interfaces to their respective options.
+
+Default value: []
