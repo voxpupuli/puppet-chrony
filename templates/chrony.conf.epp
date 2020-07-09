@@ -8,7 +8,6 @@ pool <%= $pool.flatten.join(' ') %>
 <% $chrony::peers.each |$peer| { -%>
 peer <%= $peer.flatten.join(' ') %>
 <% } -%>
-
 <% if $chrony::stratumweight { -%>
 
 # How much distance should be added per stratum to the synchronisation distance when
@@ -43,12 +42,9 @@ cmdport <%= $chrony::cmdport %>
 bindcmdaddress <%= $addr %>
 <%   } -%>
 <% } -%>
-<% if ! $chrony::cmdacl.empty { -%>
-<%   $chrony::cmdacl.each |$acl| { -%>
+<% $chrony::cmdacl.each |$acl| { -%>
 <%= $acl %>
-<%   } -%>
 <% } -%>
-
 <% if $chrony::port { -%>
 
 # http://chrony.tuxfamily.org/manual.html#port-directive
@@ -78,7 +74,6 @@ clientloglimit <%= $chrony::clientloglimit %>
 
 # Send a message to syslog if a clock adjustment is larger than 0.5 seconds.
 logchange 0.5
-
 <% if $chrony::mailonchange { -%>
 
 # Send mail  if chronyd applied a correction exceeding given threshold.
@@ -105,22 +100,22 @@ lock_all
 # https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#leapsecmode
 leapsecmode <%= $chrony::leapsecmode %>
 <% } -%>
-<% if $chrony::leapsectz { %>
+<% if $chrony::leapsectz { -%>
 
 # https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#leapsectz
 leapsectz <%= $chrony::leapsectz %>
 <% } -%>
-<% if $chrony::maxslewrate { %>
+<% if $chrony::maxslewrate { -%>
 
 # https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#maxslewrate
 maxslewrate <%= $chrony::maxslewrate %>
 <% } -%>
-<% if $chrony::smoothtime { %>
+<% if $chrony::smoothtime { -%>
 
 # https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#smoothtime
 smoothtime <%= $chrony::smoothtime %>
 <% } -%>
-<% if $chrony::rtconutc { %>
+<% if $chrony::rtconutc { -%>
 
 # https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#rtconutc
 rtconutc
