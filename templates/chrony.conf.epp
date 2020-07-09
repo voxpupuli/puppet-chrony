@@ -5,8 +5,8 @@ server <%= $server.flatten.join(' ') %>
 <% $chrony::pools.each |$pool| { -%>
 pool <%= $pool.flatten.join(' ') %>
 <% } -%>
-<% $chrony::peers.each |$pool| { -%>
-pool <%= $pool.flatten.join(' ') %>
+<% $chrony::peers.each |$peer| { -%>
+peer <%= $peer.flatten.join(' ') %>
 <% } -%>
 
 <% if $chrony::stratumweight { -%>
