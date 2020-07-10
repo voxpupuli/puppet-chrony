@@ -147,6 +147,7 @@ The module has been tested on:
 * Red Hat
 * Debian (9)
 * Suse 12.3
+* Gentoo 2.7
 
 ## Copyright and License
 
