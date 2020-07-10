@@ -4,6 +4,7 @@
 class chrony::params {
   case $::osfamily {
     'Archlinux' : {
+      $package_name      = 'chrony'
       $cmdacl            = ['cmdallow 127.0.0.1']
       $config            = '/etc/chrony.conf'
       $config_keys       = '/etc/chrony.keys'
@@ -15,6 +16,7 @@ class chrony::params {
       $rtconutc          = true
     }
     'Suse', 'RedHat' : {
+      $package_name      = 'chrony'
       $cmdacl            = []
       $config            = '/etc/chrony.conf'
       $config_keys       = '/etc/chrony.keys'
@@ -26,6 +28,7 @@ class chrony::params {
       $rtconutc          = false
     }
     'Debian' : {
+      $package_name      = 'chrony'
       $cmdacl            = []
       $config            = '/etc/chrony/chrony.conf'
       $config_keys       = '/etc/chrony/chrony.keys'

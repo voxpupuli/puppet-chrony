@@ -188,7 +188,7 @@ class chrony (
   Integer[1,15] $local_stratum                                     = 10,
   Optional[String[1]] $log_options                                 = undef,
   String[1] $package_ensure                                        = 'present',
-  String[1] $package_name                                          = 'chrony',
+  String[1] $package_name                                          = $chrony::params::package_name,
   Optional[String] $package_source                                 = undef,
   Optional[String] $package_provider                               = undef,
   $refclocks                                                       = [],

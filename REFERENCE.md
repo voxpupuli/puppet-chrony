@@ -267,7 +267,7 @@ Data type: `String[1]`
 
 This determines the name of the package to install.
 
-Default value: 'chrony'
+Default value: $chrony::params::package_name
 
 ##### `package_source`
 
