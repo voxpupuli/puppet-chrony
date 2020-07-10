@@ -17,9 +17,11 @@ stratumweight <%= $chrony::stratumweight %>
 
 # Record the rate at which the system clock gains/losses time.
 driftfile <%= $chrony::driftfile %>
+<% if $chrony::rtcsync { -%>
 
 # Enable kernel RTC synchronization.
 rtcsync
+<% } -%>
 <% if $chrony::makestep_seconds and $chrony::makestep_updates { -%>
 
 # In first <%= $chrony::makestep_updates %> updates step the system clock instead of slew

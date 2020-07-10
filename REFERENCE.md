@@ -481,6 +481,14 @@ See [clientloglimit](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#clien
 
 Default value: `undef`
 
+##### `rtcsync`
+
+Data type: Boolean
+
+Periodically sync system time to RTC
+
+Default value: `true'
+
 ##### `rtconutc`
 
 Data type: Boolean
