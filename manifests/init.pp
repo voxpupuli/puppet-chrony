@@ -177,6 +177,8 @@
 # @param hwtimestamps
 #   This selects interfaces to enable hardware timestamps on. It can be an array of
 #   interfaces or a hash of interfaces to their respective options.
+# @param dumpdir
+#   Directory to store measurement history in on exit.
 class chrony (
   Array[String] $bindcmdaddress                                    = ['127.0.0.1', '::1'],
   Array[String] $cmdacl                                            = $chrony::params::cmdacl,
@@ -229,6 +231,7 @@ class chrony (
   Boolean $rtcsync                                                 = true,
   Boolean $rtconutc                                                = $chrony::params::rtconutc,
   Variant[Hash,Array[String]] $hwtimestamps                        = [],
+  Optional[Stdlib::Unixpath] $dumpdir                              = $chrony::params::dumpdir,
 ) inherits chrony::params {
 
   if ! $config_keys_manage and $chrony_password != 'unset'  {

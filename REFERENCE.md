@@ -505,3 +505,11 @@ This selects interfaces to enable hardware timestamps on. It can be an array of 
 or a hash of interfaces to their respective options.
 
 Default value: []
+
+##### `dumpdir`
+
+Data type: Optional[Stdlib::Unixpath]
+
+Directory for chrony to store measurement in on exit.
+
+Default value: $chrony::params::dumpdir

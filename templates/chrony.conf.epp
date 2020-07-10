@@ -61,6 +61,12 @@ local stratum <%= $chrony::local_stratum %>
 
 keyfile <%= $chrony::config_keys %>
 <% } -%>
+<% if $chrony::dumpdir { -%>
+
+# Save the measurement history for the servers to files on exit.
+dumponexit
+dumpdir <%= $chrony::dumpdir %>
+<% } -%>
 <% if ! $chrony::clientlog { -%>
 
 # Disable logging of client accesses.
