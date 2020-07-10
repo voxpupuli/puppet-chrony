@@ -176,7 +176,7 @@ class chrony (
   Optional[Stdlib::Port] $cmdport                                  = undef,
   $commandkey                                                      = 0,
   Stdlib::Unixpath $config                                         = $chrony::params::config,
-  String[1] $config_template                                       = $chrony::params::config_template,
+  String[1] $config_template                                       = 'chrony/chrony.conf.epp',
   Stdlib::Unixpath $config_keys                                    = $chrony::params::config_keys,
   String[1] $config_keys_template                                  = 'chrony/chrony.keys.erb',
   String[1] $chrony_password                                       = 'xyzzy',

@@ -167,7 +167,7 @@ Data type: `String[1]`
 
 This determines which template puppet should use for the chrony configuration.
 
-Default value: $chrony::params::config_template
+Default value: 'chrony/chrony.conf.epp'
 
 ##### `config_keys`
 
