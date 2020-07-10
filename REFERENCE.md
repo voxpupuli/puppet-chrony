@@ -481,6 +481,14 @@ See [clientloglimit](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#clien
 
 Default value: `undef`
 
+##### `rtconutc`
+
+Data type: Boolean
+
+Keep RTC in UTC instead of local time.
+
+Default value: $chrony::params::rtconutc
+
 ##### `hwtimestamps`
 
 Data type: `Variant[Hash,Array[String]]`
