@@ -177,6 +177,14 @@ This sets the file to write chrony keys into.
 
 Default value: $chrony::params::config_keys
 
+##### `driftfile`
+
+Data type: `Stdlib::Unixpath`
+
+The file for chrony to record clock drift in.
+
+Default value: '/var/lib/chrony/drift'
+
 ##### `config_keys_manage`
 
 Data type: `Boolean`

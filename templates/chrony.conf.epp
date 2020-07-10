@@ -16,7 +16,7 @@ stratumweight <%= $chrony::stratumweight %>
 <% } -%>
 
 # Record the rate at which the system clock gains/losses time.
-driftfile /var/lib/chrony/drift
+driftfile <%= $chrony::driftfile %>
 
 # Enable kernel RTC synchronization.
 rtcsync

@@ -81,6 +81,8 @@
 #   Specify unix mode of chrony keys files, defaults to 0644 on ArchLinux and 0640 on Redhat.
 # @param keys
 #   An array of key lines.  These are printed as-is into the chrony key file.
+# @param driftfile
+#   A file for chrony to record clock drift in.
 # @param local_stratum
 #   Override the stratum of the server which will be reported to clients
 #   when the local reference is active.
@@ -188,6 +190,7 @@ class chrony (
   Stdlib::Filemode $config_keys_mode                               = $chrony::params::config_keys_mode,
   Boolean $config_keys_manage                                      = true,
   Array[String[1]] $keys                                           = [],
+  Stdlib::Unixpath $driftfile                                      = '/var/lib/chrony/drift',
   Integer[1,15] $local_stratum                                     = 10,
   Optional[String[1]] $log_options                                 = undef,
   String[1] $package_ensure                                        = 'present',
