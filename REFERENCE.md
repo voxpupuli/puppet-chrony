@@ -177,6 +177,14 @@ This sets the file to write chrony keys into.
 
 Default value: $chrony::params::config_keys
 
+##### `driftfile`
+
+Data type: `Stdlib::Unixpath`
+
+The file for chrony to record clock drift in.
+
+Default value: '/var/lib/chrony/drift'
+
 ##### `config_keys_manage`
 
 Data type: `Boolean`
@@ -473,3 +481,35 @@ See [clientloglimit](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#clien
 
 Default value: `undef`
 
+##### `rtcsync`
+
+Data type: Boolean
+
+Periodically sync system time to RTC
+
+Default value: `true'
+
+##### `rtconutc`
+
+Data type: Boolean
+
+Keep RTC in UTC instead of local time.
+
+Default value: $chrony::params::rtconutc
+
+##### `hwtimestamps`
+
+Data type: `Variant[Hash,Array[String]]`
+
+This selects interfaces to enable hardware timestamps on. It can be an array of interfaces
+or a hash of interfaces to their respective options.
+
+Default value: []
+
+##### `dumpdir`
+
+Data type: Optional[Stdlib::Unixpath]
+
+Directory for chrony to store measurement in on exit.
+
+Default value: $chrony::params::dumpdir

@@ -31,6 +31,9 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*server #{s} iburst$}) }
             end
             it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*rtconutc$}) }
+            it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*driftfile /var/lib/chrony/drift$}) }
+            it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*rtcsync$}) }
+            it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*dumpdir /var/log/chrony$}) }
             it { is_expected.to contain_file('/etc/chrony.keys').with_mode('0644') }
             it { is_expected.to contain_file('/etc/chrony.keys').with_owner('0') }
             it { is_expected.to contain_file('/etc/chrony.keys').with_group('0') }
@@ -45,6 +48,9 @@ describe 'chrony' do
             ['0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org'].each do |s|
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*server #{s} iburst$}) }
             end
+            it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*driftfile /var/lib/chrony/drift$}) }
+            it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*rtcsync$}) }
+            it { is_expected.to contain_file('/etc/chrony.conf').without_content(%r{^\s*dumpdir}) }
             it { is_expected.to contain_file('/etc/chrony.keys').with_mode('0640') }
             it { is_expected.to contain_file('/etc/chrony.keys').with_owner('0') }
             it { is_expected.to contain_file('/etc/chrony.keys').with_group('chrony') }
@@ -59,6 +65,9 @@ describe 'chrony' do
             ['0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org'].each do |s|
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*server #{s} iburst$}) }
             end
+            it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*driftfile /var/lib/chrony/drift$}) }
+            it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*rtcsync$}) }
+            it { is_expected.to contain_file('/etc/chrony/chrony.conf').without_content(%r{^\s*dumpdir}) }
             it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_mode('0640') }
             it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_owner('0') }
             it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_group('0') }
@@ -86,6 +95,10 @@ describe 'chrony' do
             maxslewrate: 1000.0,
             smoothtime: '400 0.001 leaponly',
             rtconutc: true,
+            hwtimestamps: ['eth0'],
+            driftfile: '/var/tmp/chrony.drift',
+            rtcsync: false,
+            dumpdir: '/var/tmp',
           }
         end
 
@@ -99,6 +112,10 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmddeny 1\.2\.3$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmdallow all 1\.2$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*rtconutc$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*hwtimestamp eth0$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*driftfile /var/tmp/chrony.drift$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').without_content(%r{^\s*rtcsync$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*dumpdir /var/tmp$}) }
               it { is_expected.to contain_file('/etc/chrony.keys').with_mode('0123') }
               it { is_expected.to contain_file('/etc/chrony.keys').with_owner('steve') }
               it { is_expected.to contain_file('/etc/chrony.keys').with_group('mrt') }
@@ -120,6 +137,10 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmddeny 1\.2\.3$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmdallow all 1\.2$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*rtconutc$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*hwtimestamp eth0$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*driftfile /var/tmp/chrony.drift$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').without_content(%r{^\s*rtcsync$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*dumpdir /var/tmp$}) }
               it { is_expected.to contain_file('/etc/chrony.keys').with_mode('0123') }
               it { is_expected.to contain_file('/etc/chrony.keys').with_owner('steve') }
               it { is_expected.to contain_file('/etc/chrony.keys').with_group('mrt') }
@@ -140,6 +161,10 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*cmddeny 1\.2\.3$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*cmdallow all 1\.2$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*rtconutc$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*hwtimestamp eth0$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*driftfile /var/tmp/chrony.drift$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').without_content(%r{^\s*rtcsync$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*dumpdir /var/tmp$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_mode('0123') }
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_owner('steve') }
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_group('mrt') }
@@ -201,6 +226,21 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_content('') }
             end
           end
+        end
+      end
+
+      context 'hwtimestamps as hash' do
+        let(:params) do
+          {
+            hwtimestamps: { 'eth0' => ['minpoll 1', 'maxpoll 7'] },
+          }
+        end
+
+        case facts[:osfamily]
+        when 'Archlinux', 'Redhat'
+          it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*hwtimestamp eth0 minpoll 1 maxpoll 7$}) }
+        when 'Debian'
+          it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*hwtimestamp eth0 minpoll 1 maxpoll 7$}) }
         end
       end
 

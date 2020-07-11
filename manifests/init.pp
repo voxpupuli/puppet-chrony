@@ -81,6 +81,8 @@
 #   Specify unix mode of chrony keys files, defaults to 0644 on ArchLinux and 0640 on Redhat.
 # @param keys
 #   An array of key lines.  These are printed as-is into the chrony key file.
+# @param driftfile
+#   A file for chrony to record clock drift in.
 # @param local_stratum
 #   Override the stratum of the server which will be reported to clients
 #   when the local reference is active.
@@ -166,10 +168,17 @@
 #   When set, specifies the maximum amount of memory in bytes that chronyd is allowed to allocate for logging of client accesses.
 #   If not set, chrony's, default will be used. In modern versions this is 524288 bytes.  Older versions defaulted to have no limit.
 #   See [clientloglimit](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#clientloglimit)
+# @param rtcsync
+#  Sync system clock to RTC periodically
 # @param rtconutc
 #   Keep RTC in UTC instead of local time.
 #   If not set, chrony's, default will be used. On Arch Linux the default is true instead.
 #   See [rtconutc](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#rtconutc)
+# @param hwtimestamps
+#   This selects interfaces to enable hardware timestamps on. It can be an array of
+#   interfaces or a hash of interfaces to their respective options.
+# @param dumpdir
+#   Directory to store measurement history in on exit.
 class chrony (
   Array[String] $bindcmdaddress                                    = ['127.0.0.1', '::1'],
   Array[String] $cmdacl                                            = $chrony::params::cmdacl,
@@ -185,6 +194,7 @@ class chrony (
   Stdlib::Filemode $config_keys_mode                               = $chrony::params::config_keys_mode,
   Boolean $config_keys_manage                                      = true,
   Array[String[1]] $keys                                           = [],
+  Stdlib::Unixpath $driftfile                                      = '/var/lib/chrony/drift',
   Integer[1,15] $local_stratum                                     = 10,
   Optional[String[1]] $log_options                                 = undef,
   String[1] $package_ensure                                        = 'present',
@@ -218,7 +228,10 @@ class chrony (
   Optional[String] $leapsectz                                      = undef,
   Optional[Float] $maxslewrate                                     = undef,
   Optional[Numeric] $stratumweight                                 = undef,
+  Boolean $rtcsync                                                 = true,
   Boolean $rtconutc                                                = $chrony::params::rtconutc,
+  Variant[Hash,Array[String]] $hwtimestamps                        = [],
+  Optional[Stdlib::Unixpath] $dumpdir                              = $chrony::params::dumpdir,
 ) inherits chrony::params {
 
   if ! $config_keys_manage and $chrony_password != 'unset'  {

@@ -16,10 +16,12 @@ stratumweight <%= $chrony::stratumweight %>
 <% } -%>
 
 # Record the rate at which the system clock gains/losses time.
-driftfile /var/lib/chrony/drift
+driftfile <%= $chrony::driftfile %>
+<% if $chrony::rtcsync { -%>
 
 # Enable kernel RTC synchronization.
 rtcsync
+<% } -%>
 <% if $chrony::makestep_seconds and $chrony::makestep_updates { -%>
 
 # In first <%= $chrony::makestep_updates %> updates step the system clock instead of slew
@@ -58,6 +60,12 @@ local stratum <%= $chrony::local_stratum %>
 <% if $chrony::config_keys { -%>
 
 keyfile <%= $chrony::config_keys %>
+<% } -%>
+<% if $chrony::dumpdir { -%>
+
+# Save the measurement history for the servers to files on exit.
+dumponexit
+dumpdir <%= $chrony::dumpdir %>
 <% } -%>
 <% if ! $chrony::clientlog { -%>
 
@@ -119,4 +127,13 @@ smoothtime <%= $chrony::smoothtime %>
 
 # https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#rtconutc
 rtconutc
+<% } -%>
+<% if ! $chrony::hwtimestamps.empty { -%>
+
+# Enable hardware timestamping of NTP packets sent to and received from the specified
+# network interface. If the specified interface is *, chronyd will try to enable HW
+# timestamping on all available interfaces.
+<%   $chrony::hwtimestamps.each |$interface| { -%>
+hwtimestamp <%= $interface.flatten.join(' ') %>
+<%   } -%>
 <% } -%>

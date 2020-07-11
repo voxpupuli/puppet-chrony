@@ -14,6 +14,7 @@ class chrony::params {
       $service_name      = 'chrony'
       $clientlog         = true
       $rtconutc          = true
+      $dumpdir           = '/var/log/chrony'
     }
     'Gentoo' : {
       $package_name      = 'net-misc/chrony'
@@ -26,6 +27,7 @@ class chrony::params {
       $service_name      = 'chronyd'
       $clientlog         = true
       $rtconutc          = true
+      $dumpdir           = undef
     }
     'Suse', 'RedHat' : {
       $package_name      = 'chrony'
@@ -38,6 +40,7 @@ class chrony::params {
       $service_name      = 'chronyd'
       $clientlog         = false
       $rtconutc          = false
+      $dumpdir           = undef
     }
     'Debian' : {
       $package_name      = 'chrony'
@@ -50,6 +53,7 @@ class chrony::params {
       $service_name      = 'chrony'
       $clientlog         = false
       $rtconutc          = false
+      $dumpdir           = undef
     }
 
     default     : {
