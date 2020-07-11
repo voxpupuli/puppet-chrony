@@ -1,0 +1,6 @@
+<% if $chrony::chrony_password and $chrony::chrony_password != 'unset' { -%>
+<%= $chrony::commandkey %> <%= $chrony::chrony_password %>
+<% } -%>
+<% $chrony::keys.each |$line| { -%>
+<%= $line %>
+<% } -%>
