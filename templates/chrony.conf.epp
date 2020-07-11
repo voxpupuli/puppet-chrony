@@ -103,7 +103,7 @@ refclock <%= $driver.flatten.join(' ') %>
 # Lock chrony to RAM.
 lock_all
 <% } -%>
-<% if $chrony::leapsecmode { %>
+<% if $chrony::leapsecmode { -%>
 
 # https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#leapsecmode
 leapsecmode <%= $chrony::leapsecmode %>
