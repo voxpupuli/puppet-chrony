@@ -1,6 +1,0 @@
-<% if @chrony_password and @chrony_password != 'unset' -%>
-<%= @commandkey %> <%= @chrony_password %>
-<% end -%>
-<% if @keys then Array(@keys).each do |line| -%>
-<%= line %>
-<% end end -%>

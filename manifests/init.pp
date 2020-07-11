@@ -178,7 +178,7 @@ class chrony (
   Stdlib::Unixpath $config                                         = $chrony::params::config,
   String[1] $config_template                                       = 'chrony/chrony.conf.epp',
   Stdlib::Unixpath $config_keys                                    = $chrony::params::config_keys,
-  String[1] $config_keys_template                                  = 'chrony/chrony.keys.erb',
+  String[1] $config_keys_template                                  = 'chrony/chrony.keys.epp',
   String[1] $chrony_password                                       = 'xyzzy',
   Variant[Integer[0],String[1]] $config_keys_owner                 = $chrony::params::config_keys_owner,
   Variant[Integer[0],String[1]] $config_keys_group                 = $chrony::params::config_keys_group,
