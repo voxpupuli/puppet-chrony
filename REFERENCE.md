@@ -364,7 +364,6 @@ Default value: 3
 Data type: `Any`
 
 This adds the networks, hosts that are allowed to query the daemon.
-Note that `port` needs to be set for this to work.
 
 Default value: []
 
@@ -373,9 +372,8 @@ Default value: []
 Data type: `Stdlib::Port`
 
 Port the service should listen on, to be used in combination with `queryhosts`.
-Module default is `0` to prevent accidental activation of server mode.
 
-Default value: 0
+Default value: `undef`
 
 ##### `service_enable`
 
