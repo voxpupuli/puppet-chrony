@@ -78,7 +78,6 @@ class { 'chrony':
 ```puppet
 class { 'chrony':
   queryhosts => ['192.168/16'],
-  port       => 123,
 }
 ```
 
@@ -379,7 +378,9 @@ Default value: []
 
 Data type: `Stdlib::Port`
 
-Port the service should listen on, to be used in combination with `queryhosts`.
+Port the service should listen on. Module default is `undef` which means that port isn't
+added to chrony.conf, and chrony listens to the default ntp port 123 if `queryhosts` is
+used.
 
 Default value: `undef`
 
