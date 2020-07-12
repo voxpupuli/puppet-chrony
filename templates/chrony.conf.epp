@@ -28,7 +28,7 @@ rtcsync
 # if the adjustment is larger than <%= $chrony::makestep_seconds %> seconds.
 makestep <%= $chrony::makestep_seconds %> <%= $chrony::makestep_updates %>
 <% } -%>
-<% if ! $chrony::queryhosts.empty { -%>
+<% unless $chrony::queryhosts.empty { -%>
 
 # Allow client access.
 <%   $chrony::queryhosts.each |$allowed| { -%>
@@ -38,7 +38,7 @@ allow <%= $allowed %>
 <% if $chrony::cmdport { -%>
 cmdport <%= $chrony::cmdport %>
 <% } -%>
-<% if ! $chrony::bindcmdaddress.empty { -%>
+<% unless $chrony::bindcmdaddress.empty { -%>
 
 <%  $chrony::bindcmdaddress.each |$addr| { -%>
 bindcmdaddress <%= $addr %>
@@ -67,7 +67,7 @@ keyfile <%= $chrony::config_keys %>
 dumponexit
 dumpdir <%= $chrony::dumpdir %>
 <% } -%>
-<% if ! $chrony::clientlog { -%>
+<% unless $chrony::clientlog { -%>
 
 # Disable logging of client accesses.
 noclientlog
@@ -128,7 +128,7 @@ smoothtime <%= $chrony::smoothtime %>
 # https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#rtconutc
 rtconutc
 <% } -%>
-<% if ! $chrony::hwtimestamps.empty { -%>
+<% unless $chrony::hwtimestamps.empty { -%>
 
 # Enable hardware timestamping of NTP packets sent to and received from the specified
 # network interface. If the specified interface is *, chronyd will try to enable HW
