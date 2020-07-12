@@ -40,6 +40,29 @@ describe 'chrony' do
             it { is_expected.to contain_file('/etc/chrony.keys').with_replace(true) }
             it { is_expected.to contain_file('/etc/chrony.keys').with_content("0 xyzzy\n") }
           end
+        when 'Gentoo'
+          context 'using defaults' do
+            it do
+              is_expected.to contain_file('/etc/chrony/chrony.conf')
+                .without_content(%r{^\s*cmdallow})
+                .with_content(%r{^\s*server 0.pool.ntp.org iburst$})
+                .with_content(%r{^\s*server 1.pool.ntp.org iburst$})
+                .with_content(%r{^\s*server 2.pool.ntp.org iburst$})
+                .with_content(%r{^\s*server 3.pool.ntp.org iburst$})
+                .with_content(%r{^\s*rtconutc$})
+                .with_content(%r{^\s*driftfile /var/lib/chrony/drift$})
+                .with_content(%r{^\s*rtcsync$})
+                .without_content(%r{^\s*dumpdir})
+            end
+            it do
+              is_expected.to contain_file('/etc/chrony/chrony.keys')
+                .with_mode('0644')
+                .with_owner('0')
+                .with_group('0')
+                .with_replace(true)
+                .with_content("0 xyzzy\n")
+            end
+          end
         when 'RedHat'
           context 'using defaults' do
             it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*bindcmdaddress ::1$}) }
@@ -147,7 +170,7 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony.keys').with_replace(true) }
               it { is_expected.to contain_file('/etc/chrony.keys').with_content("0 sunny\n") }
             end
-          when 'Debian'
+          when 'Debian', 'Gentoo'
             context 'with some params passed in' do
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*leapsectz right/UTC$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*leapsecmode slew$}) }
@@ -180,7 +203,7 @@ describe 'chrony' do
           case facts[:osfamily]
           when 'Archlinux', 'RedHat'
             it { is_expected.not_to contain_file('/etc/chrony.conf').with_content(%r{stratumweight}) }
-          when 'Debian'
+          when 'Debian', 'Gentoo'
             it { is_expected.not_to contain_file('/etc/chrony/chrony.conf').with_content(%r{stratumweight}) }
           end
         end
@@ -194,7 +217,7 @@ describe 'chrony' do
           case facts[:osfamily]
           when 'Archlinux', 'RedHat'
             it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^stratumweight 0$}) }
-          when 'Debian'
+          when 'Debian', 'Gentoo'
             it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^stratumweight 0$}) }
           end
         end
@@ -220,7 +243,7 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony.keys').with_replace(false) }
               it { is_expected.to contain_file('/etc/chrony.keys').with_content('') }
             end
-          when 'Debian'
+          when 'Debian', 'Gentoo'
             context 'unmanaged chrony.keys file' do
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_replace(false) }
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_content('') }
@@ -239,7 +262,7 @@ describe 'chrony' do
         case facts[:osfamily]
         when 'Archlinux', 'Redhat'
           it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*hwtimestamp eth0 minpoll 1 maxpoll 7$}) }
-        when 'Debian'
+        when 'Debian', 'Gentoo'
           it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*hwtimestamp eth0 minpoll 1 maxpoll 7$}) }
         end
       end
@@ -285,7 +308,7 @@ describe 'chrony' do
               )
             end
           end
-        when 'RedHat'
+        when 'RedHat', 'Gentoo'
           context 'using defaults' do
             it do
               is_expected.to contain_service('chronyd').with(
