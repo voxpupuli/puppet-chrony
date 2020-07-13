@@ -176,14 +176,6 @@ This sets the file to write chrony keys into.
 
 Default value: $chrony::params::config_keys
 
-##### `driftfile`
-
-Data type: `Stdlib::Unixpath`
-
-The file for chrony to record clock drift in.
-
-Default value: '/var/lib/chrony/drift'
-
 ##### `config_keys_manage`
 
 Data type: `Boolean`
@@ -198,7 +190,7 @@ Data type: `String[1]`
 
 This determines which template puppet should use for the chrony key file.
 
-Default value: 'chrony/chrony.keys.erb'
+Default value: 'chrony/chrony.keys.epp'
 
 ##### `config_keys_owner`
 
@@ -231,6 +223,14 @@ Data type: `Array[String[1]]`
 An array of key lines.  These are printed as-is into the chrony key file.
 
 Default value: []
+
+##### `driftfile`
+
+Data type: `Stdlib::Unixpath`
+
+A file for chrony to record clock drift in.
+
+Default value: '/var/lib/chrony/drift'
 
 ##### `local_stratum`
 
@@ -376,11 +376,11 @@ Default value: []
 
 ##### `port`
 
-Data type: `Stdlib::Port`
+Data type: `Optional[Stdlib::Port]`
 
-Port the service should listen on. Module default is `undef` which means that port isn't
-added to chrony.conf, and chrony listens to the default ntp port 123 if `queryhosts` is
-used.
+Port the service should listen on. Module default is `undef` which means that port
+isn't added to chrony.conf, and chrony listens to the default ntp port 123 if
+`queryhosts` is used.
 
 Default value: `undef`
 
@@ -456,6 +456,14 @@ Configures how to insert the leap second mode.
 
 Default value: `undef`
 
+##### `leapsectz`
+
+Data type: `Optional[String]`
+
+Specifies a timezone that chronyd can use to determine the offset between UTC and TAI.
+
+Default value: `undef`
+
 ##### `maxslewrate`
 
 Data type: `Optional[Float]`
@@ -484,17 +492,19 @@ Default value: `undef`
 
 ##### `rtcsync`
 
-Data type: Boolean
+Data type: `Boolean`
 
-Periodically sync system time to RTC
+Sync system clock to RTC periodically
 
-Default value: `true'
+Default value: `true`
 
 ##### `rtconutc`
 
-Data type: Boolean
+Data type: `Boolean`
 
 Keep RTC in UTC instead of local time.
+If not set, chrony's, default will be used. On Arch Linux the default is true instead.
+See [rtconutc](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#rtconutc)
 
 Default value: $chrony::params::rtconutc
 
@@ -502,15 +512,16 @@ Default value: $chrony::params::rtconutc
 
 Data type: `Variant[Hash,Array[String]]`
 
-This selects interfaces to enable hardware timestamps on. It can be an array of interfaces
-or a hash of interfaces to their respective options.
+This selects interfaces to enable hardware timestamps on. It can be an array of
+interfaces or a hash of interfaces to their respective options.
 
 Default value: []
 
 ##### `dumpdir`
 
-Data type: Optional[Stdlib::Unixpath]
+Data type: `Optional[Stdlib::Unixpath]`
 
-Directory for chrony to store measurement in on exit.
+Directory to store measurement history in on exit.
 
 Default value: $chrony::params::dumpdir
+
