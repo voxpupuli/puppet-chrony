@@ -92,7 +92,7 @@ logdir /var/log/chrony
 <% if $chrony::log_options { -%>
 log <%= $chrony::log_options %>
 <% } -%>
-<% if $chrony::refclocks { -%>
+<% unless $chrony::refclocks.empty { -%>
 
 <%   $chrony::refclocks.each |$driver| { -%>
 refclock <%= $driver.flatten.join(' ') %>
