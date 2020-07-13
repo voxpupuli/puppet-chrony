@@ -9,12 +9,8 @@ class chrony::service (
 ) inherits chrony {
   if $service_manage {
     service { $service_name:
-      ensure     => $service_ensure,
-      enable     => $service_enable,
-      name       => $service_name,
-      hasstatus  => true,
-      hasrestart => true,
+      ensure => $service_ensure,
+      enable => $service_enable,
     }
   }
-
 }
