@@ -7,18 +7,10 @@ class chrony::service (
   $service_manage = $chrony::service_manage,
   $service_name   = $chrony::service_name,
 ) inherits chrony {
-  unless $service_ensure in ['running', 'stopped'] {
-    fail('service_ensure parameter must be running or stopped')
-  }
-
   if $service_manage {
     service { $service_name:
-      ensure     => $service_ensure,
-      enable     => $service_enable,
-      name       => $service_name,
-      hasstatus  => true,
-      hasrestart => true,
+      ensure => $service_ensure,
+      enable => $service_enable,
     }
   }
-
 }

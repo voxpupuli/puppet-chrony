@@ -303,8 +303,6 @@ describe 'chrony' do
               is_expected.to contain_service('chrony').with(
                 ensure: 'running',
                 enable: true,
-                hasstatus: true,
-                hasrestart: true,
               )
             end
           end
@@ -314,8 +312,6 @@ describe 'chrony' do
               is_expected.to contain_service('chronyd').with(
                 ensure: 'running',
                 enable: true,
-                hasstatus: true,
-                hasrestart: true,
               )
             end
           end
@@ -325,8 +321,6 @@ describe 'chrony' do
               is_expected.to contain_service('chrony').with(
                 ensure: 'running',
                 enable: true,
-                hasstatus: true,
-                hasrestart: true,
               )
             end
           end
