@@ -112,14 +112,8 @@ class { '::chrony':
 ```puppet
 class { '::chrony':
   queryhosts  => [ '192.168/16', ],
-  port        => 123,
 }
 ```
-
-#### Note
-
-The parameter `port` is also set here,
-module default is `0` to ensure server mode is not activated accidentally.
 
 ### How to configure leap second
 

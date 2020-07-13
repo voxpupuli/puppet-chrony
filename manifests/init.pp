@@ -29,7 +29,6 @@
 # @example Allow some hosts
 #   class { 'chrony':
 #     queryhosts => ['192.168/16'],
-#     port       => 123,
 #   }
 # @example Configure the leap second mode
 #   class { 'chrony':
@@ -136,10 +135,10 @@
 #   Also see [`makestep_seconds`](#makestep_seconds).
 # @param queryhosts
 #   This adds the networks, hosts that are allowed to query the daemon.
-#   Note that `port` needs to be set for this to work.
 # @param port
-#   Port the service should listen on, to be used in combination with `queryhosts`.
-#   Module default is `0` to prevent accidental activation of server mode.
+#   Port the service should listen on. Module default is `undef` which means that port
+#   isn't added to chrony.conf, and chrony listens to the default ntp port 123 if
+#   `queryhosts` is used.
 # @param service_enable
 #   This determines if the service should be enabled at boot.
 # @param service_ensure
