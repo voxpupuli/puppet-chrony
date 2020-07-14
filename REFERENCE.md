@@ -296,10 +296,10 @@ Default value: `undef`
 
 ##### `peers`
 
-Data type: `Any`
+Data type: `Variant[Hash,Array[Stdlib::Host]]`
 
-This selects the servers to use for NTP peers (symmetric association).
-It is an array of servers.
+This selects the servers to use for NTP peers. It can be an array of servers
+or a hash of servers to their respective options.
 
 Default value: []
 

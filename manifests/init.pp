@@ -103,8 +103,8 @@
 #   Override the default package provider with a specific backend to use when installing the chrony package.
 #   Also see [`package_source`](#package_source).
 # @param peers
-#   This selects the servers to use for NTP peers (symmetric association).
-#   It is an array of servers.
+#   This selects the servers to use for NTP peers. It can be an array of servers
+#   or a hash of servers to their respective options.
 # @param servers
 #   This selects the servers to use for NTP servers.  It can be an array of servers
 #   or a hash of servers to their respective options.
@@ -201,7 +201,7 @@ class chrony (
   Optional[String] $package_source                                 = undef,
   Optional[String] $package_provider                               = undef,
   Variant[Hash,Array[Variant[Hash,String[1]]]] $refclocks          = [],
-  $peers                                                           = [],
+  Variant[Hash,Array[Stdlib::Host]] $peers                         = [],
   Variant[Hash,Array[Stdlib::Host]] $servers                       = {
     '0.pool.ntp.org' => ['iburst'],
     '1.pool.ntp.org' => ['iburst'],
