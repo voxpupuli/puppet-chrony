@@ -211,7 +211,7 @@ class chrony (
   Variant[Hash,Array[Stdlib::Fqdn]] $pools                         = {},
   Numeric $makestep_seconds                                        = 10,
   Integer $makestep_updates                                        = 3,
-  $queryhosts                                                      = [],
+  Array[String[1]] $queryhosts                                     = [],
   Optional[String[1]] $mailonchange                                = undef,
   Float $threshold                                                 = 0.5,
   Boolean $lock_all                                                = false,

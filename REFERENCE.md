@@ -368,7 +368,7 @@ Default value: 3
 
 ##### `queryhosts`
 
-Data type: `Any`
+Data type: `Array[String[1]]`
 
 This adds the networks, hosts that are allowed to query the daemon.
 
