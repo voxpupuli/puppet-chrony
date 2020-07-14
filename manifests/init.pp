@@ -182,7 +182,7 @@ class chrony (
   Array[String] $bindcmdaddress                                    = ['127.0.0.1', '::1'],
   Array[String] $cmdacl                                            = $chrony::params::cmdacl,
   Optional[Stdlib::Port] $cmdport                                  = undef,
-  $commandkey                                                      = 0,
+  Integer $commandkey                                              = 0,
   Stdlib::Unixpath $config                                         = $chrony::params::config,
   String[1] $config_template                                       = 'chrony/chrony.conf.epp',
   Stdlib::Unixpath $config_keys                                    = $chrony::params::config_keys,

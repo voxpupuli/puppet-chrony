@@ -136,7 +136,7 @@ Default value: `undef`
 
 ##### `commandkey`
 
-Data type: `Any`
+Data type: `Integer`
 
 This sets the key ID used by chronyc to authenticate to chronyd.
 
