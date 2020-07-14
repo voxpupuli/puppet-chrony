@@ -113,9 +113,9 @@
 #   Similar to [`server`](#server), it can be an array of pools or a hash of pools to their respective options.
 #   See [pool](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#pool)
 # @param refclocks
-#   This should be a Hash of hardware reference clock drivers to use.  They hash
-#   can either list a single list of options for the driver, or any array of
-#   multiple options if the same driver is used for multiple hardware clocks.
+#   This selects reference clock drivers to use. It can be an array of drivers, or a hash
+#   of drivers. The hash can either list a single list of options for the driver, or any
+#   array of multiple options if the same driver is used for multiple hardware clocks.
 #
 #   Example:
 #   ```puppet
@@ -200,7 +200,7 @@ class chrony (
   String[1] $package_name                                          = $chrony::params::package_name,
   Optional[String] $package_source                                 = undef,
   Optional[String] $package_provider                               = undef,
-  $refclocks                                                       = [],
+  Variant[Hash,Array[Variant[Hash,String[1]]]] $refclocks          = [],
   $peers                                                           = [],
   Variant[Hash,Array[Stdlib::Host]] $servers                       = {
     '0.pool.ntp.org' => ['iburst'],

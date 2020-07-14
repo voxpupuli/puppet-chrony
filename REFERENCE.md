@@ -329,11 +329,11 @@ Default value: {}
 
 ##### `refclocks`
 
-Data type: `Any`
+Data type: `Variant[Hash,Array[Variant[Hash,String[1]]]]`
 
-This should be a Hash of hardware reference clock drivers to use.  They hash
-can either list a single list of options for the driver, or any array of
-multiple options if the same driver is used for multiple hardware clocks.
+This selects reference clock drivers to use. It can be an array of drivers, or a hash
+of drivers. The hash can either list a single list of options for the driver, or any
+array of multiple options if the same driver is used for multiple hardware clocks.
 
 Example:
 ```puppet
