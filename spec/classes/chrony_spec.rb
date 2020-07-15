@@ -49,7 +49,7 @@ describe 'chrony' do
             it { is_expected.to contain_file('/etc/chrony.keys').with_owner('0') }
             it { is_expected.to contain_file('/etc/chrony.keys').with_group('0') }
             it { is_expected.to contain_file('/etc/chrony.keys').with_replace(true) }
-            it { is_expected.to contain_file('/etc/chrony.keys').with_content("0 xyzzy\n") }
+            it { is_expected.to contain_file('/etc/chrony.keys').with_content(sensitive("0 xyzzy\n")) }
           end
         when 'Gentoo'
           context 'using defaults' do
@@ -72,7 +72,7 @@ describe 'chrony' do
                 with_owner('0').
                 with_group('0').
                 with_replace(true).
-                with_content("0 xyzzy\n")
+                with_content(sensitive("0 xyzzy\n"))
             end
           end
         when 'RedHat'
@@ -91,7 +91,7 @@ describe 'chrony' do
             it { is_expected.to contain_file('/etc/chrony.keys').with_owner('0') }
             it { is_expected.to contain_file('/etc/chrony.keys').with_group('chrony') }
             it { is_expected.to contain_file('/etc/chrony.keys').with_replace(true) }
-            it { is_expected.to contain_file('/etc/chrony.keys').with_content("0 xyzzy\n") }
+            it { is_expected.to contain_file('/etc/chrony.keys').with_content(sensitive("0 xyzzy\n")) }
           end
         when 'Debian'
           context 'using defaults' do
@@ -109,7 +109,7 @@ describe 'chrony' do
             it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_owner('0') }
             it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_group('0') }
             it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_replace(true) }
-            it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_content("0 xyzzy\n") }
+            it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_content(sensitive("0 xyzzy\n")) }
           end
         end
       end
@@ -157,7 +157,7 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony.keys').with_owner('steve') }
               it { is_expected.to contain_file('/etc/chrony.keys').with_group('mrt') }
               it { is_expected.to contain_file('/etc/chrony.keys').with_replace(true) }
-              it { is_expected.to contain_file('/etc/chrony.keys').with_content("0 sunny\n") }
+              it { is_expected.to contain_file('/etc/chrony.keys').with_content(sensitive("0 sunny\n")) }
             end
           when 'RedHat'
             context 'with some params passed in' do
@@ -182,7 +182,7 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony.keys').with_owner('steve') }
               it { is_expected.to contain_file('/etc/chrony.keys').with_group('mrt') }
               it { is_expected.to contain_file('/etc/chrony.keys').with_replace(true) }
-              it { is_expected.to contain_file('/etc/chrony.keys').with_content("0 sunny\n") }
+              it { is_expected.to contain_file('/etc/chrony.keys').with_content(sensitive("0 sunny\n")) }
             end
           when 'Debian', 'Gentoo'
             context 'with some params passed in' do
@@ -206,7 +206,7 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_owner('steve') }
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_group('mrt') }
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_replace(true) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_content("0 sunny\n") }
+              it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_content(sensitive("0 sunny\n")) }
             end
           end
         end
@@ -250,17 +250,17 @@ describe 'chrony' do
           when 'Archlinux'
             context 'unmanaged chrony.keys file' do
               it { is_expected.to contain_file('/etc/chrony.keys').with_replace(false) }
-              it { is_expected.to contain_file('/etc/chrony.keys').with_content('') }
+              it { is_expected.to contain_file('/etc/chrony.keys').with_content(sensitive('')) }
             end
           when 'RedHat'
             context 'unmanaged chrony.keys file' do
               it { is_expected.to contain_file('/etc/chrony.keys').with_replace(false) }
-              it { is_expected.to contain_file('/etc/chrony.keys').with_content('') }
+              it { is_expected.to contain_file('/etc/chrony.keys').with_content(sensitive('')) }
             end
           when 'Debian', 'Gentoo'
             context 'unmanaged chrony.keys file' do
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_replace(false) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_content('') }
+              it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_content(sensitive('')) }
             end
           end
         end
