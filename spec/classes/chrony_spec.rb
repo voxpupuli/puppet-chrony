@@ -33,7 +33,7 @@ describe 'chrony' do
             it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*rtconutc$}) }
             it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*driftfile /var/lib/chrony/drift$}) }
             it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*rtcsync$}) }
-            it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*dumpdir /var/log/chrony$}) }
+            it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*dumpdir /var/lib/chrony$}) }
             it { is_expected.to contain_file('/etc/chrony.conf').without_content(%r{^\s*\n\s*$}) }
             it { is_expected.to contain_file('/etc/chrony.keys').with_mode('0644') }
             it { is_expected.to contain_file('/etc/chrony.keys').with_owner('0') }

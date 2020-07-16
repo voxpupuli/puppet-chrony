@@ -14,7 +14,7 @@ class chrony::params {
       $service_name      = 'chronyd'
       $clientlog         = true
       $rtconutc          = true
-      $dumpdir           = '/var/log/chrony'
+      $dumpdir           = '/var/lib/chrony'
     }
     'Gentoo' : {
       $package_name      = 'net-misc/chrony'
