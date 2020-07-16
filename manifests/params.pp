@@ -11,10 +11,10 @@ class chrony::params {
       $config_keys_owner = 0
       $config_keys_group = 0
       $config_keys_mode  = '0644'
-      $service_name      = 'chrony'
+      $service_name      = 'chronyd'
       $clientlog         = true
       $rtconutc          = true
-      $dumpdir           = '/var/log/chrony'
+      $dumpdir           = '/var/lib/chrony'
     }
     'Gentoo' : {
       $package_name      = 'net-misc/chrony'
