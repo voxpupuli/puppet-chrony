@@ -6,6 +6,22 @@ describe 'chrony' do
       let(:facts) do
         facts
       end
+      let(:config_file) do
+        case facts[:osfamily]
+        when 'Archlinux', 'RedHat', 'Suse'
+          '/etc/chrony.conf'
+        else
+          '/etc/chrony/chrony.conf'
+        end
+      end
+      let(:keys_file) do
+        case facts[:osfamily]
+        when 'Archlinux', 'RedHat', 'Suse'
+          '/etc/chrony.keys'
+        else
+          '/etc/chrony/chrony.keys'
+        end
+      end
 
       context 'with defaults' do
         it { is_expected.to compile.with_all_deps }
