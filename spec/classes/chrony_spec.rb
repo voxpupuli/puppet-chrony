@@ -43,7 +43,7 @@ describe 'chrony' do
         when 'Archlinux'
           context 'using defaults' do
             it do
-              is_expected.to contain_file('/etc/chrony.conf')
+              is_expected.to contain_file(config_file)
                 .with_content(%r{^\s*cmdallow 127\.0\.0\.1$})
                 .with_content(%r{^\s*server 0.pool.ntp.org iburst$})
                 .with_content(%r{^\s*server 1.pool.ntp.org iburst$})
@@ -56,7 +56,7 @@ describe 'chrony' do
                 .without_content(%r{^\s*\n\s*$})
             end
             it do
-              is_expected.to contain_file('/etc/chrony.keys')
+              is_expected.to contain_file(keys_file)
                 .with_mode('0644')
                 .with_owner('0')
                 .with_group('0')
@@ -67,7 +67,7 @@ describe 'chrony' do
         when 'Gentoo'
           context 'using defaults' do
             it do
-              is_expected.to contain_file('/etc/chrony/chrony.conf')
+              is_expected.to contain_file(config_file)
                 .without_content(%r{^\s*cmdallow})
                 .with_content(%r{^\s*server 0.pool.ntp.org iburst$})
                 .with_content(%r{^\s*server 1.pool.ntp.org iburst$})
@@ -80,7 +80,7 @@ describe 'chrony' do
                 .without_content(%r{^\s*\n\s*$})
             end
             it do
-              is_expected.to contain_file('/etc/chrony/chrony.keys')
+              is_expected.to contain_file(keys_file)
                 .with_mode('0644')
                 .with_owner('0')
                 .with_group('0')
@@ -91,7 +91,7 @@ describe 'chrony' do
         when 'RedHat'
           context 'using defaults' do
             it do
-              is_expected.to contain_file('/etc/chrony.conf')
+              is_expected.to contain_file(config_file)
                 .with_content(%r{^\s*bindcmdaddress ::1$})
                 .with_content(%r{^\s*bindcmdaddress 127\.0\.0\.1$})
                 .without_content(%r{^\s*cmdallow.*$})
@@ -105,7 +105,7 @@ describe 'chrony' do
                 .without_content(%r{^\s*\n\s*$})
             end
             it do
-              is_expected.to contain_file('/etc/chrony.keys')
+              is_expected.to contain_file(keys_file)
                 .with_mode('0640')
                 .with_owner('0')
                 .with_group('chrony')
@@ -116,7 +116,7 @@ describe 'chrony' do
         when 'Debian'
           context 'using defaults' do
             it do
-              is_expected.to contain_file('/etc/chrony/chrony.conf')
+              is_expected.to contain_file(config_file)
                 .with_content(%r{^\s*bindcmdaddress ::1$})
                 .with_content(%r{^\s*bindcmdaddress 127\.0\.0\.1$})
                 .without_content(%r{^\s*cmdallow.*$})
@@ -130,7 +130,7 @@ describe 'chrony' do
                 .without_content(%r{^\s*\n\s*$})
             end
             it do
-              is_expected.to contain_file('/etc/chrony/chrony.keys')
+              is_expected.to contain_file(keys_file)
                 .with_mode('0640')
                 .with_owner('0')
                 .with_group('0')
@@ -171,7 +171,7 @@ describe 'chrony' do
           when 'Archinux'
             context 'with some params passed in' do
               it do
-                is_expected.to contain_file('/etc/chrony.conf')
+                is_expected.to contain_file(config_file)
                   .with_content(%r{^\s*port 123$})
                   .with_content(%r{^s*allow 192\.168\/16$})
                   .with_content(%r{^\s*cmdallow 1\.2\.3\.4$})
@@ -184,7 +184,7 @@ describe 'chrony' do
                   .with_content(%r{^\s*dumpdir /var/tmp$})
               end
               it do
-                is_expected.to contain_file('/etc/chrony.keys')
+                is_expected.to contain_file(keys_file)
                   .with_mode('0123')
                   .with_owner('steve')
                   .with_group('mrt')
@@ -195,7 +195,7 @@ describe 'chrony' do
           when 'RedHat'
             context 'with some params passed in' do
               it do
-                is_expected.to contain_file('/etc/chrony.conf')
+                is_expected.to contain_file(config_file)
                   .with_content(%r{^\s*leapsecmode slew$})
                   .with_content(%r{^\s*leapsectz right/UTC$})
                   .with_content(%r{^\s*maxslewrate 1000\.0$})
@@ -214,7 +214,7 @@ describe 'chrony' do
                   .with_content(%r{^\s*dumpdir /var/tmp$})
               end
               it do
-                is_expected.to contain_file('/etc/chrony.keys')
+                is_expected.to contain_file(keys_file)
                   .with_mode('0123')
                   .with_owner('steve')
                   .with_group('mrt')
@@ -225,7 +225,7 @@ describe 'chrony' do
           when 'Debian', 'Gentoo'
             context 'with some params passed in' do
               it do
-                is_expected.to contain_file('/etc/chrony/chrony.conf')
+                is_expected.to contain_file(config_file)
                   .with_content(%r{^\s*leapsectz right/UTC$})
                   .with_content(%r{^\s*leapsecmode slew$})
                   .with_content(%r{^\s*maxslewrate 1000\.0$})
@@ -244,7 +244,7 @@ describe 'chrony' do
                   .with_content(%r{^\s*dumpdir /var/tmp$})
               end
               it do
-                is_expected.to contain_file('/etc/chrony/chrony.keys')
+                is_expected.to contain_file(keys_file)
                   .with_mode('0123')
                   .with_owner('steve')
                   .with_group('mrt')
@@ -260,9 +260,9 @@ describe 'chrony' do
         context 'by default' do
           case facts[:osfamily]
           when 'Archlinux', 'RedHat'
-            it { is_expected.not_to contain_file('/etc/chrony.conf').with_content(%r{stratumweight}) }
+            it { is_expected.not_to contain_file(config_file).with_content(%r{stratumweight}) }
           when 'Debian', 'Gentoo'
-            it { is_expected.not_to contain_file('/etc/chrony/chrony.conf').with_content(%r{stratumweight}) }
+            it { is_expected.not_to contain_file(config_file).with_content(%r{stratumweight}) }
           end
         end
         context 'when set' do
@@ -274,9 +274,9 @@ describe 'chrony' do
 
           case facts[:osfamily]
           when 'Archlinux', 'RedHat'
-            it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^stratumweight 0$}) }
+            it { is_expected.to contain_file(config_file).with_content(%r{^stratumweight 0$}) }
           when 'Debian', 'Gentoo'
-            it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^stratumweight 0$}) }
+            it { is_expected.to contain_file(config_file).with_content(%r{^stratumweight 0$}) }
           end
         end
       end
@@ -293,18 +293,18 @@ describe 'chrony' do
           case facts[:osfamily]
           when 'Archlinux'
             context 'unmanaged chrony.keys file' do
-              it { is_expected.to contain_file('/etc/chrony.keys').with_replace(false) }
-              it { is_expected.to contain_file('/etc/chrony.keys').with_content('') }
+              it { is_expected.to contain_file(keys_file).with_replace(false) }
+              it { is_expected.to contain_file(keys_file).with_content('') }
             end
           when 'RedHat'
             context 'unmanaged chrony.keys file' do
-              it { is_expected.to contain_file('/etc/chrony.keys').with_replace(false) }
-              it { is_expected.to contain_file('/etc/chrony.keys').with_content('') }
+              it { is_expected.to contain_file(keys_file).with_replace(false) }
+              it { is_expected.to contain_file(keys_file).with_content('') }
             end
           when 'Debian', 'Gentoo'
             context 'unmanaged chrony.keys file' do
-              it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_replace(false) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_content('') }
+              it { is_expected.to contain_file(keys_file).with_replace(false) }
+              it { is_expected.to contain_file(keys_file).with_content('') }
             end
           end
         end
@@ -319,9 +319,9 @@ describe 'chrony' do
 
         case facts[:osfamily]
         when 'Archlinux', 'Redhat'
-          it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*hwtimestamp eth0 minpoll 1 maxpoll 7$}) }
+          it { is_expected.to contain_file(config_file).with_content(%r{^\s*hwtimestamp eth0 minpoll 1 maxpoll 7$}) }
         when 'Debian', 'Gentoo'
-          it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*hwtimestamp eth0 minpoll 1 maxpoll 7$}) }
+          it { is_expected.to contain_file(config_file).with_content(%r{^\s*hwtimestamp eth0 minpoll 1 maxpoll 7$}) }
         end
       end
 
