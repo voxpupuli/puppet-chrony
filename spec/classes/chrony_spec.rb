@@ -167,103 +167,40 @@ describe 'chrony' do
         end
 
         context 'chrony::config' do
-          case facts[:osfamily]
-          when 'Archinux'
-            context 'with some params passed in' do
-              it do
-                is_expected.to contain_file(config_file)
-                  .with_content(%r{^\s*port 123$})
-                  .with_content(%r{^s*allow 192\.168\/16$})
-                  .with_content(%r{^\s*cmdallow 1\.2\.3\.4$})
-                  .with_content(%r{^\s*cmddeny 1\.2\.3$})
-                  .with_content(%r{^\s*cmdallow all 1\.2$})
-                  .with_content(%r{^\s*rtconutc$})
-                  .with_content(%r{^\s*hwtimestamp eth0$})
-                  .with_content(%r{^\s*driftfile /var/tmp/chrony.drift$})
-                  .without_content(%r{^\s*rtcsync$})
-                  .with_content(%r{^\s*dumpdir /var/tmp$})
-              end
-              it do
-                is_expected.to contain_file(keys_file)
-                  .with_mode('0123')
-                  .with_owner('steve')
-                  .with_group('mrt')
-                  .with_replace(true)
-                  .with_content("0 sunny\n")
-              end
-            end
-          when 'RedHat'
-            context 'with some params passed in' do
-              it do
-                is_expected.to contain_file(config_file)
-                  .with_content(%r{^\s*leapsecmode slew$})
-                  .with_content(%r{^\s*leapsectz right/UTC$})
-                  .with_content(%r{^\s*maxslewrate 1000\.0$})
-                  .with_content(%r{^\s*smoothtime 400 0\.001 leaponly$})
-                  .with_content(%r{^\s*port 123$})
-                  .with_content(%r{^\s*cmdport 257$})
-                  .with_content(%r{^s*allow 192\.168\/16$})
-                  .with_content(%r{^\s*bindcmdaddress 10\.0\.0\.1$})
-                  .with_content(%r{^\s*cmdallow 1\.2\.3\.4$})
-                  .with_content(%r{^\s*cmddeny 1\.2\.3$})
-                  .with_content(%r{^\s*cmdallow all 1\.2$})
-                  .with_content(%r{^\s*rtconutc$})
-                  .with_content(%r{^\s*hwtimestamp eth0$})
-                  .with_content(%r{^\s*driftfile /var/tmp/chrony.drift$})
-                  .without_content(%r{^\s*rtcsync$})
-                  .with_content(%r{^\s*dumpdir /var/tmp$})
-              end
-              it do
-                is_expected.to contain_file(keys_file)
-                  .with_mode('0123')
-                  .with_owner('steve')
-                  .with_group('mrt')
-                  .with_replace(true)
-                  .with_content("0 sunny\n")
-              end
-            end
-          when 'Debian', 'Gentoo'
-            context 'with some params passed in' do
-              it do
-                is_expected.to contain_file(config_file)
-                  .with_content(%r{^\s*leapsectz right/UTC$})
-                  .with_content(%r{^\s*leapsecmode slew$})
-                  .with_content(%r{^\s*maxslewrate 1000\.0$})
-                  .with_content(%r{^\s*smoothtime 400 0\.001 leaponly$})
-                  .with_content(%r{^\s*port 123$})
-                  .with_content(%r{^\s*cmdport 257$})
-                  .with_content(%r{^s*allow 192\.168\/16$})
-                  .with_content(%r{^\s*bindcmdaddress 10\.0\.0\.1$})
-                  .with_content(%r{^\s*cmdallow 1\.2\.3\.4$})
-                  .with_content(%r{^\s*cmddeny 1\.2\.3$})
-                  .with_content(%r{^\s*cmdallow all 1\.2$})
-                  .with_content(%r{^\s*rtconutc$})
-                  .with_content(%r{^\s*hwtimestamp eth0$})
-                  .with_content(%r{^\s*driftfile /var/tmp/chrony.drift$})
-                  .without_content(%r{^\s*rtcsync$})
-                  .with_content(%r{^\s*dumpdir /var/tmp$})
-              end
-              it do
-                is_expected.to contain_file(keys_file)
-                  .with_mode('0123')
-                  .with_owner('steve')
-                  .with_group('mrt')
-                  .with_replace(true)
-                  .with_content("0 sunny\n")
-              end
-            end
+          it do
+            is_expected.to contain_file(config_file)
+              .with_content(%r{^\s*leapsecmode slew$})
+              .with_content(%r{^\s*leapsectz right/UTC$})
+              .with_content(%r{^\s*leapsecmode slew$})
+              .with_content(%r{^\s*maxslewrate 1000\.0$})
+              .with_content(%r{^\s*smoothtime 400 0\.001 leaponly$})
+              .with_content(%r{^\s*port 123$})
+              .with_content(%r{^\s*cmdport 257$})
+              .with_content(%r{^s*allow 192\.168\/16$})
+              .with_content(%r{^\s*bindcmdaddress 10\.0\.0\.1$})
+              .with_content(%r{^\s*cmdallow 1\.2\.3\.4$})
+              .with_content(%r{^\s*cmddeny 1\.2\.3$})
+              .with_content(%r{^\s*cmdallow all 1\.2$})
+              .with_content(%r{^\s*rtconutc$})
+              .with_content(%r{^\s*hwtimestamp eth0$})
+              .with_content(%r{^\s*driftfile /var/tmp/chrony.drift$})
+              .without_content(%r{^\s*rtcsync$})
+              .with_content(%r{^\s*dumpdir /var/tmp$})
+          end
+          it do
+            is_expected.to contain_file(keys_file)
+              .with_mode('0123')
+              .with_owner('steve')
+              .with_group('mrt')
+              .with_replace(true)
+              .with_content("0 sunny\n")
           end
         end
       end
 
       describe 'stratumweight' do
         context 'by default' do
-          case facts[:osfamily]
-          when 'Archlinux', 'RedHat'
-            it { is_expected.not_to contain_file(config_file).with_content(%r{stratumweight}) }
-          when 'Debian', 'Gentoo'
-            it { is_expected.not_to contain_file(config_file).with_content(%r{stratumweight}) }
-          end
+          it { is_expected.not_to contain_file(config_file).with_content(%r{stratumweight}) }
         end
         context 'when set' do
           let(:params) do
@@ -272,12 +209,7 @@ describe 'chrony' do
             }
           end
 
-          case facts[:osfamily]
-          when 'Archlinux', 'RedHat'
-            it { is_expected.to contain_file(config_file).with_content(%r{^stratumweight 0$}) }
-          when 'Debian', 'Gentoo'
-            it { is_expected.to contain_file(config_file).with_content(%r{^stratumweight 0$}) }
-          end
+          it { is_expected.to contain_file(config_file).with_content(%r{^stratumweight 0$}) }
         end
       end
 
@@ -289,25 +221,8 @@ describe 'chrony' do
           }
         end
 
-        context 'chrony::config' do
-          case facts[:osfamily]
-          when 'Archlinux'
-            context 'unmanaged chrony.keys file' do
-              it { is_expected.to contain_file(keys_file).with_replace(false) }
-              it { is_expected.to contain_file(keys_file).with_content('') }
-            end
-          when 'RedHat'
-            context 'unmanaged chrony.keys file' do
-              it { is_expected.to contain_file(keys_file).with_replace(false) }
-              it { is_expected.to contain_file(keys_file).with_content('') }
-            end
-          when 'Debian', 'Gentoo'
-            context 'unmanaged chrony.keys file' do
-              it { is_expected.to contain_file(keys_file).with_replace(false) }
-              it { is_expected.to contain_file(keys_file).with_content('') }
-            end
-          end
-        end
+        it { is_expected.to contain_file(keys_file).with_replace(false) }
+        it { is_expected.to contain_file(keys_file).with_content('') }
       end
 
       context 'hwtimestamps as hash' do
@@ -317,12 +232,7 @@ describe 'chrony' do
           }
         end
 
-        case facts[:osfamily]
-        when 'Archlinux', 'Redhat'
-          it { is_expected.to contain_file(config_file).with_content(%r{^\s*hwtimestamp eth0 minpoll 1 maxpoll 7$}) }
-        when 'Debian', 'Gentoo'
-          it { is_expected.to contain_file(config_file).with_content(%r{^\s*hwtimestamp eth0 minpoll 1 maxpoll 7$}) }
-        end
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*hwtimestamp eth0 minpoll 1 maxpoll 7$}) }
       end
 
       context 'unmanaged chrony.keys file and password' do
