@@ -1,12 +1,12 @@
 # NTP servers
 <% $chrony::servers.each |$server| { -%>
-server <%= $server.flatten.join(' ') %>
+server <%= $server.flatten.filter |$value| { $value != undef }.join(' ') %>
 <% } -%>
 <% $chrony::pools.each |$pool| { -%>
-pool <%= $pool.flatten.join(' ') %>
+pool <%= $pool.flatten.filter |$value| { $value != undef }.join(' ') %>
 <% } -%>
 <% $chrony::peers.each |$peer| { -%>
-peer <%= $peer.flatten.join(' ') %>
+peer <%= $peer.flatten.filter |$value| { $value != undef }.join(' ') %>
 <% } -%>
 <% if $chrony::stratumweight { -%>
 
