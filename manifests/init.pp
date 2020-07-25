@@ -232,8 +232,7 @@ class chrony (
   Variant[Hash,Array[String]] $hwtimestamps                        = [],
   Optional[Stdlib::Unixpath] $dumpdir                              = $chrony::params::dumpdir,
 ) inherits chrony::params {
-
-  if ! $config_keys_manage and $chrony_password != 'unset'  {
+  if ! $config_keys_manage and $chrony_password != 'unset' {
     fail("Setting \$config_keys_manage false and \$chrony_password at same time in ${module_name} is not possible.")
   }
 
