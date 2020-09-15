@@ -13,5 +13,4 @@ class chrony::install (
     source   => $package_source,
     provider => $package_provider,
   }
-
 }

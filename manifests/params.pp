@@ -2,7 +2,7 @@
 #
 # @api private
 class chrony::params {
-  case $::osfamily {
+  case $facts['os']['family'] {
     'Archlinux' : {
       $package_name      = 'chrony'
       $cmdacl            = ['cmdallow 127.0.0.1']
@@ -57,7 +57,7 @@ class chrony::params {
     }
 
     default     : {
-      fail("The ${module_name} module is not supported on an ${::osfamily} based system.")
+      fail("The ${module_name} module is not supported on an ${facts['os']['family']} based system.")
     }
   }
 }
