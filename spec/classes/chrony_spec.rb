@@ -1,6 +1,16 @@
 require 'spec_helper'
 
 describe 'chrony' do
+  context 'on any other system' do
+    let(:facts) do
+      {
+        os: { family: 'UnsupportedOS' },
+      }
+    end
+
+    it { is_expected.to raise_error(%r{The chrony module is not supported on an UnsupportedOS based system\.}) }
+  end
+
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) do
@@ -279,16 +289,6 @@ describe 'chrony' do
         end
 
         it { is_expected.to raise_error(%r{Setting \$config_keys_manage false and \$chrony_password at same time in chrony is not possible}) }
-      end
-
-      context 'on any other system' do
-        let(:facts) do
-          {
-            os: { family: 'UnsupportedOS' },
-          }
-        end
-
-        it { is_expected.to raise_error(%r{The chrony module is not supported on an UnsupportedOS based system\.}) }
       end
 
       context 'chrony::service' do
