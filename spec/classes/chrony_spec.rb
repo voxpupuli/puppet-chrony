@@ -1,6 +1,16 @@
 require 'spec_helper'
 
 describe 'chrony' do
+  context 'on any other system' do
+    let(:facts) do
+      {
+        os: { family: 'UnsupportedOS' },
+      }
+    end
+
+    it { is_expected.to raise_error(%r{The chrony module is not supported on an UnsupportedOS based system\.}) }
+  end
+
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) do
@@ -23,7 +33,7 @@ describe 'chrony' do
       end
 
       context 'chrony::config' do
-        case facts[:osfamily]
+        case facts[:os]['family']
         when 'Archlinux'
           context 'using defaults' do
             it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmdallow 127\.0\.0\.1$}) }
@@ -130,7 +140,7 @@ describe 'chrony' do
         end
 
         context 'chrony::config' do
-          case facts[:osfamily]
+          case facts[:os]['family']
           when 'Archinux'
             context 'with some params passed in' do
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*port 123$}) }
@@ -204,7 +214,7 @@ describe 'chrony' do
 
       describe 'stratumweight' do
         context 'by default' do
-          case facts[:osfamily]
+          case facts[:os]['family']
           when 'Archlinux', 'RedHat'
             it { is_expected.not_to contain_file('/etc/chrony.conf').with_content(%r{stratumweight}) }
           when 'Debian', 'Gentoo'
@@ -218,7 +228,7 @@ describe 'chrony' do
             }
           end
 
-          case facts[:osfamily]
+          case facts[:os]['family']
           when 'Archlinux', 'RedHat'
             it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^stratumweight 0$}) }
           when 'Debian', 'Gentoo'
@@ -236,7 +246,7 @@ describe 'chrony' do
         end
 
         context 'chrony::config' do
-          case facts[:osfamily]
+          case facts[:os]['family']
           when 'Archlinux'
             context 'unmanaged chrony.keys file' do
               it { is_expected.to contain_file('/etc/chrony.keys').with_replace(false) }
@@ -263,7 +273,7 @@ describe 'chrony' do
           }
         end
 
-        case facts[:osfamily]
+        case facts[:os]['family']
         when 'Archlinux', 'Redhat'
           it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*hwtimestamp eth0 minpoll 1 maxpoll 7$}) }
         when 'Debian', 'Gentoo'
@@ -281,16 +291,6 @@ describe 'chrony' do
         it { is_expected.to raise_error(%r{Setting \$config_keys_manage false and \$chrony_password at same time in chrony is not possible}) }
       end
 
-      context 'on any other system' do
-        let(:facts) do
-          {
-            osfamily: 'UnsupportedOS',
-          }
-        end
-
-        it { is_expected.to raise_error(%r{The chrony module is not supported on an UnsupportedOS based system\.}) }
-      end
-
       context 'chrony::service' do
         let :params do
           {
@@ -300,7 +300,7 @@ describe 'chrony' do
           }
         end
 
-        case facts[:osfamily]
+        case facts[:os]['family']
         when 'Archlinux'
           context 'using defaults' do
             it do
