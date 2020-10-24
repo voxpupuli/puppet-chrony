@@ -4,7 +4,7 @@ describe 'chrony' do
   context 'on any other system' do
     let(:facts) do
       {
-        os: { family: 'UnsupportedOS' },
+        os: { family: 'UnsupportedOS' }
       }
     end
 
@@ -54,25 +54,25 @@ describe 'chrony' do
         when 'Gentoo'
           context 'using defaults' do
             it do
-              is_expected.to contain_file('/etc/chrony/chrony.conf')
-                .without_content(%r{^\s*cmdallow})
-                .with_content(%r{^\s*server 0.pool.ntp.org iburst$})
-                .with_content(%r{^\s*server 1.pool.ntp.org iburst$})
-                .with_content(%r{^\s*server 2.pool.ntp.org iburst$})
-                .with_content(%r{^\s*server 3.pool.ntp.org iburst$})
-                .with_content(%r{^\s*rtconutc$})
-                .with_content(%r{^\s*driftfile /var/lib/chrony/drift$})
-                .with_content(%r{^\s*rtcsync$})
-                .without_content(%r{^\s*dumpdir})
-                .without_content(%r{^\s*\n\s*$})
+              is_expected.to contain_file('/etc/chrony/chrony.conf').
+                without_content(%r{^\s*cmdallow}).
+                with_content(%r{^\s*server 0.pool.ntp.org iburst$}).
+                with_content(%r{^\s*server 1.pool.ntp.org iburst$}).
+                with_content(%r{^\s*server 2.pool.ntp.org iburst$}).
+                with_content(%r{^\s*server 3.pool.ntp.org iburst$}).
+                with_content(%r{^\s*rtconutc$}).
+                with_content(%r{^\s*driftfile /var/lib/chrony/drift$}).
+                with_content(%r{^\s*rtcsync$}).
+                without_content(%r{^\s*dumpdir}).
+                without_content(%r{^\s*\n\s*$})
             end
             it do
-              is_expected.to contain_file('/etc/chrony/chrony.keys')
-                .with_mode('0644')
-                .with_owner('0')
-                .with_group('0')
-                .with_replace(true)
-                .with_content("0 xyzzy\n")
+              is_expected.to contain_file('/etc/chrony/chrony.keys').
+                with_mode('0644').
+                with_owner('0').
+                with_group('0').
+                with_replace(true).
+                with_content("0 xyzzy\n")
             end
           end
         when 'RedHat'
@@ -135,7 +135,7 @@ describe 'chrony' do
             hwtimestamps: ['eth0'],
             driftfile: '/var/tmp/chrony.drift',
             rtcsync: false,
-            dumpdir: '/var/tmp',
+            dumpdir: '/var/tmp'
           }
         end
 
@@ -224,7 +224,7 @@ describe 'chrony' do
         context 'when set' do
           let(:params) do
             {
-              stratumweight: 0,
+              stratumweight: 0
             }
           end
 
@@ -241,7 +241,7 @@ describe 'chrony' do
         let(:params) do
           {
             config_keys_manage: false,
-            chrony_password: 'unset',
+            chrony_password: 'unset'
           }
         end
 
@@ -269,7 +269,7 @@ describe 'chrony' do
       context 'hwtimestamps as hash' do
         let(:params) do
           {
-            hwtimestamps: { 'eth0' => ['minpoll 1', 'maxpoll 7'] },
+            hwtimestamps: { 'eth0' => ['minpoll 1', 'maxpoll 7'] }
           }
         end
 
@@ -284,7 +284,7 @@ describe 'chrony' do
       context 'unmanaged chrony.keys file and password' do
         let(:params) do
           {
-            config_keys_manage: false,
+            config_keys_manage: false
           }
         end
 
@@ -296,7 +296,7 @@ describe 'chrony' do
           {
             service_ensure: 'running',
             service_enable: true,
-            service_manage: true,
+            service_manage: true
           }
         end
 
@@ -306,7 +306,7 @@ describe 'chrony' do
             it do
               is_expected.to contain_service('chronyd').with(
                 ensure: 'running',
-                enable: true,
+                enable: true
               )
             end
           end
@@ -315,7 +315,7 @@ describe 'chrony' do
             it do
               is_expected.to contain_service('chronyd').with(
                 ensure: 'running',
-                enable: true,
+                enable: true
               )
             end
           end
@@ -324,7 +324,7 @@ describe 'chrony' do
             it do
               is_expected.to contain_service('chrony').with(
                 ensure: 'running',
-                enable: true,
+                enable: true
               )
             end
           end
