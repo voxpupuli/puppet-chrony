@@ -45,12 +45,12 @@ with systemd.
 
 ### Beginning with chrony
 
-include '::chrony' is all you need to get it running. If you
+`include 'chrony'` is all you need to get it running. If you
 wish to pass in parameters like which servers to use
 then you can use:
 
 ```puppet
-class { '::chrony':
+class { 'chrony':
   servers => ['ntp1.corp.com', 'ntp2.corp.com' ],
 }
 ```
@@ -63,13 +63,13 @@ the main chrony class.
 ### I just want chrony, what's the minimum I need?
 
 ```puppet
-include '::chrony'
+include 'chrony'
 ```
 
 ### I just want to tweak the servers, nothing else
 
 ```puppet
-class { '::chrony':
+class { 'chrony':
   servers => [ 'ntp1.corp.com', 'ntp2.corp.com', ],
 }
 ```
@@ -77,7 +77,7 @@ class { '::chrony':
 ### I'd like to make sure a secret password is used for chronyc
 
 ```puppet
-class { '::chrony':
+class { 'chrony':
   servers         => [ 'ntp1.corp.com', 'ntp2.corp.com', ],
   chrony_password => 'secret_password',
 }
@@ -86,7 +86,7 @@ class { '::chrony':
 ### I'd like to use NTP authentication
 
 ```puppet
-class { '::chrony':
+class { 'chrony':
   keys            => [
     '25 SHA1 HEX:1dc764e0791b11fa67efc7ecbc4b0d73f68a070c',
   ],
@@ -100,7 +100,7 @@ class { '::chrony':
 ### I'd like chronyd to auto generate a command key at startup
 
 ```puppet
-class { '::chrony':
+class { 'chrony':
    chrony_password    => 'unset',
    config_keys_manage => false,
 }
@@ -109,7 +109,7 @@ class { '::chrony':
 ### Allow some hosts
 
 ```puppet
-class { '::chrony':
+class { 'chrony':
   queryhosts  => [ '192.168/16', ],
 }
 ```
@@ -117,7 +117,7 @@ class { '::chrony':
 ### How to configure leap second
 
 ```puppet
-class { '::chrony':
+class { 'chrony':
   leapsecmode  => 'slew',
   smoothtime   => '400 0.001 leaponly',
   maxslewrate  => 1000.0
