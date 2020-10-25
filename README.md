@@ -2,7 +2,6 @@
 
 [![License](https://img.shields.io/github/license/voxpupuli/puppet-chrony.svg)](https://github.com/voxpupuli/puppet-chrony/blob/master/LICENSE)
 [![Build Status](https://secure.travis-ci.org/voxpupuli/puppet-chrony.png?branch=master)](http://travis-ci.org/voxpupuli/puppet-chrony)
-[![pdk version](https://img.shields.io/puppetforge/pdk-version/puppet/chrony.svg?style=flat)](https://forge.puppetlabs.com/puppet/chrony)
 [![Puppet Forge](https://img.shields.io/puppetforge/v/puppet/chrony.svg?style=flat)](https://forge.puppetlabs.com/puppet/chrony)
 [![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/puppet/chrony.svg?style=flat)](https://forge.puppetlabs.com/puppet/chrony)
 [![Puppet Forge - scores](https://img.shields.io/puppetforge/f/puppet/chrony.svg?style=flat)](https://forge.puppetlabs.com/puppet/chrony)
