@@ -1,12 +1,14 @@
 require 'spec_helper_acceptance'
 
 describe 'chrony class:' do
-  it 'with defaults' do
-    pp = <<-MANIFEST
-      class { 'chrony': }
-    MANIFEST
+  it 'works idempotently with no errors' do
+    pp = <<-EOS
+    class { 'chrony': }
+    EOS
 
-    idempotent_apply(pp)
+    # Run it twice and test for idempotency
+    apply_manifest(pp, catch_failures: true)
+    apply_manifest(pp, catch_changes: true)
   end
 
   describe package('chrony') do

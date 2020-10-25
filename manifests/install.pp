@@ -6,7 +6,7 @@ class chrony::install (
   $package_name     = $chrony::package_name,
   $package_source   = $chrony::package_source,
   $package_provider = $chrony::package_provider,
-) inherits chrony {
+) {
   package { 'chrony':
     ensure   => $package_ensure,
     name     => $package_name,
