@@ -141,7 +141,7 @@ describe 'chrony' do
 
         context 'chrony::config' do
           case facts[:os]['family']
-          when 'Archinux'
+          when 'Archlinux'
             context 'with some params passed in' do
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*port 123$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^s*allow 192\.168\/16$}) }
