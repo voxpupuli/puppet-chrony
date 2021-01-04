@@ -26,6 +26,10 @@
 
 * `chrony::server_array_to_hash`: Function to normalise servers/pools/peers
 
+### Data types
+
+* [`Chrony::Servers`](#chronyservers)
+
 ## Classes
 
 ### `chrony`
@@ -306,7 +310,7 @@ Default value: ``undef``
 
 ##### `peers`
 
-Data type: `Variant[Hash,Array[Stdlib::Host]]`
+Data type: `Chrony::Servers`
 
 This selects the servers to use for NTP peers (symmetric association).
 It can be an array of peers or a hash of peers with their respective options.
@@ -315,7 +319,7 @@ Default value: `[]`
 
 ##### `servers`
 
-Data type: `Variant[Hash,Array[Stdlib::Host]]`
+Data type: `Chrony::Servers`
 
 This selects the servers to use for NTP servers.  It can be an array of servers
 or a hash of servers to their respective options. If an array is used, `iburst` will be configured for each server.
@@ -330,7 +334,7 @@ Default value: `{
 
 ##### `pools`
 
-Data type: `Variant[Hash,Array[Stdlib::Fqdn]]`
+Data type: `Chrony::Servers`
 
 This is used to specify one or more *pools* of NTP servers to use instead of individual NTP servers.
 Similar to [`server`](#server), it can be an array of pools, (using iburst), or a hash of pools to their respective options.
@@ -537,4 +541,12 @@ Directory to store measurement history in on exit.
 Default value: `$chrony::params::dumpdir`
 
 ## Functions
+
+## Data types
+
+### `Chrony::Servers`
+
+The Chrony::Servers data type.
+
+Alias of `Variant[Hash[Stdlib::Host, Optional[Array[String]]], Array[Stdlib::Host]]`
 

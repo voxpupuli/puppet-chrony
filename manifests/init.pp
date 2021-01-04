@@ -202,14 +202,14 @@ class chrony (
   Optional[String] $package_source                                 = undef,
   Optional[String] $package_provider                               = undef,
   $refclocks                                                       = [],
-  Variant[Hash,Array[Stdlib::Host]] $peers                         = [],
-  Variant[Hash,Array[Stdlib::Host]] $servers                       = {
+  Chrony::Servers $peers                                           = [],
+  Chrony::Servers $servers                                         = {
     '0.pool.ntp.org' => ['iburst'],
     '1.pool.ntp.org' => ['iburst'],
     '2.pool.ntp.org' => ['iburst'],
     '3.pool.ntp.org' => ['iburst'],
   },
-  Variant[Hash,Array[Stdlib::Fqdn]] $pools                         = {},
+  Chrony::Servers $pools                                           = {},
   Numeric $makestep_seconds                                        = 10,
   Integer $makestep_updates                                        = 3,
   Array[String] $queryhosts                                        = [],
