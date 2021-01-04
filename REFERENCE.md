@@ -297,10 +297,10 @@ Default value: ``undef``
 
 ##### `peers`
 
-Data type: `Any`
+Data type: `Variant[Hash,Array[Stdlib::Host]]`
 
 This selects the servers to use for NTP peers (symmetric association).
-It is an array of servers.
+It can be an array of peers or a hash of peers with their respective options.
 
 Default value: `[]`
 
@@ -309,7 +309,8 @@ Default value: `[]`
 Data type: `Variant[Hash,Array[Stdlib::Host]]`
 
 This selects the servers to use for NTP servers.  It can be an array of servers
-or a hash of servers to their respective options.
+or a hash of servers to their respective options. If an array is used, `iburst` will be configured for each server.
+If you don't want to use `iburst`, use a hash instead.
 
 Default value: `{
     '0.pool.ntp.org' => ['iburst'],
@@ -323,7 +324,7 @@ Default value: `{
 Data type: `Variant[Hash,Array[Stdlib::Fqdn]]`
 
 This is used to specify one or more *pools* of NTP servers to use instead of individual NTP servers.
-Similar to [`server`](#server), it can be an array of pools or a hash of pools to their respective options.
+Similar to [`server`](#server), it can be an array of pools, (using iburst), or a hash of pools to their respective options.
 See [pool](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#pool)
 
 Default value: `{}`
