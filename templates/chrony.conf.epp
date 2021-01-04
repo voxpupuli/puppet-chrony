@@ -1,42 +1,24 @@
 # NTP servers
-<% if $chrony::servers.is_a(Hash) { -%>
-<%   $chrony::servers.keys.sort.each |$server| { -%>
-<%     if $chrony::servers[$server] and !$chrony::servers[$server].empty { -%>
-server <%= $server %> <%= $chrony::servers[$server].join(' ') %>
-<% } else { -%>
+<% $servers.keys.sort.each |$server| { -%>
+<%   if $servers[$server].empty { -%>
 server <%= $server %>
+<%   } else { -%>
+server <%= $server %> <%= $servers[$server].join(' ') %>
+<%   } -%>
 <% } -%>
-<% } -%>
-<% } else { -%>
-<% $chrony::servers.each |$server| { -%>
-server <%= $server %> iburst
-<% } -%>
-<% } -%>
-<% if $chrony::pools.is_a(Hash) { -%>
-<%   $chrony::pools.keys.sort.each |$pool| { -%>
-<%     if $chrony::pools[$pool] and !$chrony::pools[$pool].empty { -%>
-pool <%= $pool %> <%= $chrony::pools[$pool].join(' ') %>
-<% } else { -%>
+<% $pools.keys.sort.each |$pool| { -%>
+<%   if $pools[$pool].empty { -%>
 pool <%= $pool %>
+<%   } else { -%>
+pool <%= $pool %> <%= $pools[$pool].join(' ') %>
+<%   } -%>
 <% } -%>
-<% } -%>
-<% } else { -%>
-<% $chrony::pools.each |$pool| { -%>
-pool <%= $pool %> iburst
-<% } -%>
-<% } -%>
-<% if $chrony::peers.is_a(Hash) { -%>
-<%   $chrony::peers.keys.sort.each |$peer| { -%>
-<%     if $chrony::peers[$peer] and !$chrony::peers[$peer].empty { -%>
-peer <%= $peer %> <%= $chrony::peers[$peer].join(' ') %>
-<% } else { -%>
+<% $peers.keys.sort.each |$peer| { -%>
+<%   if $peers[$peer].empty { -%>
 peer <%= $peer %>
-<% } -%>
-<% } -%>
-<% } else { -%>
-<% $chrony::peers.each |$peer| { -%>
-peer <%= $peer %>
-<% } -%>
+<%   } else { -%>
+peer <%= $peer %> <%= $peers[$peer].join(' ') %>
+<%   } -%>
 <% } -%>
 <% if $chrony::stratumweight { -%>
 

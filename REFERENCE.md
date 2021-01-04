@@ -17,6 +17,15 @@
 * `chrony::params`: chrony class parameters
 * `chrony::service`: Manages the chrony service
 
+### Functions
+
+#### Public Functions
+
+
+#### Private Functions
+
+* `chrony::server_array_to_hash`: Function to normalise servers/pools/peers
+
 ## Classes
 
 ### `chrony`
@@ -526,4 +535,6 @@ Data type: `Optional[Stdlib::Unixpath]`
 Directory to store measurement history in on exit.
 
 Default value: `$chrony::params::dumpdir`
+
+## Functions
 
