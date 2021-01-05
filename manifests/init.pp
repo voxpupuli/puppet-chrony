@@ -2,9 +2,16 @@
 #
 # @example Install chrony with default options
 #   include chrony
-# @example Use specific servers
+# @example Use specific servers (These will be configured with the `iburst` option.)
 #   class { 'chrony':
 #     servers => [ 'ntp1.corp.com', 'ntp2.corp.com', ],
+#   }
+# @example Two specific servers without `iburst`
+#   class { 'chrony':
+#     servers => {
+#       'ntp1.corp.com' => [],
+#       'ntp2.corp.com' => [],
+#     },
 #   }
 # @example Ensure a secret password is used for chronyc
 #   class { 'chrony':

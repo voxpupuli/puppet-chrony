@@ -28,7 +28,7 @@
 
 ### Data types
 
-* [`Chrony::Servers`](#chronyservers)
+* [`Chrony::Servers`](#chronyservers): Type for the `servers`, `pools` and `peers` parameters.
 
 ## Classes
 
@@ -47,11 +47,22 @@ Installs and configures chrony
 include chrony
 ```
 
-##### Use specific servers
+##### Use specific servers (These will be configured with the `iburst` option.)
 
 ```puppet
 class { 'chrony':
   servers => [ 'ntp1.corp.com', 'ntp2.corp.com', ],
+}
+```
+
+##### Two specific servers without `iburst`
+
+```puppet
+class { 'chrony':
+  servers => {
+    'ntp1.corp.com' => [],
+    'ntp2.corp.com' => [],
+  },
 }
 ```
 
@@ -546,7 +557,34 @@ Default value: `$chrony::params::dumpdir`
 
 ### `Chrony::Servers`
 
-The Chrony::Servers data type.
+This type is for the `servers`, `pools` and `peers` parameters.
+
+#### Examples
+
+##### A hash of servers
+
+```puppet
+{
+  'ntp1.example.com => [
+    'minpoll 3',
+    'maxpoll 6',
+  ],
+  'ntp2.example.com => [
+    'iburst',
+    'minpoll 4',
+    'maxpoll 8',
+  ],
+}
+```
+
+##### An array of servers
+
+```puppet
+[
+  'ntp1.example.com',
+  'ntp2.example.com',
+]
+```
 
 Alias of `Variant[Hash[Stdlib::Host, Optional[Array[String]]], Array[Stdlib::Host]]`
 
