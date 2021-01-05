@@ -17,6 +17,19 @@
 * `chrony::params`: chrony class parameters
 * `chrony::service`: Manages the chrony service
 
+### Functions
+
+#### Public Functions
+
+
+#### Private Functions
+
+* `chrony::server_array_to_hash`: Function to normalise servers/pools/peers
+
+### Data types
+
+* [`Chrony::Servers`](#chronyservers): Type for the `servers`, `pools` and `peers` parameters.
+
 ## Classes
 
 ### `chrony`
@@ -34,11 +47,22 @@ Installs and configures chrony
 include chrony
 ```
 
-##### Use specific servers
+##### Use specific servers (These will be configured with the `iburst` option.)
 
 ```puppet
 class { 'chrony':
   servers => [ 'ntp1.corp.com', 'ntp2.corp.com', ],
+}
+```
+
+##### Two specific servers without `iburst`
+
+```puppet
+class { 'chrony':
+  servers => {
+    'ntp1.corp.com' => [],
+    'ntp2.corp.com' => [],
+  },
 }
 ```
 
@@ -297,19 +321,20 @@ Default value: ``undef``
 
 ##### `peers`
 
-Data type: `Any`
+Data type: `Chrony::Servers`
 
 This selects the servers to use for NTP peers (symmetric association).
-It is an array of servers.
+It can be an array of peers or a hash of peers with their respective options.
 
 Default value: `[]`
 
 ##### `servers`
 
-Data type: `Variant[Hash,Array[Stdlib::Host]]`
+Data type: `Chrony::Servers`
 
 This selects the servers to use for NTP servers.  It can be an array of servers
-or a hash of servers to their respective options.
+or a hash of servers to their respective options. If an array is used, `iburst` will be configured for each server.
+If you don't want to use `iburst`, use a hash instead.
 
 Default value: `{
     '0.pool.ntp.org' => ['iburst'],
@@ -320,10 +345,10 @@ Default value: `{
 
 ##### `pools`
 
-Data type: `Variant[Hash,Array[Stdlib::Fqdn]]`
+Data type: `Chrony::Servers`
 
 This is used to specify one or more *pools* of NTP servers to use instead of individual NTP servers.
-Similar to [`server`](#server), it can be an array of pools or a hash of pools to their respective options.
+Similar to [`server`](#server), it can be an array of pools, (using iburst), or a hash of pools to their respective options.
 See [pool](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#pool)
 
 Default value: `{}`
@@ -525,4 +550,41 @@ Data type: `Optional[Stdlib::Unixpath]`
 Directory to store measurement history in on exit.
 
 Default value: `$chrony::params::dumpdir`
+
+## Functions
+
+## Data types
+
+### `Chrony::Servers`
+
+This type is for the `servers`, `pools` and `peers` parameters.
+
+#### Examples
+
+##### A hash of servers
+
+```puppet
+{
+  'ntp1.example.com => [
+    'minpoll 3',
+    'maxpoll 6',
+  ],
+  'ntp2.example.com => [
+    'iburst',
+    'minpoll 4',
+    'maxpoll 8',
+  ],
+}
+```
+
+##### An array of servers
+
+```puppet
+[
+  'ntp1.example.com',
+  'ntp2.example.com',
+]
+```
+
+Alias of `Variant[Hash[Stdlib::Host, Optional[Array[String]]], Array[Stdlib::Host]]`
 

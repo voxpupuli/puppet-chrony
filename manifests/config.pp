@@ -43,7 +43,13 @@ class chrony::config (
     owner   => 0,
     group   => 0,
     mode    => '0644',
-    content => epp($config_template),
+    content => epp($config_template,
+      {
+        servers => chrony::server_array_to_hash($servers, ['iburst']),
+        pools   => chrony::server_array_to_hash($pools, ['iburst']),
+        peers   => chrony::server_array_to_hash($peers),
+      }
+    ),
   }
 
   file { $config_keys:

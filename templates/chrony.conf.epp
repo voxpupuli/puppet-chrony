@@ -1,12 +1,24 @@
 # NTP servers
-<% $chrony::servers.each |$server| { -%>
-server <%= $server.flatten.join(' ') %>
+<% $servers.keys.sort.each |$server| { -%>
+<%   if $servers[$server].empty { -%>
+server <%= $server %>
+<%   } else { -%>
+server <%= $server %> <%= $servers[$server].join(' ') %>
+<%   } -%>
 <% } -%>
-<% $chrony::pools.each |$pool| { -%>
-pool <%= $pool.flatten.join(' ') %>
+<% $pools.keys.sort.each |$pool| { -%>
+<%   if $pools[$pool].empty { -%>
+pool <%= $pool %>
+<%   } else { -%>
+pool <%= $pool %> <%= $pools[$pool].join(' ') %>
+<%   } -%>
 <% } -%>
-<% $chrony::peers.each |$peer| { -%>
-peer <%= $peer.flatten.join(' ') %>
+<% $peers.keys.sort.each |$peer| { -%>
+<%   if $peers[$peer].empty { -%>
+peer <%= $peer %>
+<%   } else { -%>
+peer <%= $peer %> <%= $peers[$peer].join(' ') %>
+<%   } -%>
 <% } -%>
 <% if $chrony::stratumweight { -%>
 

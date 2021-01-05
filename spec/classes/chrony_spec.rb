@@ -16,6 +16,25 @@ describe 'chrony' do
       let(:facts) do
         facts
       end
+      let(:config_file) do
+        case facts[:osfamily]
+        when 'Archlinux', 'RedHat', 'Suse'
+          '/etc/chrony.conf'
+        else
+          '/etc/chrony/chrony.conf'
+        end
+      end
+      let(:keys_file) do
+        case facts[:osfamily]
+        when 'Archlinux', 'RedHat', 'Suse'
+          '/etc/chrony.keys'
+        else
+          '/etc/chrony/chrony.keys'
+        end
+      end
+      let(:config_file_contents) do
+        catalogue.resource('file', config_file).send(:parameters)[:content]
+      end
 
       context 'with defaults' do
         it { is_expected.to compile.with_all_deps }
@@ -233,6 +252,141 @@ describe 'chrony' do
             it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^stratumweight 0$}) }
           when 'Debian', 'Gentoo'
             it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^stratumweight 0$}) }
+          end
+        end
+      end
+
+      describe 'servers' do
+        context 'by default' do
+          it do
+            expected_lines = [
+              'server 0.pool.ntp.org iburst',
+              'server 1.pool.ntp.org iburst',
+              'server 2.pool.ntp.org iburst',
+              'server 3.pool.ntp.org iburst'
+            ]
+            expect(config_file_contents.split("\n") & expected_lines).to eq(expected_lines)
+          end
+        end
+        context 'when servers is an array' do
+          let(:params) do
+            {
+              servers: ['ntp1.corp.com', 'ntp2.corp.com'],
+            }
+          end
+
+          it do
+            expected_lines = [
+              'server ntp1.corp.com iburst',
+              'server ntp2.corp.com iburst',
+            ]
+            expect(config_file_contents.split("\n") & expected_lines).to eq(expected_lines)
+          end
+        end
+        context 'when servers is an (unsorted) hash' do
+          let(:params) do
+            {
+              servers: {
+                'ntp3.corp.com' => [],
+                'ntp1.corp.com' => ['key 25', 'iburst'],
+                'ntp4.corp.com' => :undef,
+                'ntp2.corp.com' => ['key 25', 'iburst'],
+              }
+            }
+          end
+
+          it do
+            expected_lines = [
+              'server ntp1.corp.com key 25 iburst',
+              'server ntp2.corp.com key 25 iburst',
+              'server ntp3.corp.com',
+              'server ntp4.corp.com',
+            ]
+            expect(config_file_contents.split("\n") & expected_lines).to eq(expected_lines)
+          end
+        end
+      end
+
+      describe 'pools' do
+        context 'by default' do
+          it { expect(config_file_contents).not_to match(%r{^pool}) }
+        end
+        context 'when pools is an array' do
+          let(:params) do
+            {
+              pools: ['0.pool.ntp.org', '1.pool.ntp.org']
+            }
+          end
+
+          it do
+            expected_lines = [
+              'server 0.pool.ntp.org iburst',
+              'server 1.pool.ntp.org iburst',
+            ]
+            expect(config_file_contents.split("\n") & expected_lines).to eq(expected_lines)
+          end
+        end
+        context 'when pools is a hash' do
+          let(:params) do
+            {
+              pools: {
+                '3.pool.ntp.org' => [],
+                '0.pool.ntp.org' => ['maxsources 4'],
+                '1.pool.ntp.org' => ['maxsources 4'],
+                '2.pool.ntp.org' => ['maxsources 4'],
+              }
+            }
+          end
+
+          it do
+            expected_lines = [
+              'pool 0.pool.ntp.org maxsources 4',
+              'pool 1.pool.ntp.org maxsources 4',
+              'pool 2.pool.ntp.org maxsources 4',
+              'pool 3.pool.ntp.org',
+            ]
+            expect(config_file_contents.split("\n") & expected_lines).to eq(expected_lines)
+          end
+        end
+      end
+
+      describe 'peers' do
+        context 'by default' do
+          it { expect(config_file_contents).not_to match(%r{^peer}) }
+        end
+        context 'when peers is an array' do
+          let(:params) do
+            {
+              peers: ['peer1.example.com', 'peer2.example.com']
+            }
+          end
+
+          it do
+            expected_lines = [
+              'peer peer1.example.com',
+              'peer peer2.example.com',
+            ]
+            expect(config_file_contents.split("\n") & expected_lines).to eq(expected_lines)
+          end
+        end
+        context 'when peers is a hash' do
+          let(:params) do
+            {
+              peers: {
+                'peer1.example.com' => [],
+                'peer2.example.com' => ['maxpoll 6'],
+                'peer3.example.com' => :undef,
+              }
+            }
+          end
+
+          it do
+            expected_lines = [
+              'peer peer1.example.com',
+              'peer peer2.example.com maxpoll 6',
+              'peer peer3.example.com',
+            ]
+            expect(config_file_contents.split("\n") & expected_lines).to eq(expected_lines)
           end
         end
       end
