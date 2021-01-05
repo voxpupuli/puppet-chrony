@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v1.0.0](https://github.com/voxpupuli/puppet-chrony/tree/v1.0.0) (2021-01-05)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-chrony/compare/v0.4.0...v1.0.0)
+
+**Breaking changes:**
+
+- Drop EoL Debian 8 support [\#105](https://github.com/voxpupuli/puppet-chrony/pull/105) ([bastelfreak](https://github.com/bastelfreak))
+- Drop Eol CentOS 6 support [\#104](https://github.com/voxpupuli/puppet-chrony/pull/104) ([bastelfreak](https://github.com/bastelfreak))
+
+**Fixed bugs:**
+
+- Restore behaviour of `servers` and `pools` parameters [\#103](https://github.com/voxpupuli/puppet-chrony/pull/103) ([alexjfisher](https://github.com/alexjfisher))
+- queryhosts: enforce Array\[String\] data type [\#101](https://github.com/voxpupuli/puppet-chrony/pull/101) ([kenyon](https://github.com/kenyon))
+
+**Merged pull requests:**
+
+- Fix tests to work with rspec-puppet 2.8.0 [\#93](https://github.com/voxpupuli/puppet-chrony/pull/93) ([alexjfisher](https://github.com/alexjfisher))
+
 ## [v0.4.0](https://github.com/voxpupuli/puppet-chrony/tree/v0.4.0) (2020-10-25)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-chrony/compare/v0.3.2...v0.4.0)
