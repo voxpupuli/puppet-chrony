@@ -41,7 +41,7 @@ with systemd.
 
 ### Requirements
 
-* Puppet 4.6.1 or later.  Puppet 3 was supported up until release 0.2.0.
+Please review `metadata.json` for a list of requirements.
 
 ### Beginning with chrony
 
