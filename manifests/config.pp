@@ -2,7 +2,7 @@
 #
 # @api private
 class chrony::config (
-  $bindaddress          = $chrony::address,
+  $bindaddress          = $chrony::bindaddress,
   $bindcmdaddress       = $chrony::bindcmdaddress,
   $chrony_password      = $chrony::chrony_password,
   $clientlog            = $chrony::clientlog,
