@@ -131,6 +131,14 @@ class { 'chrony':
 
 The following parameters are available in the `chrony` class.
 
+##### `bindaddress`
+
+Data type: `Optional[String]`
+
+Address of an interface on which chronyd will listen for NTP traffic.
+
+Default value: ``undef``
+
 ##### `bindcmdaddress`
 
 Data type: `Array[String]`
