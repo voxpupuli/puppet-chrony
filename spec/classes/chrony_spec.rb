@@ -178,6 +178,7 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony.keys').with_group('mrt') }
               it { is_expected.to contain_file('/etc/chrony.keys').with_replace(true) }
               it { is_expected.to contain_file('/etc/chrony.keys').with_content(sensitive("0 sunny\n")) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*maxupdateskew 1000\.0$}) }
             end
           when 'RedHat'
             context 'with some params passed in' do
