@@ -27,6 +27,7 @@ class chrony::config (
   $makestep_seconds     = $chrony::makestep_seconds,
   $makestep_updates     = $chrony::makestep_updates,
   $maxslewrate          = $chrony::maxslewrate,
+  $maxupdateskew        = $chrony::maxupdateskew,
   $peers                = $chrony::peers,
   $pools                = $chrony::pools,
   $port                 = $chrony::port,

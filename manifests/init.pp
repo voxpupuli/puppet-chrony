@@ -234,6 +234,7 @@ class chrony (
   Optional[Enum['system', 'step', 'slew', 'ignore']] $leapsecmode  = undef,
   Optional[String] $leapsectz                                      = undef,
   Optional[Float] $maxslewrate                                     = undef,
+  Optional[Float] $maxupdateskew                                   = undef,
   Optional[Numeric] $stratumweight                                 = undef,
   Boolean $rtcsync                                                 = true,
   Boolean $rtconutc                                                = $chrony::params::rtconutc,

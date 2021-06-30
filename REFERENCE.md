@@ -110,9 +110,10 @@ class { 'chrony':
 
 ```puppet
 class { 'chrony':
-  leapsecmode => 'slew',
-  smoothtime  => '400 0.001 leaponly',
-  maxslewrate => 1000.0
+  leapsecmode   => 'slew',
+  smoothtime    => '400 0.001 leaponly',
+  maxslewrate   => 1000.0,
+  maxupdateskew => 1000.0
 }
 ```
 
@@ -495,6 +496,14 @@ Default value: ``undef``
 Data type: `Optional[Float]`
 
 Maximum rate for chronyd to slew the time. Only float type values possible, for example: `maxslewrate 1000.0`.
+
+Default value: ``undef``
+
+##### `maxupdateskew`
+
+Data type: `Optional[Float]`
+
+Maximum error threshold for chronyd to determine unreliable estimates. Only float type values possible, for example: `maxupdateskew 1000.0`.
 
 Default value: ``undef``
 
