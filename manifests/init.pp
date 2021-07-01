@@ -91,7 +91,8 @@
 #   A file for chrony to record clock drift in.
 # @param local_stratum
 #   Override the stratum of the server which will be reported to clients
-#   when the local reference is active.
+#   when the local reference is active. Use `false` to not set local_stratum in
+#   chrony configuration.
 # @param stratumweight
 #   Sets how much distance should be added per stratum to the synchronisation distance when chronyd
 #   selects the synchronisation source from available sources.
