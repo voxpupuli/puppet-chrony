@@ -484,6 +484,22 @@ describe 'chrony' do
           end
         end
       end
+
+      context 'disable local_stratum' do
+        let(:params) do
+          {
+            local_stratum: false
+          }
+        end
+
+        case facts[:os]['family']
+        when 'Archlinux', 'Redhat'
+          it { is_expected.not_to contain_file('/etc/chrony.conf').with_content(%r{^\s*local stratum}) }
+        when 'Debian', 'Gentoo'
+          it { is_expected.not_to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*local stratum}) }
+        end
+      end
+
     end
   end
 end
