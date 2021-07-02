@@ -267,6 +267,15 @@ A file for chrony to record clock drift in.
 
 Default value: `'/var/lib/chrony/drift'`
 
+##### `initstepslew`
+
+Data type: `Optional[String]`
+
+Allow chronyd to make a rapid measurement of the system clock error at boot time,
+and to correct the system clock by stepping before normal operation begins.
+
+Default value: ``undef``
+
 ##### `local_stratum`
 
 Data type: `Integer[1,15]`
