@@ -220,12 +220,9 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*port 123$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*cmdport 257$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^s*allow 192\.168\/16$}) }
-<<<<<<< HEAD
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*bindaddress 10\.0\.0\.1$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*bindaddress ::1$}) }
-=======
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*initstepslew 600$}) }
->>>>>>> Add initstepslew parameter which allows chronyd to make a rapid measurement of the system clock error at boot time, and to correct the system clock by stepping before normal operation begins
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*bindcmdaddress 10\.0\.0\.1$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*cmdallow 1\.2\.3\.4$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*cmddeny 1\.2\.3$}) }
