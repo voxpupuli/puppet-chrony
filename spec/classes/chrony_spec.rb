@@ -146,7 +146,7 @@ describe 'chrony' do
             chrony_password: 'sunny',
             bindaddress: ['10.0.0.1', '::1'],
             bindcmdaddress: ['10.0.0.1'],
-            initstepslew: '600'
+            initstepslew: '600',
             cmdacl: ['cmdallow 1.2.3.4', 'cmddeny 1.2.3', 'cmdallow all 1.2'],
             leapsecmode: 'slew',
             leapsectz: 'right/UTC',
