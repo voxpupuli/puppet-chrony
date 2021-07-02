@@ -53,7 +53,8 @@
 # @see https://chrony.tuxfamily.org
 #
 # @param bindaddress
-#   Address of an interface on which chronyd will listen for NTP traffic.
+#   Array of addresses of interfaces on which chronyd will listen for NTP traffic.
+#   Listens on all addresses if left empty.
 # @param bindcmdaddress
 #   Array of addresses of interfaces on which chronyd will listen for monitoring command packets.
 # @param cmdacl
@@ -190,7 +191,7 @@
 # @param dumpdir
 #   Directory to store measurement history in on exit.
 class chrony (
-  Optional[Stdlib::IP::Address] $bindaddress                       = undef,
+  Array[Stdlib::IP::Address] $bindaddress                          = [],
   Array[String] $bindcmdaddress                                    = ['127.0.0.1', '::1'],
   Array[String] $cmdacl                                            = $chrony::params::cmdacl,
   Optional[Stdlib::Port] $cmdport                                  = undef,

@@ -59,10 +59,12 @@ bindcmdaddress <%= $addr %>
 <% $chrony::cmdacl.each |$acl| { -%>
 <%= $acl %>
 <% } -%>
-<% if $chrony::bindaddress { -%>
+<% unless $chrony::bindaddress.empty { -%>
 
 # Bind to a specific address
-bindaddress <%= $chrony::bindaddress %>
+<%  $chrony::bindaddress.each |$addr| { -%>
+bindaddress <%= $addr %>
+<%   } -%>
 <% } -%>
 <% if $chrony::port { -%>
 

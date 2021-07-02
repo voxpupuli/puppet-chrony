@@ -133,11 +133,12 @@ The following parameters are available in the `chrony` class.
 
 ##### `bindaddress`
 
-Data type: `Optional[Stdlib::IP::Address]`
+Data type: `Array[Stdlib::IP::Address]`
 
-Address of an interface on which chronyd will listen for NTP traffic.
+Array of addresses of interfaces on which chronyd will listen for NTP traffic.
+Listens on all addresses if left empty.
 
-Default value: ``undef``
+Default value: `[]`
 
 ##### `bindcmdaddress`
 
