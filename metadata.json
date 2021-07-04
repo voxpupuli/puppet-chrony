@@ -10,7 +10,7 @@
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 4.25.1 < 7.0.0"
+      "version_requirement": ">= 4.25.1 < 8.0.0"
     }
   ],
   "operatingsystem_support": [
@@ -30,7 +30,8 @@
     {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
-        "9"
+        "9",
+        "10"
       ]
     },
     {
@@ -46,7 +47,7 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 5.5.8 < 7.0.0"
+      "version_requirement": ">= 6.1.0 < 8.0.0"
     }
   ]
 }
