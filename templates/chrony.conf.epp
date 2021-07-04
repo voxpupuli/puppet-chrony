@@ -125,6 +125,11 @@ leapsecmode <%= $chrony::leapsecmode %>
 # https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#leapsectz
 leapsectz <%= $chrony::leapsectz %>
 <% } -%>
+<% if $chrony::maxupdateskew { -%>
+
+# https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#maxupdateskew
+maxupdateskew <%= $chrony::maxupdateskew %>
+<% } -%>
 <% if $chrony::maxslewrate { -%>
 
 # https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#maxslewrate
