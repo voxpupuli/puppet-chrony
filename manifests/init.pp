@@ -91,7 +91,8 @@
 #   A file for chrony to record clock drift in.
 # @param local_stratum
 #   Override the stratum of the server which will be reported to clients
-#   when the local reference is active.
+#   when the local reference is active. Use `false` to not set local_stratum in
+#   chrony configuration.
 # @param stratumweight
 #   Sets how much distance should be added per stratum to the synchronisation distance when chronyd
 #   selects the synchronisation source from available sources.
@@ -202,7 +203,7 @@ class chrony (
   Boolean $config_keys_manage                                      = true,
   Array[String[1]] $keys                                           = [],
   Stdlib::Unixpath $driftfile                                      = '/var/lib/chrony/drift',
-  Integer[1,15] $local_stratum                                     = 10,
+  Variant[Boolean[false],Integer[1,15]] $local_stratum             = 10,
   Optional[String[1]] $log_options                                 = undef,
   String[1] $package_ensure                                        = 'present',
   String[1] $package_name                                          = $chrony::params::package_name,
