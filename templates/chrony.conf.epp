@@ -59,6 +59,13 @@ bindcmdaddress <%= $addr %>
 <% $chrony::cmdacl.each |$acl| { -%>
 <%= $acl %>
 <% } -%>
+<% unless $chrony::bindaddress.empty { -%>
+
+# Bind to a specific address
+<%  $chrony::bindaddress.each |$addr| { -%>
+bindaddress <%= $addr %>
+<%   } -%>
+<% } -%>
 <% if $chrony::port { -%>
 
 # http://chrony.tuxfamily.org/manual.html#port-directive
