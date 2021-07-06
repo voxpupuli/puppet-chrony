@@ -66,6 +66,12 @@ bindcmdaddress <%= $addr %>
 bindaddress <%= $addr %>
 <%   } -%>
 <% } -%>
+<% if $chrony::initstepslew { -%>
+
+# Allow chronyd to make a rapid measurement of the system clock error at boot time,
+# and to correct the system clock by stepping before normal operation begins.
+initstepslew <%= $chrony::initstepslew %>
+<% } -%>
 <% if $chrony::port { -%>
 
 # http://chrony.tuxfamily.org/manual.html#port-directive

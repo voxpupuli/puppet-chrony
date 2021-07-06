@@ -57,6 +57,9 @@
 #   Listens on all addresses if left empty.
 # @param bindcmdaddress
 #   Array of addresses of interfaces on which chronyd will listen for monitoring command packets.
+# @param initstepslew
+#   Allow chronyd to make a rapid measurement of the system clock error at boot time,
+#   and to correct the system clock by stepping before normal operation begins.
 # @param cmdacl
 #   An array of ACLs for monitoring access. This expects a list of directives, for
 #   example: `['cmdallow 1.2.3.4', 'cmddeny 1.2.3']`. The order will be respected at
@@ -193,6 +196,7 @@
 class chrony (
   Array[Stdlib::IP::Address] $bindaddress                          = [],
   Array[String] $bindcmdaddress                                    = ['127.0.0.1', '::1'],
+  Optional[String] $initstepslew                                   = undef,
   Array[String] $cmdacl                                            = $chrony::params::cmdacl,
   Optional[Stdlib::Port] $cmdport                                  = undef,
   $commandkey                                                      = 0,

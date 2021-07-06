@@ -19,6 +19,7 @@ class chrony::config (
   $config_keys_template = $chrony::config_keys_template,
   $config_template      = $chrony::config_template,
   $keys                 = $chrony::keys,
+  $initstepslew         = $chrony::initstepslew,
   $leapsecmode          = $chrony::leapsecmode,
   $leapsectz            = $chrony::leapsectz,
   $local_stratum        = $chrony::local_stratum,
