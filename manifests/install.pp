@@ -1,16 +1,13 @@
 # @summary Installs chrony
 #
 # @api private
-class chrony::install (
-  $package_ensure   = $chrony::package_ensure,
-  $package_name     = $chrony::package_name,
-  $package_source   = $chrony::package_source,
-  $package_provider = $chrony::package_provider,
-) {
+class chrony::install {
+  assert_private()
+
   package { 'chrony':
-    ensure   => $package_ensure,
-    name     => $package_name,
-    source   => $package_source,
-    provider => $package_provider,
+    ensure   => $chrony::package_ensure,
+    name     => $chrony::package_name,
+    source   => $chrony::package_source,
+    provider => $chrony::package_provider,
   }
 }
