@@ -32,7 +32,7 @@
 
 ## Classes
 
-### `chrony`
+### <a name="chrony"></a>`chrony`
 
 Installs and configures chrony
 
@@ -110,10 +110,9 @@ class { 'chrony':
 
 ```puppet
 class { 'chrony':
-  leapsecmode   => 'slew',
-  smoothtime    => '400 0.001 leaponly',
-  maxslewrate   => 1000.0,
-  maxupdateskew => 1000.0
+  leapsecmode => 'slew',
+  smoothtime  => '400 0.001 leaponly',
+  maxslewrate => 1000.0
 }
 ```
 
@@ -129,9 +128,60 @@ class { 'chrony':
 
 #### Parameters
 
-The following parameters are available in the `chrony` class.
+The following parameters are available in the `chrony` class:
 
-##### `bindaddress`
+* [`bindaddress`](#bindaddress)
+* [`bindcmdaddress`](#bindcmdaddress)
+* [`initstepslew`](#initstepslew)
+* [`cmdacl`](#cmdacl)
+* [`cmdport`](#cmdport)
+* [`commandkey`](#commandkey)
+* [`chrony_password`](#chrony_password)
+* [`config`](#config)
+* [`config_template`](#config_template)
+* [`config_keys`](#config_keys)
+* [`config_keys_manage`](#config_keys_manage)
+* [`config_keys_template`](#config_keys_template)
+* [`config_keys_owner`](#config_keys_owner)
+* [`config_keys_group`](#config_keys_group)
+* [`config_keys_mode`](#config_keys_mode)
+* [`keys`](#keys)
+* [`driftfile`](#driftfile)
+* [`local_stratum`](#local_stratum)
+* [`stratumweight`](#stratumweight)
+* [`log_options`](#log_options)
+* [`package_ensure`](#package_ensure)
+* [`package_name`](#package_name)
+* [`package_source`](#package_source)
+* [`package_provider`](#package_provider)
+* [`peers`](#peers)
+* [`servers`](#servers)
+* [`pools`](#pools)
+* [`refclocks`](#refclocks)
+* [`makestep_seconds`](#makestep_seconds)
+* [`makestep_updates`](#makestep_updates)
+* [`queryhosts`](#queryhosts)
+* [`port`](#port)
+* [`service_enable`](#service_enable)
+* [`service_ensure`](#service_ensure)
+* [`service_manage`](#service_manage)
+* [`service_name`](#service_name)
+* [`smoothtime`](#smoothtime)
+* [`mailonchange`](#mailonchange)
+* [`threshold`](#threshold)
+* [`lock_all`](#lock_all)
+* [`leapsecmode`](#leapsecmode)
+* [`leapsectz`](#leapsectz)
+* [`maxslewrate`](#maxslewrate)
+* [`clientlog`](#clientlog)
+* [`clientloglimit`](#clientloglimit)
+* [`rtcsync`](#rtcsync)
+* [`rtconutc`](#rtconutc)
+* [`hwtimestamps`](#hwtimestamps)
+* [`dumpdir`](#dumpdir)
+* [`maxupdateskew`](#maxupdateskew)
+
+##### <a name="bindaddress"></a>`bindaddress`
 
 Data type: `Array[Stdlib::IP::Address]`
 
@@ -140,7 +190,7 @@ Listens on all addresses if left empty.
 
 Default value: `[]`
 
-##### `bindcmdaddress`
+##### <a name="bindcmdaddress"></a>`bindcmdaddress`
 
 Data type: `Array[String]`
 
@@ -148,7 +198,16 @@ Array of addresses of interfaces on which chronyd will listen for monitoring com
 
 Default value: `['127.0.0.1', '::1']`
 
-##### `cmdacl`
+##### <a name="initstepslew"></a>`initstepslew`
+
+Data type: `Optional[String]`
+
+Allow chronyd to make a rapid measurement of the system clock error at boot time,
+and to correct the system clock by stepping before normal operation begins.
+
+Default value: ``undef``
+
+##### <a name="cmdacl"></a>`cmdacl`
 
 Data type: `Array[String]`
 
@@ -160,7 +219,7 @@ details).
 
 Default value: `$chrony::params::cmdacl`
 
-##### `cmdport`
+##### <a name="cmdport"></a>`cmdport`
 
 Data type: `Optional[Stdlib::Port]`
 
@@ -169,7 +228,7 @@ to be altered from its default (323).
 
 Default value: ``undef``
 
-##### `commandkey`
+##### <a name="commandkey"></a>`commandkey`
 
 Data type: `Any`
 
@@ -177,7 +236,7 @@ This sets the key ID used by chronyc to authenticate to chronyd.
 
 Default value: `0`
 
-##### `chrony_password`
+##### <a name="chrony_password"></a>`chrony_password`
 
 Data type: `String[1]`
 
@@ -187,7 +246,7 @@ By default a short fixed string is used. If set explicitly to
 
 Default value: `'xyzzy'`
 
-##### `config`
+##### <a name="config"></a>`config`
 
 Data type: `Stdlib::Unixpath`
 
@@ -195,7 +254,7 @@ This sets the file to write chrony configuration into.
 
 Default value: `$chrony::params::config`
 
-##### `config_template`
+##### <a name="config_template"></a>`config_template`
 
 Data type: `String[1]`
 
@@ -203,7 +262,7 @@ This determines which template puppet should use for the chrony configuration.
 
 Default value: `'chrony/chrony.conf.epp'`
 
-##### `config_keys`
+##### <a name="config_keys"></a>`config_keys`
 
 Data type: `Stdlib::Unixpath`
 
@@ -211,7 +270,7 @@ This sets the file to write chrony keys into.
 
 Default value: `$chrony::params::config_keys`
 
-##### `config_keys_manage`
+##### <a name="config_keys_manage"></a>`config_keys_manage`
 
 Data type: `Boolean`
 
@@ -219,7 +278,7 @@ Determines whether puppet will manage the content of the keys file after it has 
 
 Default value: ``true``
 
-##### `config_keys_template`
+##### <a name="config_keys_template"></a>`config_keys_template`
 
 Data type: `String[1]`
 
@@ -227,7 +286,7 @@ This determines which template puppet should use for the chrony key file.
 
 Default value: `'chrony/chrony.keys.epp'`
 
-##### `config_keys_owner`
+##### <a name="config_keys_owner"></a>`config_keys_owner`
 
 Data type: `Variant[Integer[0],String[1]]`
 
@@ -235,7 +294,7 @@ Specify unix owner of chrony keys file, defaults to 0.
 
 Default value: `$chrony::params::config_keys_owner`
 
-##### `config_keys_group`
+##### <a name="config_keys_group"></a>`config_keys_group`
 
 Data type: `Variant[Integer[0],String[1]]`
 
@@ -243,7 +302,7 @@ Specify unix group of chrony keys files, defaults to 0 on ArchLinux and chrony o
 
 Default value: `$chrony::params::config_keys_group`
 
-##### `config_keys_mode`
+##### <a name="config_keys_mode"></a>`config_keys_mode`
 
 Data type: `Stdlib::Filemode`
 
@@ -251,7 +310,7 @@ Specify unix mode of chrony keys files, defaults to 0644 on ArchLinux and 0640 o
 
 Default value: `$chrony::params::config_keys_mode`
 
-##### `keys`
+##### <a name="keys"></a>`keys`
 
 Data type: `Array[String[1]]`
 
@@ -259,7 +318,7 @@ An array of key lines.  These are printed as-is into the chrony key file.
 
 Default value: `[]`
 
-##### `driftfile`
+##### <a name="driftfile"></a>`driftfile`
 
 Data type: `Stdlib::Unixpath`
 
@@ -267,25 +326,17 @@ A file for chrony to record clock drift in.
 
 Default value: `'/var/lib/chrony/drift'`
 
-##### `initstepslew`
+##### <a name="local_stratum"></a>`local_stratum`
 
-Data type: `Optional[String]`
-
-Allow chronyd to make a rapid measurement of the system clock error at boot time,
-and to correct the system clock by stepping before normal operation begins.
-
-Default value: ``undef``
-
-##### `local_stratum`
-
-Data type: `Integer[1,15]`
+Data type: `Variant[Boolean[false],Integer[1,15]]`
 
 Override the stratum of the server which will be reported to clients
-when the local reference is active.
+when the local reference is active. Use `false` to not set local_stratum in
+chrony configuration.
 
 Default value: `10`
 
-##### `stratumweight`
+##### <a name="stratumweight"></a>`stratumweight`
 
 Data type: `Optional[Numeric]`
 
@@ -295,7 +346,7 @@ When not set, chronyd's default will be used, which since version 2.0 of chrony,
 
 Default value: ``undef``
 
-##### `log_options`
+##### <a name="log_options"></a>`log_options`
 
 Data type: `Optional[String[1]]`
 
@@ -303,7 +354,7 @@ Specify which information is to be logged.
 
 Default value: ``undef``
 
-##### `package_ensure`
+##### <a name="package_ensure"></a>`package_ensure`
 
 Data type: `String[1]`
 
@@ -312,7 +363,7 @@ chrony package to be installed.
 
 Default value: `'present'`
 
-##### `package_name`
+##### <a name="package_name"></a>`package_name`
 
 Data type: `String[1]`
 
@@ -320,7 +371,7 @@ This determines the name of the package to install.
 
 Default value: `$chrony::params::package_name`
 
-##### `package_source`
+##### <a name="package_source"></a>`package_source`
 
 Data type: `Optional[String]`
 
@@ -329,7 +380,7 @@ Source for the package when not wanting to install from a package repository.  T
 
 Default value: ``undef``
 
-##### `package_provider`
+##### <a name="package_provider"></a>`package_provider`
 
 Data type: `Optional[String]`
 
@@ -338,7 +389,7 @@ Also see [`package_source`](#package_source).
 
 Default value: ``undef``
 
-##### `peers`
+##### <a name="peers"></a>`peers`
 
 Data type: `Chrony::Servers`
 
@@ -347,7 +398,7 @@ It can be an array of peers or a hash of peers with their respective options.
 
 Default value: `[]`
 
-##### `servers`
+##### <a name="servers"></a>`servers`
 
 Data type: `Chrony::Servers`
 
@@ -362,7 +413,7 @@ Default value: `{
     '3.pool.ntp.org' => ['iburst'],
   }`
 
-##### `pools`
+##### <a name="pools"></a>`pools`
 
 Data type: `Chrony::Servers`
 
@@ -372,7 +423,7 @@ See [pool](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#pool)
 
 Default value: `{}`
 
-##### `refclocks`
+##### <a name="refclocks"></a>`refclocks`
 
 Data type: `Any`
 
@@ -389,7 +440,7 @@ refclocks => { 'PPS' => [ '/dev/pps0 lock NMEA refid GPS',
 
 Default value: `[]`
 
-##### `makestep_seconds`
+##### <a name="makestep_seconds"></a>`makestep_seconds`
 
 Data type: `Numeric`
 
@@ -400,7 +451,7 @@ Also see [`makestep_updates`](#makestep_updates).
 
 Default value: `10`
 
-##### `makestep_updates`
+##### <a name="makestep_updates"></a>`makestep_updates`
 
 Data type: `Integer`
 
@@ -411,7 +462,7 @@ Also see [`makestep_seconds`](#makestep_seconds).
 
 Default value: `3`
 
-##### `queryhosts`
+##### <a name="queryhosts"></a>`queryhosts`
 
 Data type: `Array[String]`
 
@@ -419,7 +470,7 @@ This adds the networks, hosts that are allowed to query the daemon.
 
 Default value: `[]`
 
-##### `port`
+##### <a name="port"></a>`port`
 
 Data type: `Optional[Stdlib::Port]`
 
@@ -429,7 +480,7 @@ isn't added to chrony.conf, and chrony listens to the default ntp port 123 if
 
 Default value: ``undef``
 
-##### `service_enable`
+##### <a name="service_enable"></a>`service_enable`
 
 Data type: `Boolean`
 
@@ -437,7 +488,7 @@ This determines if the service should be enabled at boot.
 
 Default value: ``true``
 
-##### `service_ensure`
+##### <a name="service_ensure"></a>`service_ensure`
 
 Data type: `Stdlib::Ensure::Service`
 
@@ -445,7 +496,7 @@ This determines if the service should be running or not.
 
 Default value: `'running'`
 
-##### `service_manage`
+##### <a name="service_manage"></a>`service_manage`
 
 Data type: `Boolean`
 
@@ -453,7 +504,7 @@ This selects if puppet should manage the service in the first place.
 
 Default value: ``true``
 
-##### `service_name`
+##### <a name="service_name"></a>`service_name`
 
 Data type: `String[1]`
 
@@ -461,7 +512,7 @@ This selects the name of the chrony service for puppet to manage.
 
 Default value: `$chrony::params::service_name`
 
-##### `smoothtime`
+##### <a name="smoothtime"></a>`smoothtime`
 
 Data type: `Optional[String]`
 
@@ -469,7 +520,7 @@ Specify the smoothing of the time parameter as a string, for example `smoothtime
 
 Default value: ``undef``
 
-##### `mailonchange`
+##### <a name="mailonchange"></a>`mailonchange`
 
 Data type: `Optional[String[1]]`
 
@@ -477,7 +528,7 @@ Specify the mail you wanna alert when chronyd executes a sync grater than the `t
 
 Default value: ``undef``
 
-##### `threshold`
+##### <a name="threshold"></a>`threshold`
 
 Data type: `Float`
 
@@ -485,7 +536,7 @@ Specify the time limit for triggering events.
 
 Default value: `0.5`
 
-##### `lock_all`
+##### <a name="lock_all"></a>`lock_all`
 
 Data type: `Boolean`
 
@@ -493,7 +544,7 @@ Force chrony to only use RAM & prevent swapping.
 
 Default value: ``false``
 
-##### `leapsecmode`
+##### <a name="leapsecmode"></a>`leapsecmode`
 
 Data type: `Optional[Enum['system', 'step', 'slew', 'ignore']]`
 
@@ -501,7 +552,7 @@ Configures how to insert the leap second mode.
 
 Default value: ``undef``
 
-##### `leapsectz`
+##### <a name="leapsectz"></a>`leapsectz`
 
 Data type: `Optional[String]`
 
@@ -509,7 +560,7 @@ Specifies a timezone that chronyd can use to determine the offset between UTC an
 
 Default value: ``undef``
 
-##### `maxslewrate`
+##### <a name="maxslewrate"></a>`maxslewrate`
 
 Data type: `Optional[Float]`
 
@@ -517,15 +568,7 @@ Maximum rate for chronyd to slew the time. Only float type values possible, for 
 
 Default value: ``undef``
 
-##### `maxupdateskew`
-
-Data type: `Optional[Float]`
-
-Maximum error threshold for chronyd to determine unreliable estimates. Only float type values possible, for example: `maxupdateskew 1000.0`.
-
-Default value: ``undef``
-
-##### `clientlog`
+##### <a name="clientlog"></a>`clientlog`
 
 Data type: `Boolean`
 
@@ -533,7 +576,7 @@ Determines whether to log client accesses.
 
 Default value: `$chrony::params::clientlog`
 
-##### `clientloglimit`
+##### <a name="clientloglimit"></a>`clientloglimit`
 
 Data type: `Optional[Integer]`
 
@@ -543,7 +586,7 @@ See [clientloglimit](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#clien
 
 Default value: ``undef``
 
-##### `rtcsync`
+##### <a name="rtcsync"></a>`rtcsync`
 
 Data type: `Boolean`
 
@@ -551,7 +594,7 @@ Sync system clock to RTC periodically
 
 Default value: ``true``
 
-##### `rtconutc`
+##### <a name="rtconutc"></a>`rtconutc`
 
 Data type: `Boolean`
 
@@ -561,7 +604,7 @@ See [rtconutc](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#rtconutc)
 
 Default value: `$chrony::params::rtconutc`
 
-##### `hwtimestamps`
+##### <a name="hwtimestamps"></a>`hwtimestamps`
 
 Data type: `Variant[Hash,Array[String]]`
 
@@ -570,7 +613,7 @@ interfaces or a hash of interfaces to their respective options.
 
 Default value: `[]`
 
-##### `dumpdir`
+##### <a name="dumpdir"></a>`dumpdir`
 
 Data type: `Optional[Stdlib::Unixpath]`
 
@@ -578,11 +621,19 @@ Directory to store measurement history in on exit.
 
 Default value: `$chrony::params::dumpdir`
 
+##### <a name="maxupdateskew"></a>`maxupdateskew`
+
+Data type: `Optional[Float]`
+
+
+
+Default value: ``undef``
+
 ## Functions
 
 ## Data types
 
-### `Chrony::Servers`
+### <a name="chronyservers"></a>`Chrony::Servers`
 
 This type is for the `servers`, `pools` and `peers` parameters.
 
@@ -613,5 +664,9 @@ This type is for the `servers`, `pools` and `peers` parameters.
 ]
 ```
 
-Alias of `Variant[Hash[Stdlib::Host, Optional[Array[String]]], Array[Stdlib::Host]]`
+Alias of
+
+```puppet
+Variant[Hash[Stdlib::Host, Optional[Array[String]]], Array[Stdlib::Host]]
+```
 
