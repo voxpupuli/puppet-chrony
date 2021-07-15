@@ -105,11 +105,15 @@ noclientlog
 clientloglimit <%= $chrony::clientloglimit %>
 <% } -%>
 
-# Send a message to syslog if a clock adjustment is larger than 0.5 seconds.
+# Send a message to syslog if a clock adjustment is larger than specified threshold
+<% if $chrony::logchange { -%>
+logchange <%= $chrony::logchange %>
+<% } else { -%>
 logchange 0.5
+<% } -%>
 <% if $chrony::mailonchange { -%>
 
-# Send mail  if chronyd applied a correction exceeding given threshold.
+# Send mail if chronyd applied a correction exceeding given threshold.
 mailonchange <%= $chrony::mailonchange %> <%= $chrony::threshold %>
 <% } -%>
 
@@ -143,6 +147,11 @@ leapsectz <%= $chrony::leapsectz %>
 # https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#maxupdateskew
 maxupdateskew <%= $chrony::maxupdateskew %>
 <% } -%>
+<% if $chrony::minsamples { -%>
+
+https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#minsamples
+minsamples <%= $chrony::minsamples %>
+<% } -%>
 <% if $chrony::maxslewrate { -%>
 
 # https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#maxslewrate
@@ -165,5 +174,22 @@ rtconutc
 # timestamping on all available interfaces.
 <%   $chrony::hwtimestamps.each |$interface| { -%>
 hwtimestamp <%= $interface.flatten.join(' ') %>
+<%   } -%>
+<% } -%>
+<% if $chrony::minsources { -%>
+
+https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#minsources
+minsources <%= $chrony::minsources %>
+<% } -%>
+<% unless $chrony::allow.empty { -%>
+<%   $chrony::allow.each |$subnet| { -%>
+
+allow <%= $subnet %>
+<%   } -%>
+<% } -%>
+<% unless $chrony::deny.empty { -%>
+<%   $chrony::deny.each |$subnet| { -%>
+
+deny <%= $subnet %>
 <%   } -%>
 <% } -%>

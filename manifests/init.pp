@@ -99,6 +99,10 @@
 #   Override the stratum of the server which will be reported to clients
 #   when the local reference is active. Use `false` to not set local_stratum in
 #   chrony configuration.
+# @param logchange
+#   Sets the threshold for the adjustment of the system clock that will generate a syslog message.
+#   Clock errors detected via NTP packets, reference clocks, or timestamps entered via the settime
+#   command of chronyc are logged.
 # @param stratumweight
 #   Sets how much distance should be added per stratum to the synchronisation distance when chronyd
 #   selects the synchronisation source from available sources.
@@ -148,6 +152,15 @@
 #   Chronyd will step the time only if there have been no more than `makestep_updates` clock updates.
 #   Set to a negative value to disable the limit (useful for virtual machines and laptops that may get suspended for a prolonged time).
 #   Also see [`makestep_seconds`](#makestep_seconds).
+# @param allow
+#   Array of addresses used to designate a particular subnet from which NTP clients are allowed
+#   to access the computer as an NTP server.
+# @param deny
+#   Similar to allow, except that it denies NTP client access to a particular subnet or host,
+#   rather than allowing it.
+# @param minsources
+#   Sets the minimum number of sources that need to be considered as selectable in the source selection algorithm
+#   before the local clock is updated.
 # @param queryhosts
 #   This adds the networks, hosts that are allowed to query the daemon.
 # @param port
@@ -176,6 +189,8 @@
 #   Specifies a timezone that chronyd can use to determine the offset between UTC and TAI.
 # @param maxslewrate
 #   Maximum rate for chronyd to slew the time. Only float type values possible, for example: `maxslewrate 1000.0`.
+# @param minsamples
+#   Specifies the minimum number of readings kept for tracking of the NIC clock.
 # @param clientlog
 #   Determines whether to log client accesses.
 # @param clientloglimit
@@ -212,6 +227,7 @@ class chrony (
   Array[String[1]] $keys                                           = [],
   Stdlib::Unixpath $driftfile                                      = '/var/lib/chrony/drift',
   Variant[Boolean[false],Integer[1,15]] $local_stratum             = 10,
+  Optional[Float] $logchange                                       = undef,
   Optional[String[1]] $log_options                                 = undef,
   String[1] $package_ensure                                        = 'present',
   String[1] $package_name                                          = $chrony::params::package_name,
@@ -228,6 +244,9 @@ class chrony (
   Chrony::Servers $pools                                           = {},
   Numeric $makestep_seconds                                        = 10,
   Integer $makestep_updates                                        = 3,
+  Array[String] $allow                                             = [],
+  Array[String] $deny                                              = [],
+  Optional[Integer] $minsources                                    = undef,
   Array[String] $queryhosts                                        = [],
   Optional[String[1]] $mailonchange                                = undef,
   Float $threshold                                                 = 0.5,
@@ -244,6 +263,7 @@ class chrony (
   Optional[String] $leapsectz                                      = undef,
   Optional[Float] $maxslewrate                                     = undef,
   Optional[Float] $maxupdateskew                                   = undef,
+  Optional[Integer] $minsamples                                    = undef,
   Optional[Numeric] $stratumweight                                 = undef,
   Boolean $rtcsync                                                 = true,
   Boolean $rtconutc                                                = $chrony::params::rtconutc,
