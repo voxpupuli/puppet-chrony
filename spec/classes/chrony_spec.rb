@@ -150,6 +150,7 @@ describe 'chrony' do
             cmdacl: ['cmdallow 1.2.3.4', 'cmddeny 1.2.3', 'cmdallow all 1.2'],
             leapsecmode: 'slew',
             leapsectz: 'right/UTC',
+            maxdistance: 16.0,
             maxslewrate: 1000.0,
             maxupdateskew: 1000.0,
             smoothtime: '400 0.001 leaponly',
@@ -180,12 +181,14 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony.keys').with_group('mrt') }
               it { is_expected.to contain_file('/etc/chrony.keys').with_replace(true) }
               it { is_expected.to contain_file('/etc/chrony.keys').with_content(sensitive("0 sunny\n")) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*maxdistance 16\.0$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*maxupdateskew 1000\.0$}) }
             end
           when 'RedHat'
             context 'with some params passed in' do
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*leapsecmode slew$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*leapsectz right/UTC$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*maxdistance 16\.0$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*maxslewrate 1000\.0$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*maxupdateskew 1000\.0$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*smoothtime 400 0\.001 leaponly$}) }
@@ -214,6 +217,7 @@ describe 'chrony' do
             context 'with some params passed in' do
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*leapsectz right/UTC$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*leapsecmode slew$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*maxdistance 16\.0$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*maxslewrate 1000\.0$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*maxupdateskew 1000\.0$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*smoothtime 400 0\.001 leaponly$}) }

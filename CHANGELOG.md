@@ -4,6 +4,31 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v2.0.0](https://github.com/voxpupuli/puppet-chrony/tree/v2.0.0) (2021-07-08)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-chrony/compare/v1.0.0...v2.0.0)
+
+**Breaking changes:**
+
+- Drop EoL Puppet 5 support; Add Puppet 7 [\#117](https://github.com/voxpupuli/puppet-chrony/pull/117) ([smortex](https://github.com/smortex))
+
+**Implemented enhancements:**
+
+- Add initstepslew [\#116](https://github.com/voxpupuli/puppet-chrony/pull/116) ([jasonknudsen](https://github.com/jasonknudsen))
+- Allow users to not set local stratum [\#113](https://github.com/voxpupuli/puppet-chrony/pull/113) ([unixsurfer](https://github.com/unixsurfer))
+- Add support for maxupdateskew [\#112](https://github.com/voxpupuli/puppet-chrony/pull/112) ([unixsurfer](https://github.com/unixsurfer))
+- add bindaddress option [\#110](https://github.com/voxpupuli/puppet-chrony/pull/110) ([jhunt-steds](https://github.com/jhunt-steds))
+
+**Fixed bugs:**
+
+- Fix CI on CentOS [\#114](https://github.com/voxpupuli/puppet-chrony/pull/114) ([smortex](https://github.com/smortex))
+
+**Merged pull requests:**
+
+- Allow stdlib version 7.x [\#119](https://github.com/voxpupuli/puppet-chrony/pull/119) ([smortex](https://github.com/smortex))
+- Add support for Debian 10 [\#118](https://github.com/voxpupuli/puppet-chrony/pull/118) ([smortex](https://github.com/smortex))
+- Drop text pointing to previous repo/version [\#108](https://github.com/voxpupuli/puppet-chrony/pull/108) ([jcpunk](https://github.com/jcpunk))
+
 ## [v1.0.0](https://github.com/voxpupuli/puppet-chrony/tree/v1.0.0) (2021-01-05)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-chrony/compare/v0.4.0...v1.0.0)

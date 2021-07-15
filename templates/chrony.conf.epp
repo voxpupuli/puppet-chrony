@@ -142,6 +142,11 @@ leapsecmode <%= $chrony::leapsecmode %>
 # https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#leapsectz
 leapsectz <%= $chrony::leapsectz %>
 <% } -%>
+<% if $chrony::maxdistance { -%>
+
+# https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#maxdistance
+maxdistance <%= $chrony::maxdistance %>
+<% } -%>
 <% if $chrony::maxupdateskew { -%>
 
 # https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#maxupdateskew
