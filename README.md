@@ -11,9 +11,9 @@
 1. [Overview](#overview)
 1. [Module Description - What the module does and why it is useful](#module-description)
 1. [Setup - The basics of getting started with chrony](#setup)
-    * [What chrony affects](#what-chrony-affects)
-    * [Setup requirements](#setup-requirements)
-    * [Beginning with chrony](#beginning-with-chrony)
+   - [What chrony affects](#what-chrony-affects)
+   - [Setup requirements](#setup-requirements)
+   - [Beginning with chrony](#beginning-with-chrony)
 1. [Usage - Configuration options and additional functionality](#usage)
 1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 1. [Limitations - OS compatibility, etc.](#limitations)
@@ -34,10 +34,10 @@ with systemd.
 
 ### What chrony affects
 
-* chrony package.
-* chrony configuration file.
-* chrony key file.
-* chrony service.
+- chrony package.
+- chrony configuration file.
+- chrony key file.
+- chrony service.
 
 ### Requirements
 
@@ -136,11 +136,12 @@ This module has been built on and tested against Puppet 5.5 and higher.
 
 The module has been tested on:
 
-* Arch Linux
-* Red Hat
-* Debian (9)
-* Suse 12.3
-* Gentoo 2.7
+- Arch Linux
+- Red Hat
+- Debian 9, 10
+- Ubuntu 18.04, 20.04
+- Suse 12.3
+- Gentoo 2.7
 
 ## Copyright and License
 
