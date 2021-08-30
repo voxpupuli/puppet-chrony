@@ -124,6 +124,19 @@ class { 'chrony':
 }
 ```
 
+### Enable chrony-wait.service
+RedHat and Suse provide a default disabled `chrony-wait.service` to block the `time-sync.target`
+until node is synchronised.
+
+To enable it:
+
+```puppet
+class{ 'chrony':
+  wait_enable => true,
+  wait_ensure => true,
+}
+```
+
 ## Reference
 
 Reference documentation for the chrony module is generated using

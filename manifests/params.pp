@@ -12,6 +12,7 @@ class chrony::params {
       $config_keys_group = 0
       $config_keys_mode  = '0644'
       $service_name      = 'chronyd'
+      $wait_manage       = false
       $clientlog         = true
       $rtconutc          = true
       $dumpdir           = '/var/lib/chrony'
@@ -25,6 +26,7 @@ class chrony::params {
       $config_keys_group = 0
       $config_keys_mode  = '0644'
       $service_name      = 'chronyd'
+      $wait_manage       = false
       $clientlog         = true
       $rtconutc          = true
       $dumpdir           = undef
@@ -38,6 +40,7 @@ class chrony::params {
       $config_keys_group = chrony
       $config_keys_mode  = '0640'
       $service_name      = 'chronyd'
+      $wait_manage       = true
       $clientlog         = false
       $rtconutc          = false
       $dumpdir           = undef
@@ -51,6 +54,7 @@ class chrony::params {
       $config_keys_group = 0
       $config_keys_mode  = '0640'
       $service_name      = 'chrony'
+      $wait_manage       = false
       $clientlog         = false
       $rtconutc          = false
       $dumpdir           = undef
