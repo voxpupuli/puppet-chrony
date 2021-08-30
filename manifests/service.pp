@@ -10,4 +10,11 @@ class chrony::service {
       enable => $chrony::service_enable,
     }
   }
+
+  if $chrony::wait_manage {
+    service { $chrony::wait_name:
+      ensure => $chrony::wait_ensure,
+      enable => $chrony::wait_enable,
+    }
+  }
 }

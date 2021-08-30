@@ -162,6 +162,14 @@
 #   This selects if puppet should manage the service in the first place.
 # @param service_name
 #   This selects the name of the chrony service for puppet to manage.
+# @param wait_enable
+#   This determines if the chrony-wait service should be enabled at boot.
+# @param wait_ensure
+#   This determines if the chrony-wait service should be running or not.
+# @param wait_manage
+#   This selects if puppet should manage the chrony-wait service in the first place.
+# @param wait_name
+#   This selects the name of the chrony-wait service for puppet to manage.
 # @param smoothtime
 #   Specify the smoothing of the time parameter as a string, for example `smoothtime 50000 0.01`.
 # @param mailonchange
@@ -241,6 +249,10 @@ class chrony (
   Stdlib::Ensure::Service $service_ensure                          = 'running',
   Boolean $service_manage                                          = true,
   String[1] $service_name                                          = $chrony::params::service_name,
+  Boolean $wait_enable                                             = false,
+  Stdlib::Ensure::Service $wait_ensure                             = 'stopped',
+  Boolean $wait_manage                                             = $chrony::params::wait_manage,
+  String[1] $wait_name                                             = 'chrony-wait.service',
   Optional[String] $smoothtime                                     = undef,
   Optional[Enum['system', 'step', 'slew', 'ignore']] $leapsecmode  = undef,
   Optional[String] $leapsectz                                      = undef,

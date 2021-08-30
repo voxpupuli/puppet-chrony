@@ -87,10 +87,8 @@ class { 'chrony':
 
 ```puppet
 class { 'chrony':
-  keys            => [
-    '25 SHA1 HEX:1dc764e0791b11fa67efc7ecbc4b0d73f68a070c',
-  ],
-  servers         => {
+  keys    => ['25 SHA1 HEX:1dc764e0791b11fa67efc7ecbc4b0d73f68a070c'],
+  servers => {
     'ntp1.corp.com' => ['key 25', 'iburst'],
     'ntp2.corp.com' => ['key 25', 'iburst'],
   },
@@ -121,6 +119,19 @@ class { 'chrony':
   leapsecmode  => 'slew',
   smoothtime   => '400 0.001 leaponly',
   maxslewrate  => 1000.0
+}
+```
+
+### Enable chrony-wait.service
+RedHat and Suse provide a default disabled `chrony-wait.service` to block the `time-sync.target`
+until node is synchronised.
+
+To enable it:
+
+```puppet
+class { 'chrony':
+  wait_enable => true,
+  wait_ensure => true,
 }
 ```
 

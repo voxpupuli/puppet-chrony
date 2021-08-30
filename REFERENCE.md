@@ -166,12 +166,17 @@ The following parameters are available in the `chrony` class:
 * [`service_ensure`](#service_ensure)
 * [`service_manage`](#service_manage)
 * [`service_name`](#service_name)
+* [`wait_enable`](#wait_enable)
+* [`wait_ensure`](#wait_ensure)
+* [`wait_manage`](#wait_manage)
+* [`wait_name`](#wait_name)
 * [`smoothtime`](#smoothtime)
 * [`mailonchange`](#mailonchange)
 * [`threshold`](#threshold)
 * [`lock_all`](#lock_all)
 * [`leapsecmode`](#leapsecmode)
 * [`leapsectz`](#leapsectz)
+* [`maxdistance`](#maxdistance)
 * [`maxslewrate`](#maxslewrate)
 * [`clientlog`](#clientlog)
 * [`clientloglimit`](#clientloglimit)
@@ -512,6 +517,38 @@ This selects the name of the chrony service for puppet to manage.
 
 Default value: `$chrony::params::service_name`
 
+##### <a name="wait_enable"></a>`wait_enable`
+
+Data type: `Boolean`
+
+This determines if the chrony-wait service should be enabled at boot.
+
+Default value: ``false``
+
+##### <a name="wait_ensure"></a>`wait_ensure`
+
+Data type: `Stdlib::Ensure::Service`
+
+This determines if the chrony-wait service should be running or not.
+
+Default value: `'stopped'`
+
+##### <a name="wait_manage"></a>`wait_manage`
+
+Data type: `Boolean`
+
+This selects if puppet should manage the chrony-wait service in the first place.
+
+Default value: `$chrony::params::wait_manage`
+
+##### <a name="wait_name"></a>`wait_name`
+
+Data type: `String[1]`
+
+This selects the name of the chrony-wait service for puppet to manage.
+
+Default value: `'chrony-wait.service'`
+
 ##### <a name="smoothtime"></a>`smoothtime`
 
 Data type: `Optional[String]`
@@ -557,6 +594,14 @@ Default value: ``undef``
 Data type: `Optional[String]`
 
 Specifies a timezone that chronyd can use to determine the offset between UTC and TAI.
+
+Default value: ``undef``
+
+##### <a name="maxdistance"></a>`maxdistance`
+
+Data type: `Optional[Float]`
+
+Sets the maximum root distance of a source to be acceptable for synchronisation of the clock.
 
 Default value: ``undef``
 

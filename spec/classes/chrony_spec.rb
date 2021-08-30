@@ -470,6 +470,24 @@ describe 'chrony' do
         end
 
         case facts[:os]['family']
+        when 'RedHat', 'Suse'
+          context 'using defaults' do
+            it do
+              is_expected.to contain_service('chrony-wait.service').with(
+                ensure: 'stopped',
+                enable: false
+              )
+            end
+          end
+        else
+          context 'using defaults' do
+            it do
+              is_expected.not_to contain_service('chrony-wait.service')
+            end
+          end
+        end
+
+        case facts[:os]['family']
         when 'Archlinux'
           context 'using defaults' do
             it do
@@ -496,6 +514,56 @@ describe 'chrony' do
                 enable: true
               )
             end
+          end
+        end
+      end
+
+      context 'with wait_manage false' do
+        let(:params) do
+          { wait_manage: false }
+        end
+
+        it do
+          is_expected.not_to contain_service('chrony-wait.service')
+        end
+      end
+
+      context 'with wait_enable true' do
+        let(:params) do
+          { wait_enable: true }
+        end
+
+        case facts[:os]['family']
+        when 'RedHat', 'Suse'
+          it do
+            is_expected.to contain_service('chrony-wait.service').with(
+              ensure: 'stopped',
+              enable: true
+            )
+          end
+        else
+          it do
+            is_expected.not_to contain_service('chrony-wait.service')
+          end
+        end
+      end
+
+      context 'with wait_ensure running' do
+        let(:params) do
+          { wait_ensure: 'running' }
+        end
+
+        case facts[:os]['family']
+        when 'RedHat', 'Suse'
+          it do
+            is_expected.to contain_service('chrony-wait.service').with(
+              ensure: 'running',
+              enable: false
+            )
+          end
+        else
+          it do
+            is_expected.not_to contain_service('chrony-wait.service')
           end
         end
       end
