@@ -514,7 +514,6 @@ describe 'chrony' do
           it { is_expected.not_to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*local stratum}) }
         end
       end
-
     end
   end
 end
