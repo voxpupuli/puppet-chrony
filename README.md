@@ -87,10 +87,8 @@ class { 'chrony':
 
 ```puppet
 class { 'chrony':
-  keys            => [
-    '25 SHA1 HEX:1dc764e0791b11fa67efc7ecbc4b0d73f68a070c',
-  ],
-  servers         => {
+  keys    => ['25 SHA1 HEX:1dc764e0791b11fa67efc7ecbc4b0d73f68a070c'],
+  servers => {
     'ntp1.corp.com' => ['key 25', 'iburst'],
     'ntp2.corp.com' => ['key 25', 'iburst'],
   },
@@ -131,7 +129,7 @@ until node is synchronised.
 To enable it:
 
 ```puppet
-class{ 'chrony':
+class { 'chrony':
   wait_enable => true,
   wait_ensure => true,
 }
