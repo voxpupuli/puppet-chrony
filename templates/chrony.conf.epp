@@ -154,7 +154,7 @@ maxupdateskew <%= $chrony::maxupdateskew %>
 <% } -%>
 <% if $chrony::minsamples { -%>
 
-https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#minsamples
+# https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#minsamples
 minsamples <%= $chrony::minsamples %>
 <% } -%>
 <% if $chrony::maxslewrate { -%>
@@ -183,7 +183,7 @@ hwtimestamp <%= $interface.flatten.join(' ') %>
 <% } -%>
 <% if $chrony::minsources { -%>
 
-https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#minsources
+# https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#minsources
 minsources <%= $chrony::minsources %>
 <% } -%>
 <% unless $chrony::allow.empty { -%>
