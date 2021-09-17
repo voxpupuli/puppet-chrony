@@ -1,5 +1,5 @@
 require 'spec_helper_acceptance'
-
+# rubocop:disable RSpec/RepeatedExample
 describe 'chrony class:' do
   it 'works idempotently with no errors' do
     pp = <<-EOS
@@ -71,3 +71,4 @@ describe 'chrony class:' do
     end
   end
 end
+# rubocop:enable RSpec/RepeatedExample
