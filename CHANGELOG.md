@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v2.1.0](https://github.com/voxpupuli/puppet-chrony/tree/v2.1.0) (2021-11-23)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-chrony/compare/v2.0.0...v2.1.0)
+
+**Implemented enhancements:**
+
+- Manage chrony-wait.service on RedHat and Suse [\#127](https://github.com/voxpupuli/puppet-chrony/pull/127) ([traylenator](https://github.com/traylenator))
+- Add Ubuntu support [\#125](https://github.com/voxpupuli/puppet-chrony/pull/125) ([kenyon](https://github.com/kenyon))
+- Add support for maxdistance [\#122](https://github.com/voxpupuli/puppet-chrony/pull/122) ([hoffie](https://github.com/hoffie))
+
+**Fixed bugs:**
+
+- Actually test services are running [\#128](https://github.com/voxpupuli/puppet-chrony/pull/128) ([traylenator](https://github.com/traylenator))
+
+**Merged pull requests:**
+
+- Allow stdlib 8.0.0 [\#126](https://github.com/voxpupuli/puppet-chrony/pull/126) ([smortex](https://github.com/smortex))
+- Avoid duplicating variables [\#123](https://github.com/voxpupuli/puppet-chrony/pull/123) ([smortex](https://github.com/smortex))
+
 ## [v2.0.0](https://github.com/voxpupuli/puppet-chrony/tree/v2.0.0) (2021-07-08)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-chrony/compare/v1.0.0...v2.0.0)
@@ -22,6 +41,10 @@ These should not affect the functionality of the module.
 **Fixed bugs:**
 
 - Fix CI on CentOS [\#114](https://github.com/voxpupuli/puppet-chrony/pull/114) ([smortex](https://github.com/smortex))
+
+**Closed issues:**
+
+- Make a new release [\#115](https://github.com/voxpupuli/puppet-chrony/issues/115)
 
 **Merged pull requests:**
 
