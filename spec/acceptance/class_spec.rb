@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper_acceptance'
-# rubocop:disable RSpec/RepeatedExample
+# rubocop:disable RSpec/RepeatedExampleGroupBody
 describe 'chrony class:' do
   it 'works idempotently with no errors' do
     pp = <<-EOS
@@ -34,7 +34,6 @@ describe 'chrony class:' do
     end
 
     describe service('chrony-wait.service') do
-      it { is_expected.not_to be_running }
       it { is_expected.not_to be_running }
     end
 
@@ -72,9 +71,8 @@ describe 'chrony class:' do
 
       describe service('chrony-wait.service') do
         it { is_expected.not_to be_running }
-        it { is_expected.not_to be_running }
       end
     end
   end
 end
-# rubocop:enable RSpec/RepeatedExample
+# rubocop:enable RSpec/RepeatedExampleGroupBody

@@ -2,6 +2,7 @@
 
 require 'spec_helper'
 
+# rubocop:disable RSpec/EmptyExampleGroup
 describe 'chrony' do
   context 'on any other system' do
     let(:facts) do
@@ -429,12 +430,7 @@ describe 'chrony' do
 
         context 'chrony::config' do
           case facts[:os]['family']
-          when 'Archlinux'
-            context 'unmanaged chrony.keys file' do
-              it { is_expected.to contain_file('/etc/chrony.keys').with_replace(false) }
-              it { is_expected.to contain_file('/etc/chrony.keys').with_content(sensitive('')) }
-            end
-          when 'RedHat'
+          when 'Archlinux', 'RedHat'
             context 'unmanaged chrony.keys file' do
               it { is_expected.to contain_file('/etc/chrony.keys').with_replace(false) }
               it { is_expected.to contain_file('/etc/chrony.keys').with_content(sensitive('')) }
@@ -501,16 +497,7 @@ describe 'chrony' do
         end
 
         case facts[:os]['family']
-        when 'Archlinux'
-          context 'using defaults' do
-            it do
-              is_expected.to contain_service('chronyd').with(
-                ensure: 'running',
-                enable: true
-              )
-            end
-          end
-        when 'RedHat', 'Gentoo'
+        when 'Archlinux', 'RedHat', 'Gentoo'
           context 'using defaults' do
             it do
               is_expected.to contain_service('chronyd').with(
@@ -598,3 +585,4 @@ describe 'chrony' do
     end
   end
 end
+# rubocop:enable RSpec/EmptyExampleGroup
