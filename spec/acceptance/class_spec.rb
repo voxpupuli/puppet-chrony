@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper_acceptance'
 # rubocop:disable RSpec/RepeatedExample
 describe 'chrony class:' do
@@ -20,6 +22,7 @@ describe 'chrony class:' do
       it { is_expected.to be_enabled }
       it { is_expected.to be_running }
     end
+
     describe service('chrony-wait.service') do
       it { is_expected.not_to be_enabled }
       it { is_expected.not_to be_running }
@@ -29,6 +32,7 @@ describe 'chrony class:' do
       it { is_expected.to be_enabled }
       it { is_expected.to be_running }
     end
+
     describe service('chrony-wait.service') do
       it { is_expected.not_to be_running }
       it { is_expected.not_to be_running }
@@ -55,6 +59,7 @@ describe 'chrony class:' do
         it { is_expected.to be_enabled }
         it { is_expected.to be_running }
       end
+
       describe service('chrony-wait.service') do
         it { is_expected.to be_enabled }
         it { is_expected.to be_running }
@@ -64,6 +69,7 @@ describe 'chrony class:' do
         it { is_expected.to be_enabled }
         it { is_expected.to be_running }
       end
+
       describe service('chrony-wait.service') do
         it { is_expected.not_to be_running }
         it { is_expected.not_to be_running }
