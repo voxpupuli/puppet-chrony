@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
+# rubocop:disable RSpec/EmptyExampleGroup
 describe 'chrony' do
   context 'on any other system' do
     let(:facts) do
@@ -56,6 +59,7 @@ describe 'chrony' do
         when 'Archlinux'
           context 'using defaults' do
             it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmdallow 127\.0\.0\.1$}) }
+
             ['0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org'].each do |s|
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*server #{s} iburst$}) }
             end
@@ -85,6 +89,7 @@ describe 'chrony' do
                 without_content(%r{^\s*dumpdir}).
                 without_content(%r{^\s*\n\s*$})
             end
+
             it do
               is_expected.to contain_file('/etc/chrony/chrony.keys').
                 with_mode('0644').
@@ -99,6 +104,7 @@ describe 'chrony' do
             it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*bindcmdaddress ::1$}) }
             it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*bindcmdaddress 127\.0\.0\.1$}) }
             it { is_expected.not_to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmdallow.*$}) }
+
             ['0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org'].each do |s|
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*server #{s} iburst$}) }
             end
@@ -117,6 +123,7 @@ describe 'chrony' do
             it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*bindcmdaddress ::1$}) }
             it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*bindcmdaddress 127\.0\.0\.1$}) }
             it { is_expected.not_to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*cmdallow.*$}) }
+
             ['0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org'].each do |s|
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*server #{s} iburst$}) }
             end
@@ -167,7 +174,7 @@ describe 'chrony' do
           when 'Archlinux'
             context 'with some params passed in' do
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*port 123$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^s*allow 192\.168\/16$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^s*allow 192\.168/16$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmdallow 1\.2\.3\.4$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmddeny 1\.2\.3$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmdallow all 1\.2$}) }
@@ -194,7 +201,7 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*smoothtime 400 0\.001 leaponly$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*port 123$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmdport 257$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^s*allow 192\.168\/16$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^s*allow 192\.168/16$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*bindaddress 10\.0\.0\.1$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*bindaddress ::1$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*initstepslew 600$}) }
@@ -223,7 +230,7 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*smoothtime 400 0\.001 leaponly$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*port 123$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*cmdport 257$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^s*allow 192\.168\/16$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^s*allow 192\.168/16$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*bindaddress 10\.0\.0\.1$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*bindaddress ::1$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*initstepslew 600$}) }
@@ -255,6 +262,7 @@ describe 'chrony' do
             it { is_expected.not_to contain_file('/etc/chrony/chrony.conf').with_content(%r{stratumweight}) }
           end
         end
+
         context 'when set' do
           let(:params) do
             {
@@ -283,6 +291,7 @@ describe 'chrony' do
             expect(config_file_contents.split("\n") & expected_lines).to eq(expected_lines)
           end
         end
+
         context 'when servers is an array' do
           let(:params) do
             {
@@ -298,6 +307,7 @@ describe 'chrony' do
             expect(config_file_contents.split("\n") & expected_lines).to eq(expected_lines)
           end
         end
+
         context 'when servers is an (unsorted) hash' do
           let(:params) do
             {
@@ -326,6 +336,7 @@ describe 'chrony' do
         context 'by default' do
           it { expect(config_file_contents).not_to match(%r{^pool}) }
         end
+
         context 'when pools is an array' do
           let(:params) do
             {
@@ -341,6 +352,7 @@ describe 'chrony' do
             expect(config_file_contents.split("\n") & expected_lines).to eq(expected_lines)
           end
         end
+
         context 'when pools is a hash' do
           let(:params) do
             {
@@ -369,6 +381,7 @@ describe 'chrony' do
         context 'by default' do
           it { expect(config_file_contents).not_to match(%r{^peer}) }
         end
+
         context 'when peers is an array' do
           let(:params) do
             {
@@ -384,6 +397,7 @@ describe 'chrony' do
             expect(config_file_contents.split("\n") & expected_lines).to eq(expected_lines)
           end
         end
+
         context 'when peers is a hash' do
           let(:params) do
             {
@@ -416,12 +430,7 @@ describe 'chrony' do
 
         context 'chrony::config' do
           case facts[:os]['family']
-          when 'Archlinux'
-            context 'unmanaged chrony.keys file' do
-              it { is_expected.to contain_file('/etc/chrony.keys').with_replace(false) }
-              it { is_expected.to contain_file('/etc/chrony.keys').with_content(sensitive('')) }
-            end
-          when 'RedHat'
+          when 'Archlinux', 'RedHat'
             context 'unmanaged chrony.keys file' do
               it { is_expected.to contain_file('/etc/chrony.keys').with_replace(false) }
               it { is_expected.to contain_file('/etc/chrony.keys').with_content(sensitive('')) }
@@ -488,16 +497,7 @@ describe 'chrony' do
         end
 
         case facts[:os]['family']
-        when 'Archlinux'
-          context 'using defaults' do
-            it do
-              is_expected.to contain_service('chronyd').with(
-                ensure: 'running',
-                enable: true
-              )
-            end
-          end
-        when 'RedHat', 'Gentoo'
+        when 'Archlinux', 'RedHat', 'Gentoo'
           context 'using defaults' do
             it do
               is_expected.to contain_service('chronyd').with(
@@ -585,3 +585,4 @@ describe 'chrony' do
     end
   end
 end
+# rubocop:enable RSpec/EmptyExampleGroup
