@@ -4,16 +4,6 @@ require 'spec_helper'
 
 # rubocop:disable RSpec/EmptyExampleGroup
 describe 'chrony' do
-  context 'on any other system' do
-    let(:facts) do
-      {
-        os: { family: 'UnsupportedOS' }
-      }
-    end
-
-    it { is_expected.to raise_error(%r{The chrony module is not supported on an UnsupportedOS based system\.}) }
-  end
-
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) do
@@ -42,7 +32,6 @@ describe 'chrony' do
       context 'with defaults' do
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_class('chrony') }
-        it { is_expected.to contain_class('chrony::params') }
         it { is_expected.to contain_class('chrony::install').that_comes_before('Class[chrony::config]') }
         it { is_expected.to contain_class('chrony::config').that_notifies('Class[chrony::service]') }
         it { is_expected.to contain_class('chrony::service') }
@@ -470,7 +459,7 @@ describe 'chrony' do
       end
 
       context 'chrony::service' do
-        let :params do
+        let(:params) do
           {
             service_ensure: 'running',
             service_enable: true,
@@ -496,24 +485,12 @@ describe 'chrony' do
           end
         end
 
-        case facts[:os]['family']
-        when 'Archlinux', 'RedHat', 'Gentoo'
-          context 'using defaults' do
-            it do
-              is_expected.to contain_service('chronyd').with(
-                ensure: 'running',
-                enable: true
-              )
-            end
-          end
-        when 'Debian'
-          context 'using defaults' do
-            it do
-              is_expected.to contain_service('chrony').with(
-                ensure: 'running',
-                enable: true
-              )
-            end
+        context 'using defaults' do
+          it do
+            is_expected.to contain_service('chronyd').with(
+              ensure: 'running',
+              enable: true
+            )
           end
         end
       end
