@@ -1,0 +1,4 @@
+---
+chrony::ntsdumpdir: /var/lib/chrony
+chrony::leapsectz: right/UTC
+chrony::makestep_seconds: 1.0
