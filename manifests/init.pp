@@ -233,6 +233,8 @@
 #   Directory to store measurement history in on exit.
 # @param maxupdateskew
 #   Sets the threshold for determining whether an estimate might be so unreliable that it should not be used
+# @param ntsdumpdir
+#   Save NTS keys and cookies.
 class chrony (
   Array[Stdlib::IP::Address] $bindaddress                          = [],
   Array[String] $bindcmdaddress                                    = ['127.0.0.1', '::1'],
@@ -307,6 +309,7 @@ class chrony (
   Optional[Stdlib::Absolutepath]  $ntsdumpdir                      = undef,
   Optional[String]  $ntsntpserver                                  = undef,
   Optional[Integer[0]] $ntsrotate                                  = undef,
+  Optional[Stdlib::Unixpath] $ntsdumpdir                           = undef,
 ) {
   if ! $config_keys_manage and $chrony_password != 'unset' {
     fail("Setting \$config_keys_manage false and \$chrony_password at same time in ${module_name} is not possible.")

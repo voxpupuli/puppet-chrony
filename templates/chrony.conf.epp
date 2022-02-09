@@ -96,6 +96,10 @@ local stratum <%= $chrony::local_stratum %>
 
 keyfile <%= $chrony::config_keys %>
 <% } -%>
+<% if $chrony::ntsdumpdir { -%>
+
+ntsdumpdir <%= $chrony::ntsdumpdir %>
+<% } -%>
 <% if $chrony::dumpdir { -%>
 
 # Save the measurement history for the servers to files on exit.
