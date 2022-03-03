@@ -103,6 +103,8 @@
 #   Override the stratum of the server which will be reported to clients
 #   when the local reference is active. Use `false` to not set local_stratum in
 #   chrony configuration.
+# @param ntpsigndsocket
+#   This sets the location of the Samba ntp_signd socket when it is running as a Domain Controller (DC).
 # @param stratumweight
 #   Sets how much distance should be added per stratum to the synchronisation distance when chronyd
 #   selects the synchronisation source from available sources.
@@ -290,6 +292,7 @@ class chrony (
   Boolean $rtconutc                                                = false,
   Variant[Hash,Array[String]] $hwtimestamps                        = [],
   Optional[Stdlib::Unixpath] $dumpdir                              = undef,
+  Optional[Stdlib::Unixpath] $ntpsigndsocket                       = undef,
   Optional[Stdlib::Absolutepath] $ntsserverkey                     = undef,
   Optional[Stdlib::Absolutepath] $ntsservercert                    = undef,
   Optional[Stdlib::Port] $ntsport                                  = undef,
