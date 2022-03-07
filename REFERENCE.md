@@ -14,7 +14,6 @@
 
 * `chrony::config`: Configures chrony
 * `chrony::install`: Installs chrony
-* `chrony::params`: chrony class parameters
 * `chrony::service`: Manages the chrony service
 
 ### Functions
@@ -222,7 +221,7 @@ the time of generating the configuration. The argument of the allow or deny
 commands can be an address, a partial address or a subnet (see manpage for more
 details).
 
-Default value: `$chrony::params::cmdacl`
+Default value: `[]`
 
 ##### <a name="cmdport"></a>`cmdport`
 
@@ -235,7 +234,7 @@ Default value: ``undef``
 
 ##### <a name="commandkey"></a>`commandkey`
 
-Data type: `Any`
+Data type: `NotUndef`
 
 This sets the key ID used by chronyc to authenticate to chronyd.
 
@@ -257,7 +256,7 @@ Data type: `Stdlib::Unixpath`
 
 This sets the file to write chrony configuration into.
 
-Default value: `$chrony::params::config`
+Default value: `'/etc/chrony/chrony.conf'`
 
 ##### <a name="config_template"></a>`config_template`
 
@@ -273,7 +272,7 @@ Data type: `Stdlib::Unixpath`
 
 This sets the file to write chrony keys into.
 
-Default value: `$chrony::params::config_keys`
+Default value: `'/etc/chrony/chrony.keys'`
 
 ##### <a name="config_keys_manage"></a>`config_keys_manage`
 
@@ -297,7 +296,7 @@ Data type: `Variant[Integer[0],String[1]]`
 
 Specify unix owner of chrony keys file, defaults to 0.
 
-Default value: `$chrony::params::config_keys_owner`
+Default value: `0`
 
 ##### <a name="config_keys_group"></a>`config_keys_group`
 
@@ -305,7 +304,7 @@ Data type: `Variant[Integer[0],String[1]]`
 
 Specify unix group of chrony keys files, defaults to 0 on ArchLinux and chrony on Redhat.
 
-Default value: `$chrony::params::config_keys_group`
+Default value: `0`
 
 ##### <a name="config_keys_mode"></a>`config_keys_mode`
 
@@ -313,7 +312,7 @@ Data type: `Stdlib::Filemode`
 
 Specify unix mode of chrony keys files, defaults to 0644 on ArchLinux and 0640 on Redhat.
 
-Default value: `$chrony::params::config_keys_mode`
+Default value: `'0640'`
 
 ##### <a name="keys"></a>`keys`
 
@@ -374,7 +373,7 @@ Data type: `String[1]`
 
 This determines the name of the package to install.
 
-Default value: `$chrony::params::package_name`
+Default value: `'chrony'`
 
 ##### <a name="package_source"></a>`package_source`
 
@@ -430,7 +429,7 @@ Default value: `{}`
 
 ##### <a name="refclocks"></a>`refclocks`
 
-Data type: `Any`
+Data type: `Array`
 
 This should be a Hash of hardware reference clock drivers to use.  They hash
 can either list a single list of options for the driver, or any array of
@@ -515,7 +514,7 @@ Data type: `String[1]`
 
 This selects the name of the chrony service for puppet to manage.
 
-Default value: `$chrony::params::service_name`
+Default value: `'chronyd'`
 
 ##### <a name="wait_enable"></a>`wait_enable`
 
@@ -539,7 +538,7 @@ Data type: `Boolean`
 
 This selects if puppet should manage the chrony-wait service in the first place.
 
-Default value: `$chrony::params::wait_manage`
+Default value: ``false``
 
 ##### <a name="wait_name"></a>`wait_name`
 
@@ -619,7 +618,7 @@ Data type: `Boolean`
 
 Determines whether to log client accesses.
 
-Default value: `$chrony::params::clientlog`
+Default value: ``false``
 
 ##### <a name="clientloglimit"></a>`clientloglimit`
 
@@ -647,7 +646,7 @@ Keep RTC in UTC instead of local time.
 If not set, chrony's, default will be used. On Arch Linux the default is true instead.
 See [rtconutc](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#rtconutc)
 
-Default value: `$chrony::params::rtconutc`
+Default value: ``false``
 
 ##### <a name="hwtimestamps"></a>`hwtimestamps`
 
@@ -664,13 +663,13 @@ Data type: `Optional[Stdlib::Unixpath]`
 
 Directory to store measurement history in on exit.
 
-Default value: `$chrony::params::dumpdir`
+Default value: ``undef``
 
 ##### <a name="maxupdateskew"></a>`maxupdateskew`
 
 Data type: `Optional[Float]`
 
-
+Sets the threshold for determining whether an estimate might be so unreliable that it should not be used
 
 Default value: ``undef``
 

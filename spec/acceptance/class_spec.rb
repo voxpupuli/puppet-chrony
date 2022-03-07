@@ -17,7 +17,7 @@ describe 'chrony class:' do
     it { is_expected.to be_installed }
   end
 
-  if fact('os.family') == 'RedHat'
+  if %w[RedHat Archlinux].include?(fact('os.family'))
     describe service('chronyd') do
       it { is_expected.to be_enabled }
       it { is_expected.to be_running }
@@ -53,7 +53,7 @@ describe 'chrony class:' do
       apply_manifest(pp, catch_changes: true)
     end
 
-    if fact('os.family') == 'RedHat'
+    if %w[RedHat Archlinux].include?(fact('os.family'))
       describe service('chronyd') do
         it { is_expected.to be_enabled }
         it { is_expected.to be_running }

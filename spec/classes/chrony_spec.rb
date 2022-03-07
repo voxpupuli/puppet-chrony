@@ -468,7 +468,7 @@ describe 'chrony' do
         end
 
         case facts[:os]['family']
-        when 'RedHat', 'Suse'
+        when 'RedHat', 'Suse', 'Archlinux'
           context 'using defaults' do
             it do
               is_expected.to contain_service('chrony-wait.service').with(
@@ -511,7 +511,7 @@ describe 'chrony' do
         end
 
         case facts[:os]['family']
-        when 'RedHat', 'Suse'
+        when 'RedHat', 'Suse', 'Archlinux'
           it do
             is_expected.to contain_service('chrony-wait.service').with(
               ensure: 'stopped',
@@ -531,7 +531,7 @@ describe 'chrony' do
         end
 
         case facts[:os]['family']
-        when 'RedHat', 'Suse'
+        when 'RedHat', 'Suse', 'Archlinux'
           it do
             is_expected.to contain_service('chrony-wait.service').with(
               ensure: 'running',
