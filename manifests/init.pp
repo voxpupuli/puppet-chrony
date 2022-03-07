@@ -209,7 +209,7 @@ class chrony (
   Optional[String] $initstepslew                                   = undef,
   Array[String] $cmdacl                                            = [],
   Optional[Stdlib::Port] $cmdport                                  = undef,
-  $commandkey                                                      = 0,
+  NotUndef $commandkey                                             = 0,
   Stdlib::Unixpath $config                                         = '/etc/chrony/chrony.conf',
   String[1] $config_template                                       = 'chrony/chrony.conf.epp',
   Stdlib::Unixpath $config_keys                                    = '/etc/chrony/chrony.keys',
@@ -227,7 +227,7 @@ class chrony (
   String[1] $package_name                                          = 'chrony',
   Optional[String] $package_source                                 = undef,
   Optional[String] $package_provider                               = undef,
-  $refclocks                                                       = [],
+  Array $refclocks                                                 = [],
   Chrony::Servers $peers                                           = [],
   Chrony::Servers $servers                                         = {
     '0.pool.ntp.org' => ['iburst'],
