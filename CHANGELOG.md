@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v2.2.0](https://github.com/voxpupuli/puppet-chrony/tree/v2.2.0) (2022-03-07)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-chrony/compare/v2.1.0...v2.2.0)
+
+**Implemented enhancements:**
+
+- remove params.pp, use hiera data instead [\#135](https://github.com/voxpupuli/puppet-chrony/pull/135) ([kenyon](https://github.com/kenyon))
+
+**Fixed bugs:**
+
+- Arch Linux: also manage chrony-wait.service  [\#141](https://github.com/voxpupuli/puppet-chrony/pull/141) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v2.1.0](https://github.com/voxpupuli/puppet-chrony/tree/v2.1.0) (2021-11-23)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-chrony/compare/v2.0.0...v2.1.0)
