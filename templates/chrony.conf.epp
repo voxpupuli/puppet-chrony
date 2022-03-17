@@ -153,6 +153,46 @@ maxupdateskew <%= $chrony::maxupdateskew %>
 # https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#maxslewrate
 maxslewrate <%= $chrony::maxslewrate %>
 <% } -%>
+<% if $chrony::ntsserverkey { -%>
+
+# https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#ntsserverkey
+ntsserverkey <%= $chrony::ntsserverkey %>
+<% } -%>
+<% if $chrony::ntsservercert { -%>
+
+# https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#ntsservercert
+ntsservercert <%= $chrony::ntsservercert %>
+<% } -%>
+<% if $chrony::ntsport { -%>
+
+# https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#ntsport
+ntsport <%= $chrony::ntsport %>
+<% } -%>
+<% if $chrony::maxntsconnections { -%>
+
+# https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#maxntsconnections
+maxntsconnections <%= $chrony::maxntsconnections %>
+<% } -%>
+<% if $chrony::ntsprocesses { -%>
+
+# https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#ntsprocesses
+ntsprocesses <%= $chrony::ntsprocesses %>
+<% } -%>
+<% if $chrony::ntsdumpdir { -%>
+
+# https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#ntsdumpdir
+ntsdumpdir <%= $chrony::ntsdumpdir %>
+<% } -%>
+<% if $chrony::ntsntpserver { -%>
+
+# https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#ntsntpserver
+ntsntpserver <%= $chrony::ntsntpserver %>
+<% } -%>
+<% if $chrony::ntsrotate { -%>
+
+# https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#ntsrotate
+ntsrotate <%= $chrony::ntsrotate %>
+<% } -%>
 <% if $chrony::smoothtime { -%>
 
 # https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#smoothtime
