@@ -153,7 +153,6 @@ maxupdateskew <%= $chrony::maxupdateskew %>
 # https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#maxslewrate
 maxslewrate <%= $chrony::maxslewrate %>
 <% } -%>
-
 <% if $chrony::ntsserverkey { -%>
 
 # https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#ntsserverkey
@@ -194,7 +193,6 @@ ntsntpserver <%= $chrony::ntsntpserver %>
 # https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#ntsrotate
 ntsrotate <%= $chrony::ntsrotate %>
 <% } -%>
-
 <% if $chrony::smoothtime { -%>
 
 # https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#smoothtime
