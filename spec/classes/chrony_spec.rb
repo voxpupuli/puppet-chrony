@@ -261,14 +261,14 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_group('mrt') }
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_replace(true) }
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_content(sensitive("0 sunny\n")) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*ntsserverkey /tmp/cert.key$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*ntsservercert /tmp/cert.pem$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*ntsport 12$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*maxntsconnections 32$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*ntsprocesses 5$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*ntsdumpdir /tmp/ntsdump$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*ntsntpserver foo.bar$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*ntsrotate 8$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*ntsserverkey /tmp/cert.key$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*ntsservercert /tmp/cert.pem$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*ntsport 12$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*maxntsconnections 32$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*ntsprocesses 5$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*ntsdumpdir /tmp/ntsdump$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*ntsntpserver foo.bar$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*ntsrotate 8$}) }
             end
           end
         end
