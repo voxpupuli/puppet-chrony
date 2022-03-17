@@ -285,7 +285,7 @@ class chrony (
   Variant[Hash,Array[String]] $hwtimestamps                        = [],
   Optional[Stdlib::Unixpath] $dumpdir                              = undef,
   Optional[Stdlib::Absolutepath] $ntsserverkey                     = undef,
-  Optional[String]  $ntsservercert                                 = undef,
+  Optional[Stdlib::Absolutepath] $ntsservercert                    = undef,
   Optional[Integer] $ntsport                                       = undef,
   Optional[Integer] $maxntsconnections                             = undef,
   Optional[Integer] $ntsprocesses                                  = undef,
