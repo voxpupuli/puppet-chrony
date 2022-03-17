@@ -186,6 +186,24 @@
 #   Sets the maximum root distance of a source to be acceptable for synchronisation of the clock.
 # @param maxslewrate
 #   Maximum rate for chronyd to slew the time. Only float type values possible, for example: `maxslewrate 1000.0`.
+# @param ntsserverkey
+#   This directive specifies a file containing a private key in the PEM format for chronyd to operate as an NTS server.
+# @param ntsservercert
+#   This directive specifies a file containing a certificate in the PEM format for chronyd to operate as an NTS server.
+# @param ntsport
+#   This directive specifies the TCP port on which chronyd will provide the NTS Key Establishment (NTS-KE) service.
+# @param maxntsconnections
+#   This directive specifies the maximum number of concurrent NTS-KE connections per process that the NTS server will accept.
+# @param ntsprocesses
+#   This directive specifies how many helper processes will chronyd operating as an NTS server start for handling client NTS-KE requests in order to improve
+#           performance with multi-core CPUs and multithreading.
+# @param ntsdumpdir
+#   This directive specifies a directory where chronyd operating as an NTS server can save the keys which encrypt NTS cookies provided to clients.
+# @param ntsntpserver
+#   This directive specifies the hostname (as a fully qualified domain name) or address of the NTP server(s) which is provided in the NTS-KE response to the
+#           clients.
+# @param ntsrotate
+#   This directive specifies the rotation interval (in seconds) of the server key which encrypts the NTS cookies.
 # @param clientlog
 #   Determines whether to log client accesses.
 # @param clientloglimit
@@ -266,6 +284,14 @@ class chrony (
   Boolean $rtconutc                                                = false,
   Variant[Hash,Array[String]] $hwtimestamps                        = [],
   Optional[Stdlib::Unixpath] $dumpdir                              = undef,
+  Optional[String]  $ntsserverkey                                  = undef,
+  Optional[String]  $ntsservercert                                 = undef,
+  Optional[Integer] $ntsport                                       = undef,
+  Optional[Integer] $maxntsconnections                             = undef,
+  Optional[Integer] $ntsprocesses                                  = undef,
+  Optional[String]  $ntsdumpdir                                    = undef,
+  Optional[String]  $ntsntpserver                                  = undef,
+  Optional[Integer] $ntsrotate                                     = undef,
 ) {
   if ! $config_keys_manage and $chrony_password != 'unset' {
     fail("Setting \$config_keys_manage false and \$chrony_password at same time in ${module_name} is not possible.")
