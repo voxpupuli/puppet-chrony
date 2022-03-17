@@ -139,6 +139,8 @@ describe 'chrony' do
             config_keys_owner: 'steve',
             config_keys_group: 'mrt',
             config_keys_manage: true,
+            confdir: '/tmp/chroconf',
+            sourcedir: '/tmp/chrosources',
             chrony_password: 'sunny',
             bindaddress: ['10.0.0.1', '::1'],
             bindcmdaddress: ['10.0.0.1'],
@@ -179,6 +181,8 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony.keys').with_content(sensitive("0 sunny\n")) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*maxdistance 16\.0$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*maxupdateskew 1000\.0$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*confdir /tmp/chroconf$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*sourcedir /tmp/chrosources$}) }
             end
           when 'RedHat'
             context 'with some params passed in' do
@@ -208,6 +212,8 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony.keys').with_group('mrt') }
               it { is_expected.to contain_file('/etc/chrony.keys').with_replace(true) }
               it { is_expected.to contain_file('/etc/chrony.keys').with_content(sensitive("0 sunny\n")) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*confdir /tmp/chroconf$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*sourcedir /tmp/chrosources$}) }
             end
           when 'Debian', 'Gentoo'
             context 'with some params passed in' do
@@ -237,6 +243,8 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_group('mrt') }
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_replace(true) }
               it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_content(sensitive("0 sunny\n")) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*confdir /tmp/chroconf$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*sourcedir /tmp/chrosources$}) }
             end
           end
         end
