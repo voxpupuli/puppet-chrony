@@ -157,12 +157,12 @@ describe 'chrony' do
             dumpdir: '/var/tmp',
             ntsserverkey: '/tmp/cert.key',
             ntsservercert: '/tmp/cert.pem',
-            ntsport: '12',
-            maxntsconnections: '32',
-            ntsprocesses: '5',
+            ntsport: 12,
+            maxntsconnections: 32,
+            ntsprocesses: 5,
             ntsdumpdir: '/tmp/ntsdump',
             ntsntpserver: 'foo.bar',
-            ntsrotate: '8'
+            ntsrotate: 8
           }
         end
 
