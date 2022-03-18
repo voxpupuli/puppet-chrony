@@ -60,6 +60,10 @@
 # @param initstepslew
 #   Allow chronyd to make a rapid measurement of the system clock error at boot time,
 #   and to correct the system clock by stepping before normal operation begins.
+# @param sourcedir
+#   The confdir directive includes configuration files with the .conf suffix from a directory.
+# @param confdir
+#   The sourcedir directive is identical to the confdir directive, except the configuration files have the .sources suffix, they can only specify NTP sources.
 # @param cmdacl
 #   An array of ACLs for monitoring access. This expects a list of directives, for
 #   example: `['cmdallow 1.2.3.4', 'cmddeny 1.2.3']`. The order will be respected at
@@ -231,6 +235,8 @@ class chrony (
   Optional[Stdlib::Port] $cmdport                                  = undef,
   NotUndef $commandkey                                             = 0,
   Stdlib::Unixpath $config                                         = '/etc/chrony/chrony.conf',
+  Optional[Stdlib::Absolutepath] $confdir                          = undef,
+  Optional[Stdlib::Absolutepath] $sourcedir                        = undef,
   String[1] $config_template                                       = 'chrony/chrony.conf.epp',
   Stdlib::Unixpath $config_keys                                    = '/etc/chrony/chrony.keys',
   String[1] $config_keys_template                                  = 'chrony/chrony.keys.epp',
