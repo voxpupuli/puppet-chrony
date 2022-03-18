@@ -292,7 +292,7 @@ class chrony (
   Optional[Stdlib::Unixpath] $dumpdir                              = undef,
   Optional[Stdlib::Absolutepath] $ntsserverkey                     = undef,
   Optional[Stdlib::Absolutepath] $ntsservercert                    = undef,
-  Optional[Integer] $ntsport                                       = undef,
+  Optional[Stdlib::Port] $ntsport                                  = undef,
   Optional[Integer] $maxntsconnections                             = undef,
   Optional[Integer] $ntsprocesses                                  = undef,
   Optional[Stdlib::Absolutepath]  $ntsdumpdir                      = undef,
