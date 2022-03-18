@@ -183,6 +183,7 @@ The following parameters are available in the `chrony` class:
 * [`rtconutc`](#rtconutc)
 * [`hwtimestamps`](#hwtimestamps)
 * [`dumpdir`](#dumpdir)
+* [`ntpsigndsocket`](#ntpsigndsocket)
 * [`maxupdateskew`](#maxupdateskew)
 
 ##### <a name="bindaddress"></a>`bindaddress`
@@ -664,6 +665,14 @@ Data type: `Optional[Stdlib::Unixpath]`
 Directory to store measurement history in on exit.
 
 Default value: ``undef``
+
+##### <a name="ntpsigndsocket"></a>`ntpsigndsocket`
+
+Data type: `Optional[Stdlib::Unixpath]`
+
+This sets the location of the Samba ntp_signd socket when it is running as a Domain Controller (DC).
+
+Default value: `$chrony::params::ntpsigndsocket`
 
 ##### <a name="maxupdateskew"></a>`maxupdateskew`
 

@@ -102,6 +102,9 @@ keyfile <%= $chrony::config_keys %>
 dumponexit
 dumpdir <%= $chrony::dumpdir %>
 <% } -%>
+<% if $chrony::ntpsigndsocket { -%>
+ntpsigndsocket <%= $chrony::ntpsigndsocket %>
+<% } -%>
 <% unless $chrony::clientlog { -%>
 
 # Disable logging of client accesses.
