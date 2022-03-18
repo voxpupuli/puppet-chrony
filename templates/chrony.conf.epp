@@ -20,6 +20,16 @@ peer <%= $peer %>
 peer <%= $peer %> <%= $peers[$peer].join(' ') %>
 <%   } -%>
 <% } -%>
+<% if $chrony::sourcedir { -%>
+
+# The sourcedir directive is identical to the confdir directive, except the configuration files have the .sources suffix, they can only specify NTP sources.
+sourcedir <%= $chrony::sourcedir %>
+<% } -%>
+<% if $chrony::confdir { -%>
+
+# The confdir directive includes configuration files with the .conf suffix from a directory.
+confdir <%= $chrony::confdir %>
+<% } -%>
 <% if $chrony::stratumweight { -%>
 
 # How much distance should be added per stratum to the synchronisation distance when
