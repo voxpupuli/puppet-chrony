@@ -297,7 +297,7 @@ class chrony (
   Optional[Integer[0]] $ntsprocesses                               = undef,
   Optional[Stdlib::Absolutepath]  $ntsdumpdir                      = undef,
   Optional[String]  $ntsntpserver                                  = undef,
-  Optional[Integer] $ntsrotate                                     = undef,
+  Optional[Integer[0]] $ntsrotate                                  = undef,
 ) {
   if ! $config_keys_manage and $chrony_password != 'unset' {
     fail("Setting \$config_keys_manage false and \$chrony_password at same time in ${module_name} is not possible.")
