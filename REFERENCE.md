@@ -132,6 +132,8 @@ The following parameters are available in the `chrony` class:
 * [`bindaddress`](#bindaddress)
 * [`bindcmdaddress`](#bindcmdaddress)
 * [`initstepslew`](#initstepslew)
+* [`sourcedir`](#sourcedir)
+* [`confdir`](#confdir)
 * [`cmdacl`](#cmdacl)
 * [`cmdport`](#cmdport)
 * [`commandkey`](#commandkey)
@@ -147,6 +149,7 @@ The following parameters are available in the `chrony` class:
 * [`keys`](#keys)
 * [`driftfile`](#driftfile)
 * [`local_stratum`](#local_stratum)
+* [`ntpsigndsocket`](#ntpsigndsocket)
 * [`stratumweight`](#stratumweight)
 * [`log_options`](#log_options)
 * [`package_ensure`](#package_ensure)
@@ -177,13 +180,20 @@ The following parameters are available in the `chrony` class:
 * [`leapsectz`](#leapsectz)
 * [`maxdistance`](#maxdistance)
 * [`maxslewrate`](#maxslewrate)
+* [`ntsserverkey`](#ntsserverkey)
+* [`ntsservercert`](#ntsservercert)
+* [`ntsport`](#ntsport)
+* [`maxntsconnections`](#maxntsconnections)
+* [`ntsprocesses`](#ntsprocesses)
+* [`ntsdumpdir`](#ntsdumpdir)
+* [`ntsntpserver`](#ntsntpserver)
+* [`ntsrotate`](#ntsrotate)
 * [`clientlog`](#clientlog)
 * [`clientloglimit`](#clientloglimit)
 * [`rtcsync`](#rtcsync)
 * [`rtconutc`](#rtconutc)
 * [`hwtimestamps`](#hwtimestamps)
 * [`dumpdir`](#dumpdir)
-* [`ntpsigndsocket`](#ntpsigndsocket)
 * [`maxupdateskew`](#maxupdateskew)
 
 ##### <a name="bindaddress"></a>`bindaddress`
@@ -209,6 +219,22 @@ Data type: `Optional[String]`
 
 Allow chronyd to make a rapid measurement of the system clock error at boot time,
 and to correct the system clock by stepping before normal operation begins.
+
+Default value: ``undef``
+
+##### <a name="sourcedir"></a>`sourcedir`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+The confdir directive includes configuration files with the .conf suffix from a directory.
+
+Default value: ``undef``
+
+##### <a name="confdir"></a>`confdir`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+The sourcedir directive is identical to the confdir directive, except the configuration files have the .sources suffix, they can only specify NTP sources.
 
 Default value: ``undef``
 
@@ -340,6 +366,14 @@ when the local reference is active. Use `false` to not set local_stratum in
 chrony configuration.
 
 Default value: `10`
+
+##### <a name="ntpsigndsocket"></a>`ntpsigndsocket`
+
+Data type: `Optional[Stdlib::Unixpath]`
+
+This sets the location of the Samba ntp_signd socket when it is running as a Domain Controller (DC).
+
+Default value: ``undef``
 
 ##### <a name="stratumweight"></a>`stratumweight`
 
@@ -613,6 +647,72 @@ Maximum rate for chronyd to slew the time. Only float type values possible, for 
 
 Default value: ``undef``
 
+##### <a name="ntsserverkey"></a>`ntsserverkey`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+This directive specifies a file containing a private key in the PEM format for chronyd to operate as an NTS server.
+
+Default value: ``undef``
+
+##### <a name="ntsservercert"></a>`ntsservercert`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+This directive specifies a file containing a certificate in the PEM format for chronyd to operate as an NTS server.
+
+Default value: ``undef``
+
+##### <a name="ntsport"></a>`ntsport`
+
+Data type: `Optional[Stdlib::Port]`
+
+This directive specifies the TCP port on which chronyd will provide the NTS Key Establishment (NTS-KE) service.
+
+Default value: ``undef``
+
+##### <a name="maxntsconnections"></a>`maxntsconnections`
+
+Data type: `Optional[Integer[0]]`
+
+This directive specifies the maximum number of concurrent NTS-KE connections per process that the NTS server will accept.
+
+Default value: ``undef``
+
+##### <a name="ntsprocesses"></a>`ntsprocesses`
+
+Data type: `Optional[Integer[0]]`
+
+This directive specifies how many helper processes will chronyd operating as an NTS server start for handling client NTS-KE requests in order to improve
+        performance with multi-core CPUs and multithreading.
+
+Default value: ``undef``
+
+##### <a name="ntsdumpdir"></a>`ntsdumpdir`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+This directive specifies a directory where chronyd operating as an NTS server can save the keys which encrypt NTS cookies provided to clients.
+
+Default value: ``undef``
+
+##### <a name="ntsntpserver"></a>`ntsntpserver`
+
+Data type: `Optional[String]`
+
+This directive specifies the hostname (as a fully qualified domain name) or address of the NTP server(s) which is provided in the NTS-KE response to the
+        clients.
+
+Default value: ``undef``
+
+##### <a name="ntsrotate"></a>`ntsrotate`
+
+Data type: `Optional[Integer[0]]`
+
+This directive specifies the rotation interval (in seconds) of the server key which encrypts the NTS cookies.
+
+Default value: ``undef``
+
 ##### <a name="clientlog"></a>`clientlog`
 
 Data type: `Boolean`
@@ -665,14 +765,6 @@ Data type: `Optional[Stdlib::Unixpath]`
 Directory to store measurement history in on exit.
 
 Default value: ``undef``
-
-##### <a name="ntpsigndsocket"></a>`ntpsigndsocket`
-
-Data type: `Optional[Stdlib::Unixpath]`
-
-This sets the location of the Samba ntp_signd socket when it is running as a Domain Controller (DC).
-
-Default value: `$chrony::params::ntpsigndsocket`
 
 ##### <a name="maxupdateskew"></a>`maxupdateskew`
 

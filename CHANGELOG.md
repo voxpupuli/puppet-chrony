@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v2.3.0](https://github.com/voxpupuli/puppet-chrony/tree/v2.3.0) (2022-03-19)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-chrony/compare/v2.2.0...v2.3.0)
+
+**Implemented enhancements:**
+
+- Add support for several NTS settings. [\#145](https://github.com/voxpupuli/puppet-chrony/pull/145) ([Heidistein](https://github.com/Heidistein))
+- Add confdir \(chrony.cond.d\) support [\#144](https://github.com/voxpupuli/puppet-chrony/pull/144) ([Heidistein](https://github.com/Heidistein))
+- Add support for ntpsigndsocket [\#139](https://github.com/voxpupuli/puppet-chrony/pull/139) ([ipoddubny](https://github.com/ipoddubny))
+
+**Closed issues:**
+
+- ntpdsigndsocket option missing [\#107](https://github.com/voxpupuli/puppet-chrony/issues/107)
+- Are we creating a invalid keyfile? [\#91](https://github.com/voxpupuli/puppet-chrony/issues/91)
+
 ## [v2.2.0](https://github.com/voxpupuli/puppet-chrony/tree/v2.2.0) (2022-03-07)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-chrony/compare/v2.1.0...v2.2.0)
