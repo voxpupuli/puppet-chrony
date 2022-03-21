@@ -4,7 +4,7 @@
   "author": "Vox Pupuli",
   "summary": "Manage chrony daemon on Linux",
   "license": "Apache-2.0",
-  "source": "git://github.com/voxpupuli/puppet-chrony.git",
+  "source": "https://github.com/voxpupuli/puppet-chrony.git",
   "project_page": "https://github.com/voxpupuli/puppet-chrony",
   "issues_url": "https://github.com/voxpupuli/puppet-chrony/issues",
   "dependencies": [
