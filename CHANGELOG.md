@@ -4,7 +4,19 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v2.3.0](https://github.com/voxpupuli/puppet-chrony/tree/v2.3.0) (2022-03-19)
+## [v2.4.0](https://github.com/voxpupuli/puppet-chrony/tree/v2.4.0) (2022-04-19)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-chrony/compare/v2.3.0...v2.4.0)
+
+**Implemented enhancements:**
+
+- Add `sched_priority` and `logbanner` options. [\#148](https://github.com/voxpupuli/puppet-chrony/pull/148) ([jcpunk](https://github.com/jcpunk))
+
+**Merged pull requests:**
+
+- Update github URLs to remove unauthenticated git [\#147](https://github.com/voxpupuli/puppet-chrony/pull/147) ([gcoxmoz](https://github.com/gcoxmoz))
+
+## [v2.3.0](https://github.com/voxpupuli/puppet-chrony/tree/v2.3.0) (2022-03-20)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-chrony/compare/v2.2.0...v2.3.0)
 

@@ -2,7 +2,6 @@
 
 require 'spec_helper'
 
-# rubocop:disable RSpec/EmptyExampleGroup
 describe 'chrony' do
   on_supported_os.each do |os, facts|
     context "on #{os}" do
@@ -622,4 +621,3 @@ describe 'chrony' do
     end
   end
 end
-# rubocop:enable RSpec/EmptyExampleGroup
