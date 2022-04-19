@@ -152,6 +152,7 @@ The following parameters are available in the `chrony` class:
 * [`ntpsigndsocket`](#ntpsigndsocket)
 * [`stratumweight`](#stratumweight)
 * [`log_options`](#log_options)
+* [`logbanner`](#logbanner)
 * [`package_ensure`](#package_ensure)
 * [`package_name`](#package_name)
 * [`package_source`](#package_source)
@@ -176,6 +177,7 @@ The following parameters are available in the `chrony` class:
 * [`mailonchange`](#mailonchange)
 * [`threshold`](#threshold)
 * [`lock_all`](#lock_all)
+* [`sched_priority`](#sched_priority)
 * [`leapsecmode`](#leapsecmode)
 * [`leapsectz`](#leapsectz)
 * [`maxdistance`](#maxdistance)
@@ -390,6 +392,14 @@ Default value: ``undef``
 Data type: `Optional[String[1]]`
 
 Specify which information is to be logged.
+
+Default value: ``undef``
+
+##### <a name="logbanner"></a>`logbanner`
+
+Data type: `Optional[Integer[0]]`
+
+Specify how often the log banner is placed in the logfile.
 
 Default value: ``undef``
 
@@ -614,6 +624,14 @@ Data type: `Boolean`
 Force chrony to only use RAM & prevent swapping.
 
 Default value: ``false``
+
+##### <a name="sched_priority"></a>`sched_priority`
+
+Data type: `Optional[Integer[0,100]]`
+
+Set the CPU thread scheduler, this value is OS specific.
+
+Default value: ``undef``
 
 ##### <a name="leapsecmode"></a>`leapsecmode`
 
