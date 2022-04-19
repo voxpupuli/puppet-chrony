@@ -127,6 +127,9 @@ mailonchange <%= $chrony::mailonchange %> <%= $chrony::threshold %>
 <% } -%>
 
 logdir /var/log/chrony
+<% if $chrony::logbanner { -%>
+logbanner <%= $chrony::logbanner %>
+<% } -%>
 <% if $chrony::log_options { -%>
 log <%= $chrony::log_options %>
 <% } -%>
@@ -140,6 +143,9 @@ refclock <%= $driver.flatten.join(' ') %>
 
 # Lock chrony to RAM.
 lock_all
+<% } -%>
+<% if $chrony::sched_priority { -%>
+sched_priority <%= $chrony::sched_priority %>
 <% } -%>
 <% if $chrony::leapsecmode { -%>
 

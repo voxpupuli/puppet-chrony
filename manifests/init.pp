@@ -111,6 +111,8 @@
 #   When not set, chronyd's default will be used, which since version 2.0 of chrony, is 0.001 seconds.
 # @param log_options
 #   Specify which information is to be logged.
+# @param logbanner
+#   Specify how often the log banner is placed in the logfile.
 # @param package_ensure
 #   This can be set to 'present' or 'latest' or a specific version to choose the
 #   chrony package to be installed.
@@ -184,6 +186,8 @@
 #   Specify the time limit for triggering events.
 # @param lock_all
 #   Force chrony to only use RAM & prevent swapping.
+# @param sched_priority
+#   Set the CPU thread scheduler, this value is OS specific.
 # @param leapsecmode
 #   Configures how to insert the leap second mode.
 # @param leapsectz
@@ -251,6 +255,7 @@ class chrony (
   Stdlib::Unixpath $driftfile                                      = '/var/lib/chrony/drift',
   Variant[Boolean[false],Integer[1,15]] $local_stratum             = 10,
   Optional[String[1]] $log_options                                 = undef,
+  Optional[Integer[0]] $logbanner                                  = undef,
   String[1] $package_ensure                                        = 'present',
   String[1] $package_name                                          = 'chrony',
   Optional[String] $package_source                                 = undef,
@@ -270,6 +275,7 @@ class chrony (
   Optional[String[1]] $mailonchange                                = undef,
   Float $threshold                                                 = 0.5,
   Boolean $lock_all                                                = false,
+  Optional[Integer[0,100]] $sched_priority                         = undef,
   Optional[Stdlib::Port] $port                                     = undef,
   Boolean $clientlog                                               = false,
   Optional[Integer] $clientloglimit                                = undef,

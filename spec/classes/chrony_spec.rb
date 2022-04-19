@@ -152,6 +152,8 @@ describe 'chrony' do
             cmdacl: ['cmdallow 1.2.3.4', 'cmddeny 1.2.3', 'cmdallow all 1.2'],
             leapsecmode: 'slew',
             leapsectz: 'right/UTC',
+            log_options: 'statistics refclocks',
+            logbanner: 40,
             maxdistance: 16.0,
             maxslewrate: 1000.0,
             maxupdateskew: 1000.0,
@@ -160,6 +162,7 @@ describe 'chrony' do
             hwtimestamps: ['eth0'],
             driftfile: '/var/tmp/chrony.drift',
             rtcsync: false,
+            sched_priority: 1,
             dumpdir: '/var/tmp',
             ntpsigndsocket: '/var/lib/samba/ntp_signd/socket',
             ntsserverkey: '/tmp/cert.key',
@@ -205,6 +208,9 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*ntsrotate 8$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*confdir /tmp/chroconf$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*sourcedir /tmp/chrosources$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*log statistics refclocks$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*logbanner 40$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*sched_priority 1$}) }
             end
           when 'RedHat'
             context 'with some params passed in' do
@@ -245,6 +251,9 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*ntsrotate 8$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*confdir /tmp/chroconf$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*sourcedir /tmp/chrosources$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*log statistics refclocks$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*logbanner 40$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*sched_priority 1$}) }
             end
           when 'Debian', 'Gentoo'
             context 'with some params passed in' do
@@ -285,6 +294,9 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*ntsrotate 8$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*confdir /tmp/chroconf$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*sourcedir /tmp/chrosources$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*log statistics refclocks$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*logbanner 40$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*sched_priority 1$}) }
             end
           end
         end
