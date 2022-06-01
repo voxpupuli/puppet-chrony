@@ -144,7 +144,7 @@ describe 'chrony' do
             config_keys_manage: true,
             confdir: '/tmp/chroconf',
             sourcedir: '/tmp/chrosources',
-            chrony_password: 'sunny',
+            chrony_password: sensitive('sunny'),
             bindaddress: ['10.0.0.1', '::1'],
             bindcmdaddress: ['10.0.0.1'],
             initstepslew: '600',

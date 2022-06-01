@@ -18,12 +18,25 @@ class chrony::config {
     ),
   }
 
+  if $chrony::chrony_password =~ Sensitive {
+    # unwrap before Puppet 6.24 can only be called on Sensitive values
+    $chrony_password = $chrony::chrony_password.unwrap
+  } else {
+    $chrony_password = $chrony::chrony_password
+  }
+
+  $keys_params = {
+    'chrony_password' => $chrony_password,
+    'commandkey' => $chrony::commandkey,
+    'keys' => $chrony::keys,
+  }
+
   file { $chrony::config_keys:
     ensure  => file,
     replace => $chrony::config_keys_manage,
     owner   => $chrony::config_keys_owner,
     group   => $chrony::config_keys_group,
     mode    => $chrony::config_keys_mode,
-    content => Sensitive(epp($chrony::config_keys_template)),
+    content => Sensitive(epp($chrony::config_keys_template, $keys_params)),
   }
 }
