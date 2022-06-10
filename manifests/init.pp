@@ -246,7 +246,7 @@ class chrony (
   String[1] $config_template                                       = 'chrony/chrony.conf.epp',
   Stdlib::Unixpath $config_keys                                    = '/etc/chrony/chrony.keys',
   String[1] $config_keys_template                                  = 'chrony/chrony.keys.epp',
-  String[1] $chrony_password                                       = 'xyzzy',
+  Variant[Sensitive[String[1]], String[1]] $chrony_password        = 'xyzzy',
   Variant[Integer[0],String[1]] $config_keys_owner                 = 0,
   Variant[Integer[0],String[1]] $config_keys_group                 = 0,
   Stdlib::Filemode $config_keys_mode                               = '0640',
