@@ -136,6 +136,7 @@ describe 'chrony' do
         let(:params) do
           {
             queryhosts: ['192.168/16'],
+            denyqueryhosts: ['10.0/16'],
             port: 123,
             cmdport: 257,
             config_keys_mode: '0123',
@@ -153,6 +154,7 @@ describe 'chrony' do
             leapsectz: 'right/UTC',
             log_options: 'statistics refclocks',
             logbanner: 40,
+            logchange: 4.0,
             maxdistance: 16.0,
             maxslewrate: 1000.0,
             maxupdateskew: 1000.0,
@@ -168,6 +170,9 @@ describe 'chrony' do
             ntsservercert: '/tmp/cert.pem',
             ntsport: 12,
             maxntsconnections: 32,
+            minsources: 22,
+            minsamples: 33,
+            acquisitionport: 321,
             ntsprocesses: 5,
             ntsdumpdir: '/tmp/ntsdump',
             ntsntpserver: 'foo.bar',
@@ -181,10 +186,12 @@ describe 'chrony' do
             context 'with some params passed in' do
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*port 123$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^s*allow 192\.168/16$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^s*deny 10\.0/16$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmdallow 1\.2\.3\.4$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmddeny 1\.2\.3$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmdallow all 1\.2$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*rtconutc$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*acquisitionport 321$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*hwtimestamp eth0$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*driftfile /var/tmp/chrony.drift$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').without_content(%r{^\s*rtcsync$}) }
@@ -209,6 +216,9 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*sourcedir /tmp/chrosources$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*log statistics refclocks$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*logbanner 40$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*logchange 4\.0$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*minsources 22$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*minsamples 33$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*sched_priority 1$}) }
             end
           when 'RedHat'
@@ -221,7 +231,9 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*smoothtime 400 0\.001 leaponly$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*port 123$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmdport 257$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*acquisitionport 321$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^s*allow 192\.168/16$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^s*deny 10\.0/16$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*bindaddress 10\.0\.0\.1$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*bindaddress ::1$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*initstepslew 600$}) }
@@ -252,7 +264,10 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*sourcedir /tmp/chrosources$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*log statistics refclocks$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*logbanner 40$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*logchange 4\.0$}) }
               it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*sched_priority 1$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*minsources 22$}) }
+              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*minsamples 33$}) }
             end
           when 'Debian', 'Gentoo'
             context 'with some params passed in' do
@@ -264,7 +279,9 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*smoothtime 400 0\.001 leaponly$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*port 123$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*cmdport 257$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*acquisitionport 321$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^s*allow 192\.168/16$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^s*deny 10\.0/16$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*bindaddress 10\.0\.0\.1$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*bindaddress ::1$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*initstepslew 600$}) }
@@ -295,7 +312,10 @@ describe 'chrony' do
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*sourcedir /tmp/chrosources$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*log statistics refclocks$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*logbanner 40$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*logchange 4\.0$}) }
               it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*sched_priority 1$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*minsources 22$}) }
+              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*minsamples 33$}) }
             end
           end
         end
