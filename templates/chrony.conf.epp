@@ -1,3 +1,5 @@
+# This file is being maintained by Puppet. Do not edit.
+
 # NTP servers
 <% $servers.keys.sort.each |$server| { -%>
 <%   if $servers[$server].empty { -%>
