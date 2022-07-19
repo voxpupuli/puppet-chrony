@@ -130,6 +130,19 @@ describe 'chrony' do
             it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_content(sensitive("0 xyzzy\n")) }
           end
         end
+        it { is_expected.to contain_file(config_file).with_content(%r{keyfile .*chrony.keys}) }
+      end
+
+      context 'with empty config_keys' do
+        let :params do
+          {
+            config_keys: ''
+          }
+        end
+
+        it { is_expected.to compile.with_all_deps }
+        it { is_expected.to contain_file(config_file).without_content(%r{keyfile .*chrony.keys}) }
+        it { is_expected.not_to contain_file(keys_file) }
       end
 
       context 'with some params passed in' do

@@ -31,12 +31,14 @@ class chrony::config {
     'keys' => $chrony::keys,
   }
 
-  file { $chrony::config_keys:
-    ensure  => file,
-    replace => $chrony::config_keys_manage,
-    owner   => $chrony::config_keys_owner,
-    group   => $chrony::config_keys_group,
-    mode    => $chrony::config_keys_mode,
-    content => Sensitive(epp($chrony::config_keys_template, $keys_params)),
+  unless empty($chrony::config_keys) {
+    file { $chrony::config_keys:
+      ensure  => file,
+      replace => $chrony::config_keys_manage,
+      owner   => $chrony::config_keys_owner,
+      group   => $chrony::config_keys_group,
+      mode    => $chrony::config_keys_mode,
+      content => Sensitive(epp($chrony::config_keys_template, $keys_params)),
+    }
   }
 }

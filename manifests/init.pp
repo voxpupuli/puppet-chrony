@@ -84,7 +84,7 @@
 # @param config_template
 #   This determines which template puppet should use for the chrony configuration.
 # @param config_keys
-#   This sets the file to write chrony keys into.
+#   This sets the file to write chrony keys into. Set to '' to remove `keyfile` attribute from the config.
 # @param config_keys_manage
 #   Determines whether puppet will manage the content of the keys file after it has been created for the first time.
 # @param config_keys_template
@@ -258,7 +258,7 @@ class chrony (
   Optional[Stdlib::Absolutepath] $confdir                          = undef,
   Optional[Stdlib::Absolutepath] $sourcedir                        = undef,
   String[1] $config_template                                       = 'chrony/chrony.conf.epp',
-  Stdlib::Unixpath $config_keys                                    = '/etc/chrony/chrony.keys',
+  Variant[Stdlib::Unixpath,String[0,0]] $config_keys               = '/etc/chrony/chrony.keys',
   String[1] $config_keys_template                                  = 'chrony/chrony.keys.epp',
   Variant[Sensitive[String[1]], String[1]] $chrony_password        = 'xyzzy',
   Variant[Integer[0],String[1]] $config_keys_owner                 = 0,
