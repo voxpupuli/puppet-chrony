@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [Unreleased](https://github.com/voxpupuli/puppet-chrony/tree/HEAD)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-chrony/compare/v2.4.0...HEAD)
+
+**Implemented enhancements:**
+
+- Add more config settings and prep EL9 support [\#151](https://github.com/voxpupuli/puppet-chrony/pull/151) ([jcpunk](https://github.com/jcpunk))
+- Allow the password to be a Sensitive string. [\#150](https://github.com/voxpupuli/puppet-chrony/pull/150) ([jcpunk](https://github.com/jcpunk))
+
+**Merged pull requests:**
+
+- Identify the chrony files as being managed by puppet. [\#153](https://github.com/voxpupuli/puppet-chrony/pull/153) ([bschonec](https://github.com/bschonec))
+
 ## [v2.4.0](https://github.com/voxpupuli/puppet-chrony/tree/v2.4.0) (2022-04-19)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-chrony/compare/v2.3.0...v2.4.0)
