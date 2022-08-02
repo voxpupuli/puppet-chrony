@@ -153,6 +153,7 @@ The following parameters are available in the `chrony` class:
 * [`stratumweight`](#stratumweight)
 * [`log_options`](#log_options)
 * [`logbanner`](#logbanner)
+* [`logchange`](#logchange)
 * [`package_ensure`](#package_ensure)
 * [`package_name`](#package_name)
 * [`package_source`](#package_source)
@@ -160,10 +161,13 @@ The following parameters are available in the `chrony` class:
 * [`peers`](#peers)
 * [`servers`](#servers)
 * [`pools`](#pools)
+* [`minsources`](#minsources)
+* [`minsamples`](#minsamples)
 * [`refclocks`](#refclocks)
 * [`makestep_seconds`](#makestep_seconds)
 * [`makestep_updates`](#makestep_updates)
 * [`queryhosts`](#queryhosts)
+* [`denyqueryhosts`](#denyqueryhosts)
 * [`port`](#port)
 * [`service_enable`](#service_enable)
 * [`service_ensure`](#service_ensure)
@@ -197,6 +201,7 @@ The following parameters are available in the `chrony` class:
 * [`hwtimestamps`](#hwtimestamps)
 * [`dumpdir`](#dumpdir)
 * [`maxupdateskew`](#maxupdateskew)
+* [`acquisitionport`](#acquisitionport)
 
 ##### <a name="bindaddress"></a>`bindaddress`
 
@@ -271,7 +276,7 @@ Default value: `0`
 
 ##### <a name="chrony_password"></a>`chrony_password`
 
-Data type: `String[1]`
+Data type: `Variant[Sensitive[String[1]], String[1]]`
 
 This sets the chrony password to be used in the key file.
 By default a short fixed string is used. If set explicitly to
@@ -403,6 +408,16 @@ Specify how often the log banner is placed in the logfile.
 
 Default value: ``undef``
 
+##### <a name="logchange"></a>`logchange`
+
+Data type: `Float[0.1]`
+
+Sets the threshold for the adjustment of the system clock that will generate a syslog message.
+Clock errors detected via NTP packets, reference clocks, or timestamps entered via the settime
+command of chronyc are logged.
+
+Default value: `0.5`
+
 ##### <a name="package_ensure"></a>`package_ensure`
 
 Data type: `String[1]`
@@ -472,6 +487,23 @@ See [pool](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#pool)
 
 Default value: `{}`
 
+##### <a name="minsources"></a>`minsources`
+
+Data type: `Optional[Integer[1]]`
+
+Sets the minimum number of sources that need to be considered as selectable in the source selection algorithm
+before the local clock is updated.
+
+Default value: ``undef``
+
+##### <a name="minsamples"></a>`minsamples`
+
+Data type: `Optional[Integer[1]]`
+
+Specifies the minimum number of readings kept for tracking of the NIC clock.
+
+Default value: ``undef``
+
 ##### <a name="refclocks"></a>`refclocks`
 
 Data type: `Array`
@@ -513,9 +545,18 @@ Default value: `3`
 
 ##### <a name="queryhosts"></a>`queryhosts`
 
-Data type: `Array[String]`
+Data type: `Array[String[1]]`
 
 This adds the networks, hosts that are allowed to query the daemon.
+
+Default value: `[]`
+
+##### <a name="denyqueryhosts"></a>`denyqueryhosts`
+
+Data type: `Array[String[1]]`
+
+Similar to queryhosts, except that it denies NTP client access to a particular subnet or host,
+rather than allowing it.
 
 Default value: `[]`
 
@@ -789,6 +830,14 @@ Default value: ``undef``
 Data type: `Optional[Float]`
 
 Sets the threshold for determining whether an estimate might be so unreliable that it should not be used
+
+Default value: ``undef``
+
+##### <a name="acquisitionport"></a>`acquisitionport`
+
+Data type: `Optional[Integer[1,65535]]`
+
+Sets the acquisitionport for client queries
 
 Default value: ``undef``
 
