@@ -113,6 +113,10 @@
 #   Specify which information is to be logged.
 # @param logbanner
 #   Specify how often the log banner is placed in the logfile.
+# @param logchange
+#   Sets the threshold for the adjustment of the system clock that will generate a syslog message.
+#   Clock errors detected via NTP packets, reference clocks, or timestamps entered via the settime
+#   command of chronyc are logged.
 # @param package_ensure
 #   This can be set to 'present' or 'latest' or a specific version to choose the
 #   chrony package to be installed.
@@ -135,6 +139,11 @@
 #   This is used to specify one or more *pools* of NTP servers to use instead of individual NTP servers.
 #   Similar to [`server`](#server), it can be an array of pools, (using iburst), or a hash of pools to their respective options.
 #   See [pool](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#pool)
+# @param minsources
+#   Sets the minimum number of sources that need to be considered as selectable in the source selection algorithm
+#   before the local clock is updated.
+# @param minsamples
+#   Specifies the minimum number of readings kept for tracking of the NIC clock.
 # @param refclocks
 #   This should be a Hash of hardware reference clock drivers to use.  They hash
 #   can either list a single list of options for the driver, or any array of
@@ -158,6 +167,9 @@
 #   Also see [`makestep_seconds`](#makestep_seconds).
 # @param queryhosts
 #   This adds the networks, hosts that are allowed to query the daemon.
+# @param denyqueryhosts
+#   Similar to queryhosts, except that it denies NTP client access to a particular subnet or host,
+#   rather than allowing it.
 # @param port
 #   Port the service should listen on. Module default is `undef` which means that port
 #   isn't added to chrony.conf, and chrony listens to the default ntp port 123 if
@@ -233,6 +245,8 @@
 #   Directory to store measurement history in on exit.
 # @param maxupdateskew
 #   Sets the threshold for determining whether an estimate might be so unreliable that it should not be used
+# @param acquisitionport
+#   Sets the acquisitionport for client queries
 class chrony (
   Array[Stdlib::IP::Address] $bindaddress                          = [],
   Array[String] $bindcmdaddress                                    = ['127.0.0.1', '::1'],
@@ -254,6 +268,7 @@ class chrony (
   Array[String[1]] $keys                                           = [],
   Stdlib::Unixpath $driftfile                                      = '/var/lib/chrony/drift',
   Variant[Boolean[false],Integer[1,15]] $local_stratum             = 10,
+  Float[0.1] $logchange                                            = 0.5,
   Optional[String[1]] $log_options                                 = undef,
   Optional[Integer[0]] $logbanner                                  = undef,
   String[1] $package_ensure                                        = 'present',
@@ -269,9 +284,12 @@ class chrony (
     '3.pool.ntp.org' => ['iburst'],
   },
   Chrony::Servers $pools                                           = {},
+  Optional[Integer[1]] $minsources                                 = undef,
+  Optional[Integer[1]] $minsamples                                 = undef,
   Numeric $makestep_seconds                                        = 10,
   Integer $makestep_updates                                        = 3,
-  Array[String] $queryhosts                                        = [],
+  Array[String[1]] $queryhosts                                     = [],
+  Array[String[1]] $denyqueryhosts                                 = [],
   Optional[String[1]] $mailonchange                                = undef,
   Float $threshold                                                 = 0.5,
   Boolean $lock_all                                                = false,
@@ -307,6 +325,7 @@ class chrony (
   Optional[Stdlib::Absolutepath]  $ntsdumpdir                      = undef,
   Optional[String]  $ntsntpserver                                  = undef,
   Optional[Integer[0]] $ntsrotate                                  = undef,
+  Optional[Integer[1,65535]] $acquisitionport                      = undef,
 ) {
   if ! $config_keys_manage and $chrony_password != 'unset' {
     fail("Setting \$config_keys_manage false and \$chrony_password at same time in ${module_name} is not possible.")
