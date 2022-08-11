@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v2.5.0](https://github.com/voxpupuli/puppet-chrony/tree/v2.5.0) (2022-08-11)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-chrony/compare/v2.4.1...v2.5.0)
+
+**Implemented enhancements:**
+
+- make config\_keys option optional [\#156](https://github.com/voxpupuli/puppet-chrony/pull/156) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v2.4.1](https://github.com/voxpupuli/puppet-chrony/tree/v2.4.1) (2022-08-02)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-chrony/compare/v2.4.0...v2.4.1)
