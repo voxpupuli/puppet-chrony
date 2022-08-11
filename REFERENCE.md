@@ -302,9 +302,9 @@ Default value: `'chrony/chrony.conf.epp'`
 
 ##### <a name="config_keys"></a>`config_keys`
 
-Data type: `Stdlib::Unixpath`
+Data type: `Variant[Stdlib::Unixpath,String[0,0]]`
 
-This sets the file to write chrony keys into.
+This sets the file to write chrony keys into. Set to '' to remove `keyfile` attribute from the config.
 
 Default value: `'/etc/chrony/chrony.keys'`
 

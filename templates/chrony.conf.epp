@@ -114,7 +114,7 @@ minsamples <%= $chrony::minsamples %>
 # https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#minsources
 minsources <%= $chrony::minsources %>
 <% } -%>
-<% if $chrony::config_keys { -%>
+<% unless empty($chrony::config_keys) { -%>
 
 keyfile <%= $chrony::config_keys %>
 <% } -%>
