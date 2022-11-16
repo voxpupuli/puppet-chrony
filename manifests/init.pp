@@ -268,7 +268,7 @@ class chrony (
   Array[String[1]] $keys                                           = [],
   Stdlib::Unixpath $driftfile                                      = '/var/lib/chrony/drift',
   Variant[Boolean[false],Integer[1,15]] $local_stratum             = 10,
-  Float[0.1] $logchange                                            = 0.5,
+  Float $logchange                                                 = 0.5,
   Optional[String[1]] $log_options                                 = undef,
   Optional[Integer[0]] $logbanner                                  = undef,
   String[1] $package_ensure                                        = 'present',
