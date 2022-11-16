@@ -651,6 +651,16 @@ describe 'chrony' do
           it { is_expected.not_to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*local stratum}) }
         end
       end
+
+      context 'with sub-millisecond value for logchange' do
+        let(:params) do
+          {
+            logchange: 0.0001
+          }
+        end
+
+        it { expect(config_file_contents.split("\n")).to include('logchange 0.0001') }
+      end
     end
   end
 end
