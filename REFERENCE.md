@@ -410,7 +410,7 @@ Default value: ``undef``
 
 ##### <a name="logchange"></a>`logchange`
 
-Data type: `Float[0.1]`
+Data type: `Float`
 
 Sets the threshold for the adjustment of the system clock that will generate a syslog message.
 Clock errors detected via NTP packets, reference clocks, or timestamps entered via the settime

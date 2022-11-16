@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v2.6.0](https://github.com/voxpupuli/puppet-chrony/tree/v2.6.0) (2022-11-16)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-chrony/compare/v2.5.0...v2.6.0)
+
+**Implemented enhancements:**
+
+- allow logchange to be a float with an arbitrary range [\#161](https://github.com/voxpupuli/puppet-chrony/pull/161) ([jhoblitt](https://github.com/jhoblitt))
+
 ## [v2.5.0](https://github.com/voxpupuli/puppet-chrony/tree/v2.5.0) (2022-08-11)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-chrony/compare/v2.4.1...v2.5.0)
