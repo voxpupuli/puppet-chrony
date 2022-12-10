@@ -46,27 +46,27 @@ describe 'chrony' do
         case facts[:os]['family']
         when 'Archlinux'
           context 'using defaults' do
-            it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmdallow 127\.0\.0\.1$}) }
+            it { is_expected.to contain_file(config_file).with_content(%r{^\s*cmdallow 127\.0\.0\.1$}) }
 
             ['0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org'].each do |s|
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*server #{s} iburst$}) }
+              it { is_expected.to contain_file(config_file).with_content(%r{^\s*server #{s} iburst$}) }
             end
-            it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*rtconutc$}) }
-            it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*driftfile /var/lib/chrony/drift$}) }
-            it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*rtcsync$}) }
-            it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*dumpdir /var/lib/chrony$}) }
-            it { is_expected.to contain_file('/etc/chrony.conf').without_content(%r{^\s*ntpsigndsocket}) }
-            it { is_expected.to contain_file('/etc/chrony.conf').without_content(%r{^\s*\n\s*$}) }
-            it { is_expected.to contain_file('/etc/chrony.keys').with_mode('0644') }
-            it { is_expected.to contain_file('/etc/chrony.keys').with_owner('0') }
-            it { is_expected.to contain_file('/etc/chrony.keys').with_group('0') }
-            it { is_expected.to contain_file('/etc/chrony.keys').with_replace(true) }
-            it { is_expected.to contain_file('/etc/chrony.keys').with_content(sensitive("0 xyzzy\n")) }
+            it { is_expected.to contain_file(config_file).with_content(%r{^\s*rtconutc$}) }
+            it { is_expected.to contain_file(config_file).with_content(%r{^\s*driftfile /var/lib/chrony/drift$}) }
+            it { is_expected.to contain_file(config_file).with_content(%r{^\s*rtcsync$}) }
+            it { is_expected.to contain_file(config_file).with_content(%r{^\s*dumpdir /var/lib/chrony$}) }
+            it { is_expected.to contain_file(config_file).without_content(%r{^\s*ntpsigndsocket}) }
+            it { is_expected.to contain_file(config_file).without_content(%r{^\s*\n\s*$}) }
+            it { is_expected.to contain_file(keys_file).with_mode('0644') }
+            it { is_expected.to contain_file(keys_file).with_owner('0') }
+            it { is_expected.to contain_file(keys_file).with_group('0') }
+            it { is_expected.to contain_file(keys_file).with_replace(true) }
+            it { is_expected.to contain_file(keys_file).with_content(sensitive("0 xyzzy\n")) }
           end
         when 'Gentoo'
           context 'using defaults' do
             it do
-              is_expected.to contain_file('/etc/chrony/chrony.conf').
+              is_expected.to contain_file(config_file).
                 without_content(%r{^\s*cmdallow}).
                 with_content(%r{^\s*server 0.pool.ntp.org iburst$}).
                 with_content(%r{^\s*server 1.pool.ntp.org iburst$}).
@@ -81,7 +81,7 @@ describe 'chrony' do
             end
 
             it do
-              is_expected.to contain_file('/etc/chrony/chrony.keys').
+              is_expected.to contain_file(keys_file).
                 with_mode('0644').
                 with_owner('0').
                 with_group('0').
@@ -91,43 +91,43 @@ describe 'chrony' do
           end
         when 'RedHat'
           context 'using defaults' do
-            it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*bindcmdaddress ::1$}) }
-            it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*bindcmdaddress 127\.0\.0\.1$}) }
-            it { is_expected.not_to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmdallow.*$}) }
+            it { is_expected.to contain_file(config_file).with_content(%r{^\s*bindcmdaddress ::1$}) }
+            it { is_expected.to contain_file(config_file).with_content(%r{^\s*bindcmdaddress 127\.0\.0\.1$}) }
+            it { is_expected.not_to contain_file(config_file).with_content(%r{^\s*cmdallow.*$}) }
 
             ['0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org'].each do |s|
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*server #{s} iburst$}) }
+              it { is_expected.to contain_file(config_file).with_content(%r{^\s*server #{s} iburst$}) }
             end
-            it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*driftfile /var/lib/chrony/drift$}) }
-            it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*rtcsync$}) }
-            it { is_expected.to contain_file('/etc/chrony.conf').without_content(%r{^\s*dumpdir}) }
-            it { is_expected.to contain_file('/etc/chrony.conf').without_content(%r{^\s*ntpsigndsocket}) }
-            it { is_expected.to contain_file('/etc/chrony.conf').without_content(%r{^\s*\n\s*$}) }
-            it { is_expected.to contain_file('/etc/chrony.keys').with_mode('0640') }
-            it { is_expected.to contain_file('/etc/chrony.keys').with_owner('0') }
-            it { is_expected.to contain_file('/etc/chrony.keys').with_group('chrony') }
-            it { is_expected.to contain_file('/etc/chrony.keys').with_replace(true) }
-            it { is_expected.to contain_file('/etc/chrony.keys').with_content(sensitive("0 xyzzy\n")) }
+            it { is_expected.to contain_file(config_file).with_content(%r{^\s*driftfile /var/lib/chrony/drift$}) }
+            it { is_expected.to contain_file(config_file).with_content(%r{^\s*rtcsync$}) }
+            it { is_expected.to contain_file(config_file).without_content(%r{^\s*dumpdir}) }
+            it { is_expected.to contain_file(config_file).without_content(%r{^\s*ntpsigndsocket}) }
+            it { is_expected.to contain_file(config_file).without_content(%r{^\s*\n\s*$}) }
+            it { is_expected.to contain_file(keys_file).with_mode('0640') }
+            it { is_expected.to contain_file(keys_file).with_owner('0') }
+            it { is_expected.to contain_file(keys_file).with_group('chrony') }
+            it { is_expected.to contain_file(keys_file).with_replace(true) }
+            it { is_expected.to contain_file(keys_file).with_content(sensitive("0 xyzzy\n")) }
           end
         when 'Debian'
           context 'using defaults' do
-            it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*bindcmdaddress ::1$}) }
-            it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*bindcmdaddress 127\.0\.0\.1$}) }
-            it { is_expected.not_to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*cmdallow.*$}) }
+            it { is_expected.to contain_file(config_file).with_content(%r{^\s*bindcmdaddress ::1$}) }
+            it { is_expected.to contain_file(config_file).with_content(%r{^\s*bindcmdaddress 127\.0\.0\.1$}) }
+            it { is_expected.not_to contain_file(config_file).with_content(%r{^\s*cmdallow.*$}) }
 
             ['0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org'].each do |s|
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*server #{s} iburst$}) }
+              it { is_expected.to contain_file(config_file).with_content(%r{^\s*server #{s} iburst$}) }
             end
-            it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*driftfile /var/lib/chrony/drift$}) }
-            it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*rtcsync$}) }
-            it { is_expected.to contain_file('/etc/chrony/chrony.conf').without_content(%r{^\s*dumpdir}) }
-            it { is_expected.to contain_file('/etc/chrony/chrony.conf').without_content(%r{^\s*ntpsigndsocket}) }
-            it { is_expected.to contain_file('/etc/chrony/chrony.conf').without_content(%r{^\s*\n\s*$}) }
-            it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_mode('0640') }
-            it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_owner('0') }
-            it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_group('0') }
-            it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_replace(true) }
-            it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_content(sensitive("0 xyzzy\n")) }
+            it { is_expected.to contain_file(config_file).with_content(%r{^\s*driftfile /var/lib/chrony/drift$}) }
+            it { is_expected.to contain_file(config_file).with_content(%r{^\s*rtcsync$}) }
+            it { is_expected.to contain_file(config_file).without_content(%r{^\s*dumpdir}) }
+            it { is_expected.to contain_file(config_file).without_content(%r{^\s*ntpsigndsocket}) }
+            it { is_expected.to contain_file(config_file).without_content(%r{^\s*\n\s*$}) }
+            it { is_expected.to contain_file(keys_file).with_mode('0640') }
+            it { is_expected.to contain_file(keys_file).with_owner('0') }
+            it { is_expected.to contain_file(keys_file).with_group('0') }
+            it { is_expected.to contain_file(keys_file).with_replace(true) }
+            it { is_expected.to contain_file(keys_file).with_content(sensitive("0 xyzzy\n")) }
           end
         end
         it { is_expected.to contain_file(config_file).with_content(%r{keyfile .*chrony.keys}) }
@@ -193,155 +193,56 @@ describe 'chrony' do
           }
         end
 
-        context 'chrony::config' do
-          case facts[:os]['family']
-          when 'Archlinux'
-            context 'with some params passed in' do
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*port 123$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^s*allow 192\.168/16$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^s*deny 10\.0/16$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmdallow 1\.2\.3\.4$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmddeny 1\.2\.3$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmdallow all 1\.2$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*rtconutc$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*acquisitionport 321$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*hwtimestamp eth0$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*driftfile /var/tmp/chrony.drift$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').without_content(%r{^\s*rtcsync$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*dumpdir /var/tmp$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*ntpsigndsocket /var/lib/samba/ntp_signd/socket$}) }
-              it { is_expected.to contain_file('/etc/chrony.keys').with_mode('0123') }
-              it { is_expected.to contain_file('/etc/chrony.keys').with_owner('steve') }
-              it { is_expected.to contain_file('/etc/chrony.keys').with_group('mrt') }
-              it { is_expected.to contain_file('/etc/chrony.keys').with_replace(true) }
-              it { is_expected.to contain_file('/etc/chrony.keys').with_content(sensitive("0 sunny\n")) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*maxdistance 16\.0$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*maxupdateskew 1000\.0$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*ntsserverkey /tmp/cert.key$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*ntsservercert /tmp/cert.pem$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*ntsport 12$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*maxntsconnections 32$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*ntsprocesses 5$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*ntsdumpdir /tmp/ntsdump$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*ntsntpserver foo.bar$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*ntsrotate 8$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*confdir /tmp/chroconf$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*sourcedir /tmp/chrosources$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*log statistics refclocks$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*logbanner 40$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*logchange 4\.0$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*minsources 22$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*minsamples 33$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*sched_priority 1$}) }
-            end
-          when 'RedHat'
-            context 'with some params passed in' do
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*leapsecmode slew$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*leapsectz right/UTC$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*maxdistance 16\.0$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*maxslewrate 1000\.0$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*maxupdateskew 1000\.0$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*smoothtime 400 0\.001 leaponly$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*port 123$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmdport 257$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*acquisitionport 321$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^s*allow 192\.168/16$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^s*deny 10\.0/16$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*bindaddress 10\.0\.0\.1$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*bindaddress ::1$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*initstepslew 600$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*bindcmdaddress 10\.0\.0\.1$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmdallow 1\.2\.3\.4$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmddeny 1\.2\.3$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*cmdallow all 1\.2$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*rtconutc$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*hwtimestamp eth0$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*driftfile /var/tmp/chrony.drift$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').without_content(%r{^\s*rtcsync$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*dumpdir /var/tmp$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*ntpsigndsocket /var/lib/samba/ntp_signd/socket$}) }
-              it { is_expected.to contain_file('/etc/chrony.keys').with_mode('0123') }
-              it { is_expected.to contain_file('/etc/chrony.keys').with_owner('steve') }
-              it { is_expected.to contain_file('/etc/chrony.keys').with_group('mrt') }
-              it { is_expected.to contain_file('/etc/chrony.keys').with_replace(true) }
-              it { is_expected.to contain_file('/etc/chrony.keys').with_content(sensitive("0 sunny\n")) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*ntsserverkey /tmp/cert.key$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*ntsservercert /tmp/cert.pem$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*ntsport 12$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*maxntsconnections 32$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*ntsprocesses 5$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*ntsdumpdir /tmp/ntsdump$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*ntsntpserver foo.bar$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*ntsrotate 8$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*confdir /tmp/chroconf$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*sourcedir /tmp/chrosources$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*log statistics refclocks$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*logbanner 40$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*logchange 4\.0$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*sched_priority 1$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*minsources 22$}) }
-              it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*minsamples 33$}) }
-            end
-          when 'Debian', 'Gentoo'
-            context 'with some params passed in' do
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*leapsectz right/UTC$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*leapsecmode slew$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*maxdistance 16\.0$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*maxslewrate 1000\.0$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*maxupdateskew 1000\.0$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*smoothtime 400 0\.001 leaponly$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*port 123$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*cmdport 257$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*acquisitionport 321$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^s*allow 192\.168/16$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^s*deny 10\.0/16$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*bindaddress 10\.0\.0\.1$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*bindaddress ::1$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*initstepslew 600$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*bindcmdaddress 10\.0\.0\.1$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*cmdallow 1\.2\.3\.4$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*cmddeny 1\.2\.3$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*cmdallow all 1\.2$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*rtconutc$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*hwtimestamp eth0$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*driftfile /var/tmp/chrony.drift$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').without_content(%r{^\s*rtcsync$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*dumpdir /var/tmp$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*ntpsigndsocket /var/lib/samba/ntp_signd/socket$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_mode('0123') }
-              it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_owner('steve') }
-              it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_group('mrt') }
-              it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_replace(true) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_content(sensitive("0 sunny\n")) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*ntsserverkey /tmp/cert.key$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*ntsservercert /tmp/cert.pem$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*ntsport 12$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*maxntsconnections 32$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*ntsprocesses 5$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*ntsdumpdir /tmp/ntsdump$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*ntsntpserver foo.bar$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*ntsrotate 8$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*confdir /tmp/chroconf$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*sourcedir /tmp/chrosources$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*log statistics refclocks$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*logbanner 40$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*logchange 4\.0$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*sched_priority 1$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*minsources 22$}) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*minsamples 33$}) }
-            end
-          end
-        end
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*leapsecmode slew$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*leapsectz right/UTC$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*maxdistance 16\.0$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*maxslewrate 1000\.0$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*maxupdateskew 1000\.0$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*smoothtime 400 0\.001 leaponly$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*port 123$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*cmdport 257$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*acquisitionport 321$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^s*allow 192\.168/16$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^s*deny 10\.0/16$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*bindaddress 10\.0\.0\.1$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*bindaddress ::1$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*initstepslew 600$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*bindcmdaddress 10\.0\.0\.1$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*cmdallow 1\.2\.3\.4$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*cmddeny 1\.2\.3$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*cmdallow all 1\.2$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*rtconutc$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*hwtimestamp eth0$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*driftfile /var/tmp/chrony.drift$}) }
+        it { is_expected.to contain_file(config_file).without_content(%r{^\s*rtcsync$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*dumpdir /var/tmp$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*ntpsigndsocket /var/lib/samba/ntp_signd/socket$}) }
+        it { is_expected.to contain_file(keys_file).with_mode('0123') }
+        it { is_expected.to contain_file(keys_file).with_owner('steve') }
+        it { is_expected.to contain_file(keys_file).with_group('mrt') }
+        it { is_expected.to contain_file(keys_file).with_replace(true) }
+        it { is_expected.to contain_file(keys_file).with_content(sensitive("0 sunny\n")) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*ntsserverkey /tmp/cert.key$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*ntsservercert /tmp/cert.pem$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*ntsport 12$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*maxntsconnections 32$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*ntsprocesses 5$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*ntsdumpdir /tmp/ntsdump$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*ntsntpserver foo.bar$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*ntsrotate 8$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*confdir /tmp/chroconf$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*sourcedir /tmp/chrosources$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*log statistics refclocks$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*logbanner 40$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*logchange 4\.0$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*sched_priority 1$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*minsources 22$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*minsamples 33$}) }
       end
 
       describe 'stratumweight' do
         context 'by default' do
-          case facts[:os]['family']
-          when 'Archlinux', 'RedHat'
-            it { is_expected.not_to contain_file('/etc/chrony.conf').with_content(%r{stratumweight}) }
-          when 'Debian', 'Gentoo'
-            it { is_expected.not_to contain_file('/etc/chrony/chrony.conf').with_content(%r{stratumweight}) }
-          end
+          it { is_expected.not_to contain_file(config_file).with_content(%r{stratumweight}) }
         end
 
         context 'when set' do
@@ -351,12 +252,7 @@ describe 'chrony' do
             }
           end
 
-          case facts[:os]['family']
-          when 'Archlinux', 'RedHat'
-            it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^stratumweight 0$}) }
-          when 'Debian', 'Gentoo'
-            it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^stratumweight 0$}) }
-          end
+          it { is_expected.to contain_file(config_file).with_content(%r{^stratumweight 0$}) }
         end
       end
 
@@ -521,20 +417,8 @@ describe 'chrony' do
           }
         end
 
-        context 'chrony::config' do
-          case facts[:os]['family']
-          when 'Archlinux', 'RedHat'
-            context 'unmanaged chrony.keys file' do
-              it { is_expected.to contain_file('/etc/chrony.keys').with_replace(false) }
-              it { is_expected.to contain_file('/etc/chrony.keys').with_content(sensitive('')) }
-            end
-          when 'Debian', 'Gentoo'
-            context 'unmanaged chrony.keys file' do
-              it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_replace(false) }
-              it { is_expected.to contain_file('/etc/chrony/chrony.keys').with_content(sensitive('')) }
-            end
-          end
-        end
+        it { is_expected.to contain_file(keys_file).with_replace(false) }
+        it { is_expected.to contain_file(keys_file).with_content(sensitive('')) }
       end
 
       context 'hwtimestamps as hash' do
@@ -544,12 +428,7 @@ describe 'chrony' do
           }
         end
 
-        case facts[:os]['family']
-        when 'Archlinux', 'Redhat'
-          it { is_expected.to contain_file('/etc/chrony.conf').with_content(%r{^\s*hwtimestamp eth0 minpoll 1 maxpoll 7$}) }
-        when 'Debian', 'Gentoo'
-          it { is_expected.to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*hwtimestamp eth0 minpoll 1 maxpoll 7$}) }
-        end
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*hwtimestamp eth0 minpoll 1 maxpoll 7$}) }
       end
 
       context 'unmanaged chrony.keys file and password' do
@@ -656,12 +535,7 @@ describe 'chrony' do
           }
         end
 
-        case facts[:os]['family']
-        when 'Archlinux', 'Redhat'
-          it { is_expected.not_to contain_file('/etc/chrony.conf').with_content(%r{^\s*local stratum}) }
-        when 'Debian', 'Gentoo'
-          it { is_expected.not_to contain_file('/etc/chrony/chrony.conf').with_content(%r{^\s*local stratum}) }
-        end
+        it { is_expected.not_to contain_file(config_file).with_content(%r{^\s*local stratum}) }
       end
 
       context 'with sub-millisecond value for logchange' do
