@@ -501,6 +501,18 @@ describe 'chrony' do
         end
       end
 
+      context 'empty allow and deny' do
+        let(:params) do
+          {
+            queryhosts: [''],
+            denyqueryhosts: [''],
+          }
+        end
+
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*allow\s*}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*deny\s*}) }
+      end
+
       context 'unmanaged chrony.keys file' do
         let(:params) do
           {
