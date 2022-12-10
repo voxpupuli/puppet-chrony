@@ -405,8 +405,8 @@ describe 'chrony' do
           }
         end
 
-        it { is_expected.to contain_file(config_file).with_content(%r{^\s*allow\s*}) }
-        it { is_expected.to contain_file(config_file).with_content(%r{^\s*deny\s*}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*allow\s*$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*deny\s*$}) }
       end
 
       context 'unmanaged chrony.keys file' do
