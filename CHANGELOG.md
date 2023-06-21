@@ -4,6 +4,29 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v3.0.0](https://github.com/voxpupuli/puppet-chrony/tree/v3.0.0) (2023-06-21)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-chrony/compare/v2.6.0...v3.0.0)
+
+**Breaking changes:**
+
+- Drop EoL Debian 9 [\#173](https://github.com/voxpupuli/puppet-chrony/pull/173) ([traylenator](https://github.com/traylenator))
+- Drop Puppet 6 support [\#170](https://github.com/voxpupuli/puppet-chrony/pull/170) ([bastelfreak](https://github.com/bastelfreak))
+
+**Implemented enhancements:**
+
+- puppetlabs/stdlib: Allow 9.x [\#175](https://github.com/voxpupuli/puppet-chrony/pull/175) ([bastelfreak](https://github.com/bastelfreak))
+- Add puppet 8 support [\#174](https://github.com/voxpupuli/puppet-chrony/pull/174) ([bastelfreak](https://github.com/bastelfreak))
+- add RHEL 9 to supported OS [\#168](https://github.com/voxpupuli/puppet-chrony/pull/168) ([tuxmea](https://github.com/tuxmea))
+
+**Fixed bugs:**
+
+- init: queryhosts and denyqueryhosts should accept empty strings [\#163](https://github.com/voxpupuli/puppet-chrony/pull/163) ([kenyon](https://github.com/kenyon))
+
+**Merged pull requests:**
+
+- chrony\_spec: remove redundant code [\#164](https://github.com/voxpupuli/puppet-chrony/pull/164) ([kenyon](https://github.com/kenyon))
+
 ## [v2.6.0](https://github.com/voxpupuli/puppet-chrony/tree/v2.6.0) (2022-11-16)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-chrony/compare/v2.5.0...v2.6.0)
