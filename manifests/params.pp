@@ -55,6 +55,19 @@ class chrony::params {
       $rtconutc          = false
       $dumpdir           = undef
     }
+    'Openeuler' : {
+      $package_name      = 'chrony'
+      $cmdacl            = []
+      $config            = '/etc/chrony.conf'
+      $config_keys       = '/etc/chrony.keys'
+      $config_keys_owner = 0
+      $config_keys_group = 0
+      $config_keys_mode  = '0640'
+      $service_name      = 'chronyd'
+      $clientlog         = false
+      $rtconutc          = false
+      $dumpdir           = undef
+    }
 
     default     : {
       fail("The ${module_name} module is not supported on an ${facts['os']['family']} based system.")
