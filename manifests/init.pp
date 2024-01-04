@@ -146,14 +146,13 @@
 #   Specifies the minimum number of readings kept for tracking of the NIC clock.
 # @param refclocks
 #   This should be a Hash of hardware reference clock drivers to use.  They hash
-#   can either list a single list of options for the driver, or any array of
-#   multiple options if the same driver is used for multiple hardware clocks.
+#   should be an array of hardware clocks and their options for that driver.
 #
 #   Example:
 #   ```puppet
 #   refclocks => { 'PPS' => [ '/dev/pps0 lock NMEA refid GPS',
 #                            '/dev/pps1:clear refid GPS2' ],
-#                  'SHM' => '0 offset 0.5 delay 0.2 refid NMEA noselect' }
+#                  'SHM' => [ '0 offset 0.5 delay 0.2 refid NMEA noselect' ] }
 #   ```
 # @param makestep_seconds
 #   Configures the [`makestep`](https://chrony.tuxfamily.org/doc/3.4/chrony.conf.html#makestep) `threshold`.
@@ -275,7 +274,7 @@ class chrony (
   String[1] $package_name                                          = 'chrony',
   Optional[String] $package_source                                 = undef,
   Optional[String] $package_provider                               = undef,
-  Array $refclocks                                                 = [],
+  Hash $refclocks                                                  = {},
   Chrony::Servers $peers                                           = [],
   Chrony::Servers $servers                                         = {
     '0.pool.ntp.org' => ['iburst'],

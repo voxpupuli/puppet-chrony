@@ -507,20 +507,19 @@ Default value: `undef`
 
 ##### <a name="-chrony--refclocks"></a>`refclocks`
 
-Data type: `Array`
+Data type: `Hash`
 
 This should be a Hash of hardware reference clock drivers to use.  They hash
-can either list a single list of options for the driver, or any array of
-multiple options if the same driver is used for multiple hardware clocks.
+should be an array of hardware clocks and their options for that driver.
 
 Example:
 ```puppet
 refclocks => { 'PPS' => [ '/dev/pps0 lock NMEA refid GPS',
                          '/dev/pps1:clear refid GPS2' ],
-               'SHM' => '0 offset 0.5 delay 0.2 refid NMEA noselect' }
+               'SHM' => [ '0 offset 0.5 delay 0.2 refid NMEA noselect' ] }
 ```
 
-Default value: `[]`
+Default value: `{}`
 
 ##### <a name="-chrony--makestep_seconds"></a>`makestep_seconds`
 
