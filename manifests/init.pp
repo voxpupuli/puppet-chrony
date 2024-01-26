@@ -103,6 +103,9 @@
 #   Override the stratum of the server which will be reported to clients
 #   when the local reference is active. Use `false` to not set local_stratum in
 #   chrony configuration.
+# @param local_orphan
+#   Put the server in 'orphan' mode when the local reference is active. Does
+#   nothing if local_stratum is not set.
 # @param ntpsigndsocket
 #   This sets the location of the Samba ntp_signd socket when it is running as a Domain Controller (DC).
 # @param stratumweight
@@ -268,6 +271,7 @@ class chrony (
   Array[String[1]] $keys                                           = [],
   Stdlib::Unixpath $driftfile                                      = '/var/lib/chrony/drift',
   Variant[Boolean[false],Integer[1,15]] $local_stratum             = 10,
+  Boolean $local_orphan                                            = false,
   Float $logchange                                                 = 0.5,
   Optional[String[1]] $log_options                                 = undef,
   Optional[Integer[0]] $logbanner                                  = undef,
