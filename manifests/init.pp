@@ -145,7 +145,7 @@
 # @param minsamples
 #   Specifies the minimum number of readings kept for tracking of the NIC clock.
 # @param refclocks
-#   This should be a Hash of hardware reference clock drivers to use.  They hash
+#   This should be a Hash of hardware reference clock drivers to use.  The hash
 #   should be an array of hardware clocks and their options for that driver.
 #
 #   Example:
