@@ -538,6 +538,27 @@ describe 'chrony' do
         it { is_expected.not_to contain_file(config_file).with_content(%r{^\s*local stratum}) }
       end
 
+      context 'local orphan default' do
+        let(:params) do
+          {
+            local_stratum: 10
+          }
+        end
+
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*local stratum 10$\s*$}) }
+      end
+
+      context 'local orphan enabled' do
+        let(:params) do
+          {
+            local_stratum: 10,
+            local_orphan: true
+          }
+        end
+
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*local stratum 10 orphan$\s*$}) }
+      end
+
       context 'with sub-millisecond value for logchange' do
         let(:params) do
           {

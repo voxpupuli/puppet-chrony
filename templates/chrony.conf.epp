@@ -102,7 +102,7 @@ port <%= $chrony::port %>
 <% if $chrony::local_stratum { -%>
 
 # Serve time even if not synchronized to any NTP server.
-local stratum <%= $chrony::local_stratum %>
+local stratum <%= $chrony::local_stratum %><%= if $chrony::local_orphan {' orphan'} else {''} %>
 <% } -%>
 <% if $chrony::minsamples { -%>
 

@@ -146,6 +146,7 @@ The following parameters are available in the `chrony` class:
 * [`keys`](#-chrony--keys)
 * [`driftfile`](#-chrony--driftfile)
 * [`local_stratum`](#-chrony--local_stratum)
+* [`local_orphan`](#-chrony--local_orphan)
 * [`ntpsigndsocket`](#-chrony--ntpsigndsocket)
 * [`stratumweight`](#-chrony--stratumweight)
 * [`log_options`](#-chrony--log_options)
@@ -370,6 +371,15 @@ when the local reference is active. Use `false` to not set local_stratum in
 chrony configuration.
 
 Default value: `10`
+
+##### <a name="-chrony--local_orphan"></a>`local_orphan`
+
+Data type: `Boolean`
+
+Put the server in 'orphan' mode when the local reference is active. Does
+nothing if local_stratum is not set.
+
+Default value: `false`
 
 ##### <a name="-chrony--ntpsigndsocket"></a>`ntpsigndsocket`
 
