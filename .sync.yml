@@ -6,6 +6,7 @@
 spec/spec_helper.rb:
   mock_with: ':rspec'
 .github/workflows/ci.yml:
-  pidfile_workaround: CentOS
+  with:
+    pidfile_workaround: CentOS
 spec/spec_helper_acceptance.rb:
   unmanaged: false
