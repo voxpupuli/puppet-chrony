@@ -18,13 +18,7 @@ class chrony::config {
     ),
   }
 
-  if $chrony::chrony_password =~ Sensitive {
-    # unwrap before Puppet 6.24 can only be called on Sensitive values
-    $chrony_password = $chrony::chrony_password.unwrap
-  } else {
-    $chrony_password = $chrony::chrony_password
-  }
-
+  $chrony_password = $chrony::chrony_password.unwrap
   $keys_params = {
     'chrony_password' => $chrony_password,
     'commandkey' => $chrony::commandkey,
