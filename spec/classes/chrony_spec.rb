@@ -9,7 +9,7 @@ describe 'chrony' do
         facts
       end
       let(:config_file) do
-        case facts[:osfamily]
+        case facts[:os]['family']
         when 'Archlinux', 'RedHat', 'Suse'
           '/etc/chrony.conf'
         else
@@ -17,7 +17,7 @@ describe 'chrony' do
         end
       end
       let(:keys_file) do
-        case facts[:osfamily]
+        case facts[:os]['family']
         when 'Archlinux', 'RedHat', 'Suse'
           '/etc/chrony.keys'
         else
