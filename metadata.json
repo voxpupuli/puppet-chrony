@@ -22,6 +22,12 @@
       ]
     },
     {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "9"
+      ]
+    },
+    {
       "operatingsystem": "AlmaLinux",
       "operatingsystemrelease": [
         "8",
