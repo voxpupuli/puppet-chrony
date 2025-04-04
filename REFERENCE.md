@@ -129,8 +129,8 @@ The following parameters are available in the `chrony` class:
 * [`bindaddress`](#-chrony--bindaddress)
 * [`bindcmdaddress`](#-chrony--bindcmdaddress)
 * [`initstepslew`](#-chrony--initstepslew)
-* [`sourcedir`](#-chrony--sourcedir)
 * [`confdir`](#-chrony--confdir)
+* [`sourcedir`](#-chrony--sourcedir)
 * [`cmdacl`](#-chrony--cmdacl)
 * [`cmdport`](#-chrony--cmdport)
 * [`commandkey`](#-chrony--commandkey)
@@ -227,7 +227,7 @@ and to correct the system clock by stepping before normal operation begins.
 
 Default value: `undef`
 
-##### <a name="-chrony--sourcedir"></a>`sourcedir`
+##### <a name="-chrony--confdir"></a>`confdir`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
@@ -235,7 +235,7 @@ The confdir directive includes configuration files with the .conf suffix from a 
 
 Default value: `undef`
 
-##### <a name="-chrony--confdir"></a>`confdir`
+##### <a name="-chrony--sourcedir"></a>`sourcedir`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
