@@ -118,8 +118,13 @@ describe 'chrony' do
             ['0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org'].each do |s|
               it { is_expected.to contain_file(config_file).with_content(%r{^\s*server #{s} iburst$}) }
             end
-            it { is_expected.to contain_file(config_file).with_content(%r{^\s*driftfile /var/lib/chrony/drift$}) }
+            it { is_expected.to contain_file(config_file).with_content(%r{^\s*driftfile /var/lib/chrony/chrony.drift$}) }
             it { is_expected.to contain_file(config_file).with_content(%r{^\s*rtcsync$}) }
+            it { is_expected.to contain_file(config_file).with_content(%r{^\s*leapsectz right/UTC$}) }
+            it { is_expected.to contain_file(config_file).with_content(%r{^\s*makestep 1 3$}) }
+            it { is_expected.to contain_file(config_file).with_content(%r{^\s*maxupdateskew 100.0$}) }
+
+            it { is_expected.to contain_file(config_file).with_content(%r{^\s*ntsdumpdir /var/lib/chrony$}) } unless facts[:os]['distro']['codename'] == 'focal'
             it { is_expected.to contain_file(config_file).without_content(%r{^\s*dumpdir}) }
             it { is_expected.to contain_file(config_file).without_content(%r{^\s*ntpsigndsocket}) }
             it { is_expected.to contain_file(config_file).without_content(%r{^\s*\n\s*$}) }
