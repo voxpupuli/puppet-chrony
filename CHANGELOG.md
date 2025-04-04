@@ -4,7 +4,32 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v3.0.0](https://github.com/voxpupuli/puppet-chrony/tree/v3.0.0) (2023-06-21)
+## [v4.0.0](https://github.com/voxpupuli/puppet-chrony/tree/v4.0.0) (2025-04-04)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-chrony/compare/v3.0.0...v4.0.0)
+
+**Breaking changes:**
+
+- Drop EoL Debian 10 support [\#206](https://github.com/voxpupuli/puppet-chrony/pull/206) ([bastelfreak](https://github.com/bastelfreak))
+- Drop support for EL7 [\#201](https://github.com/voxpupuli/puppet-chrony/pull/201) ([jhoblitt](https://github.com/jhoblitt))
+- Drop EoL Ubuntu 18.04 [\#134](https://github.com/voxpupuli/puppet-chrony/pull/134) ([kenyon](https://github.com/kenyon))
+
+**Implemented enhancements:**
+
+- metadata.json: Add OpenVox [\#204](https://github.com/voxpupuli/puppet-chrony/pull/204) ([jstraw](https://github.com/jstraw))
+- Add support for AlmaLinux & Rocky 8 & 9 [\#202](https://github.com/voxpupuli/puppet-chrony/pull/202) ([jhoblitt](https://github.com/jhoblitt))
+- Add 'orphan' mode flag. [\#192](https://github.com/voxpupuli/puppet-chrony/pull/192) ([benjunmun](https://github.com/benjunmun))
+- Add OracleLinux 8 & 9 support [\#187](https://github.com/voxpupuli/puppet-chrony/pull/187) ([bastelfreak](https://github.com/bastelfreak))
+- Add CentOS 9 support [\#186](https://github.com/voxpupuli/puppet-chrony/pull/186) ([bastelfreak](https://github.com/bastelfreak))
+- Add Debian 11 & 12 support [\#185](https://github.com/voxpupuli/puppet-chrony/pull/185) ([bastelfreak](https://github.com/bastelfreak))
+- Add Ubuntu 22.04 & 24.04 support [\#184](https://github.com/voxpupuli/puppet-chrony/pull/184) ([bastelfreak](https://github.com/bastelfreak))
+
+**Merged pull requests:**
+
+- Eliminate Workaround for Sensitive [\#196](https://github.com/voxpupuli/puppet-chrony/pull/196) ([cocker-cc](https://github.com/cocker-cc))
+- Drop pidfile\_workaround from Beaker testing [\#181](https://github.com/voxpupuli/puppet-chrony/pull/181) ([ekohl](https://github.com/ekohl))
+
+## [v3.0.0](https://github.com/voxpupuli/puppet-chrony/tree/v3.0.0) (2023-06-22)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-chrony/compare/v2.6.0...v3.0.0)
 
