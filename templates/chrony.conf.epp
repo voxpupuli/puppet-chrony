@@ -157,8 +157,10 @@ log <%= $chrony::log_options %>
 <% } -%>
 <% unless $chrony::refclocks.empty { -%>
 
-<%   $chrony::refclocks.each |$driver| { -%>
-refclock <%= $driver.flatten.join(' ') %>
+<%   $chrony::refclocks.each |$driver, $clocks| { -%>
+<%     $clocks.each |$clock| { -%>
+refclock <%= $driver %> <%= $clock %>
+<%     } -%>
 <%   } -%>
 <% } -%>
 <% if $chrony::lock_all { -%>
