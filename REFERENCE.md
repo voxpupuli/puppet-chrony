@@ -519,15 +519,16 @@ Default value: `undef`
 
 Data type: `Array`
 
-This should be a Hash of hardware reference clock drivers to use.  They hash
-can either list a single list of options for the driver, or any array of
-multiple options if the same driver is used for multiple hardware clocks.
+List of `refclock` directives to be added to the chrony configuration file.
+Each element of the list should be a string which completes the `refclock` `chrony.conf` directive.
 
 Example:
 ```puppet
-refclocks => { 'PPS' => [ '/dev/pps0 lock NMEA refid GPS',
-                         '/dev/pps1:clear refid GPS2' ],
-               'SHM' => '0 offset 0.5 delay 0.2 refid NMEA noselect' }
+refclocks => [
+  'PPS /dev/pps0 lock NMEA refid GPS',
+  'SHM 0 offset 0.5 delay 0.2 refid NMEA noselect',
+  'PPS /dev/pps1:clear refid GPS2',
+],
 ```
 
 Default value: `[]`
