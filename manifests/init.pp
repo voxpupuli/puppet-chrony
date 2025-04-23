@@ -60,9 +60,9 @@
 # @param initstepslew
 #   Allow chronyd to make a rapid measurement of the system clock error at boot time,
 #   and to correct the system clock by stepping before normal operation begins.
-# @param sourcedir
-#   The confdir directive includes configuration files with the .conf suffix from a directory.
 # @param confdir
+#   The confdir directive includes configuration files with the .conf suffix from a directory.
+# @param sourcedir
 #   The sourcedir directive is identical to the confdir directive, except the configuration files have the .sources suffix, they can only specify NTP sources.
 # @param cmdacl
 #   An array of ACLs for monitoring access. This expects a list of directives, for
