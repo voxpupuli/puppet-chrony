@@ -81,6 +81,8 @@
 #   'unset' then no password will be added to the keys file by puppet.
 # @param config
 #   This sets the file to write chrony configuration into.
+# @param config_mode
+#   Specify unix mode of chrony configuration file, defaults to 0644.
 # @param config_template
 #   This determines which template puppet should use for the chrony configuration.
 # @param config_keys
@@ -259,6 +261,7 @@ class chrony (
   Optional[Stdlib::Port] $cmdport                                  = undef,
   NotUndef $commandkey                                             = 0,
   Stdlib::Unixpath $config                                         = '/etc/chrony/chrony.conf',
+  Stdlib::Filemode $config_mode                                    = '0644',
   Optional[Stdlib::Absolutepath] $confdir                          = undef,
   Optional[Stdlib::Absolutepath] $sourcedir                        = undef,
   String[1] $config_template                                       = 'chrony/chrony.conf.epp',

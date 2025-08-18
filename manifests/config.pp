@@ -8,7 +8,7 @@ class chrony::config {
     ensure  => file,
     owner   => 0,
     group   => 0,
-    mode    => '0644',
+    mode    => $chrony::config_mode,
     content => epp($chrony::config_template,
       {
         servers => chrony::server_array_to_hash($chrony::servers, ['iburst']),
