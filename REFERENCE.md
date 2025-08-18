@@ -136,6 +136,7 @@ The following parameters are available in the `chrony` class:
 * [`commandkey`](#-chrony--commandkey)
 * [`chrony_password`](#-chrony--chrony_password)
 * [`config`](#-chrony--config)
+* [`config_mode`](#-chrony--config_mode)
 * [`config_template`](#-chrony--config_template)
 * [`config_keys`](#-chrony--config_keys)
 * [`config_keys_manage`](#-chrony--config_keys_manage)
@@ -289,6 +290,14 @@ Data type: `Stdlib::Unixpath`
 This sets the file to write chrony configuration into.
 
 Default value: `'/etc/chrony/chrony.conf'`
+
+##### <a name="-chrony--config_mode"></a>`config_mode`
+
+Data type: `Stdlib::Filemode`
+
+Specify unix mode of chrony configuration file, defaults to 0644.
+
+Default value: `'0644'`
 
 ##### <a name="-chrony--config_template"></a>`config_template`
 
