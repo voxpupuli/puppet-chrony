@@ -130,7 +130,7 @@ describe 'chrony' do
             it { is_expected.to contain_file(config_file).without_content(%r{^\s*\n\s*$}) }
             it { is_expected.to contain_file(keys_file).with_mode('0640') }
             it { is_expected.to contain_file(keys_file).with_owner('0') }
-            it { is_expected.to contain_file(keys_file).with_group('0') }
+            it { is_expected.to contain_file(keys_file).with_group('_chrony') }
             it { is_expected.to contain_file(keys_file).with_replace(true) }
             it { is_expected.to contain_file(keys_file).with_content(sensitive("0 xyzzy\n")) }
           end

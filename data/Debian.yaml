@@ -1,4 +1,5 @@
 ---
+chrony::config_keys_group: _chrony
 chrony::driftfile: /var/lib/chrony/chrony.drift
 chrony::leapsectz: right/UTC
 chrony::makestep_seconds: 1
