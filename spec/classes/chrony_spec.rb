@@ -402,6 +402,50 @@ describe 'chrony' do
         end
       end
 
+      describe 'sysconfig chronyd file' do
+        case facts[:os]['family']
+        when 'RedHat'
+
+          it 'creates /etc/sysconfig/chronyd with correct ownership and permissions' do
+            is_expected.to contain_file('/etc/sysconfig/chronyd').with(
+              ensure: 'file',
+              owner: '0',
+              group: '0',
+              mode: '0644'
+            )
+          end
+
+          if (facts[:os]['release']['major'] = '8')
+            context 'on RedHat 8 family with default parameters' do
+              it 'contains an empty OPTIONS line' do
+                is_expected.to contain_file('/etc/sysconfig/chronyd').
+                  with_content(%r{^OPTIONS=""$})
+              end
+            end
+          else
+            context 'on RedHat 9 and greater family with default parameters' do
+              it 'contains an empty OPTIONS line' do
+                is_expected.to contain_file('/etc/sysconfig/chronyd').
+                  with_content(%r{^OPTIONS="-F 2"$})
+              end
+            end
+          end
+
+          context 'with custom options parameter' do
+            let(:params) { { options: '-4 -u chrony' } }
+
+            it 'contains the custom OPTIONS line' do
+              is_expected.to contain_file('/etc/sysconfig/chronyd').
+                with_content(%r{^OPTIONS="-4 -u chrony"$})
+            end
+          end
+        else
+          it 'on non-RedHat families' do
+            is_expected.not_to contain_file('/etc/sysconfig/chronyd')
+          end
+        end
+      end
+
       context 'empty allow and deny' do
         let(:params) do
           {
