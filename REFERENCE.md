@@ -201,6 +201,9 @@ The following parameters are available in the `chrony` class:
 * [`dumpdir`](#-chrony--dumpdir)
 * [`maxupdateskew`](#-chrony--maxupdateskew)
 * [`acquisitionport`](#-chrony--acquisitionport)
+* [`options_file`](#-chrony--options_file)
+* [`options`](#-chrony--options)
+* [`options_template`](#-chrony--options_template)
 
 ##### <a name="-chrony--bindaddress"></a>`bindaddress`
 
@@ -861,6 +864,30 @@ Data type: `Optional[Integer[1,65535]]`
 Sets the acquisitionport for client queries
 
 Default value: `undef`
+
+##### <a name="-chrony--options_file"></a>`options_file`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+The full path to the chronyd options file, typically /etc/sysconfig/chronyd
+
+Default value: `undef`
+
+##### <a name="-chrony--options"></a>`options`
+
+Data type: `Optional[String[1]]`
+
+Options to pass to the chrony daemon via /etc/sysconfig/chronyd file.
+
+Default value: `undef`
+
+##### <a name="-chrony--options_template"></a>`options_template`
+
+Data type: `String[1]`
+
+This determines which template puppet should use for the chrony options (sysconfig) file.
+
+Default value: `'chrony/chronyd.epp'`
 
 ## Data types
 

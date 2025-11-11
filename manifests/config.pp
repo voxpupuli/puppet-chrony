@@ -35,4 +35,14 @@ class chrony::config {
       content => Sensitive(epp($chrony::config_keys_template, $keys_params)),
     }
   }
+
+  if $chrony::options_file {
+    file { $chrony::options_file:
+      ensure  => file,
+      owner   => 0,
+      group   => 0,
+      mode    => '0644',
+      content => epp($chrony::options_template),
+    }
+  }
 }
