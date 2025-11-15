@@ -99,6 +99,11 @@ initstepslew <%= $chrony::initstepslew %>
 # http://chrony.tuxfamily.org/manual.html#port-directive
 port <%= $chrony::port %>
 <% } -%>
+<% if $chrony::ptpport { -%>
+
+# https://chrony-project.org/doc/latest/chrony.conf.html#ptpport
+ptpport <%= $chrony::ptpport %>
+<% } -%>
 <% if $chrony::local_stratum { -%>
 
 # Serve time even if not synchronized to any NTP server.
