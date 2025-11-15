@@ -261,6 +261,8 @@
 #   This determines which template puppet should use for the chrony options (sysconfig) file.
 # @param ptpport
 #   open port to send and receive NTP messages contained in PTP event messages (NTP-over-PTP)
+# @param ptpdomain
+#   sets the PTP domain number of transmitted and accepted NTP-over-PTP messages
 class chrony (
   Array[Stdlib::IP::Address] $bindaddress                          = [],
   Array[String] $bindcmdaddress                                    = ['127.0.0.1', '::1'],
@@ -346,6 +348,7 @@ class chrony (
   Optional[String[1]] $options                                     = undef,
   String[1] $options_template                                      = 'chrony/chronyd.epp',
   Optional[Integer[0]] $ptpport                                    = undef,
+  Optional[Integer[0,255]] $ptpdomain                              = undef,
 ) {
   if ! $config_keys_manage and $chrony_password != 'unset' {
     fail("Setting \$config_keys_manage false and \$chrony_password at same time in ${module_name} is not possible.")

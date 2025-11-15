@@ -104,6 +104,11 @@ port <%= $chrony::port %>
 # https://chrony-project.org/doc/latest/chrony.conf.html#ptpport
 ptpport <%= $chrony::ptpport %>
 <% } -%>
+<% if $chrony::ptpdomain { -%>
+
+# https://chrony-project.org/doc/latest/chrony.conf.html#ptpdomain
+ptpdomain <%= $chrony::ptpdomain %>
+<% } -%>
 <% if $chrony::local_stratum { -%>
 
 # Serve time even if not synchronized to any NTP server.
