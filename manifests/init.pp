@@ -210,6 +210,8 @@
 #   Configures how to insert the leap second mode.
 # @param leapsectz
 #   Specifies a timezone that chronyd can use to determine the offset between UTC and TAI.
+# @param leapseclist
+#   Specifies the path to a file containing a list of leap seconds and TAI-UTC offsets in NIST/IERS format.
 # @param maxdistance
 #   Sets the maximum root distance of a source to be acceptable for synchronisation of the clock.
 # @param maxslewrate
@@ -326,6 +328,7 @@ class chrony (
   Optional[String] $smoothtime                                     = undef,
   Optional[Enum['system', 'step', 'slew', 'ignore']] $leapsecmode  = undef,
   Optional[String] $leapsectz                                      = undef,
+  Optional[Stdlib::Absolutepath] $leapseclist                      = undef,
   Optional[Float] $maxdistance                                     = undef,
   Optional[Float] $maxslewrate                                     = undef,
   Optional[Float] $maxupdateskew                                   = undef,

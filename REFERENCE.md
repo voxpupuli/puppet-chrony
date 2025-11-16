@@ -183,6 +183,7 @@ The following parameters are available in the `chrony` class:
 * [`sched_priority`](#-chrony--sched_priority)
 * [`leapsecmode`](#-chrony--leapsecmode)
 * [`leapsectz`](#-chrony--leapsectz)
+* [`leapseclist`](#-chrony--leapseclist)
 * [`maxdistance`](#-chrony--maxdistance)
 * [`maxslewrate`](#-chrony--maxslewrate)
 * [`ntsserverkey`](#-chrony--ntsserverkey)
@@ -713,6 +714,14 @@ Default value: `undef`
 Data type: `Optional[String]`
 
 Specifies a timezone that chronyd can use to determine the offset between UTC and TAI.
+
+Default value: `undef`
+
+##### <a name="-chrony--leapseclist"></a>`leapseclist`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Specifies the path to a file containing a list of leap seconds and TAI-UTC offsets in NIST/IERS format.
 
 Default value: `undef`
 
