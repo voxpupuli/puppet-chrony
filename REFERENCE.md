@@ -204,6 +204,8 @@ The following parameters are available in the `chrony` class:
 * [`options_file`](#-chrony--options_file)
 * [`options`](#-chrony--options)
 * [`options_template`](#-chrony--options_template)
+* [`ptpport`](#-chrony--ptpport)
+* [`ptpdomain`](#-chrony--ptpdomain)
 
 ##### <a name="-chrony--bindaddress"></a>`bindaddress`
 
@@ -888,6 +890,22 @@ Data type: `String[1]`
 This determines which template puppet should use for the chrony options (sysconfig) file.
 
 Default value: `'chrony/chronyd.epp'`
+
+##### <a name="-chrony--ptpport"></a>`ptpport`
+
+Data type: `Optional[Integer[0]]`
+
+open port to send and receive NTP messages contained in PTP event messages (NTP-over-PTP)
+
+Default value: `undef`
+
+##### <a name="-chrony--ptpdomain"></a>`ptpdomain`
+
+Data type: `Optional[Integer[0,255]]`
+
+sets the PTP domain number of transmitted and accepted NTP-over-PTP messages
+
+Default value: `undef`
 
 ## Data types
 
