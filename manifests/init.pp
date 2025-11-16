@@ -348,7 +348,7 @@ class chrony (
   Optional[Integer[0]] $ntsrotate                                  = undef,
   Optional[Integer[1,65535]] $acquisitionport                      = undef,
   Optional[Stdlib::Absolutepath] $options_file                     = undef,
-  Optional[String[1]] $options                                     = undef,
+  Optional[String] $options                                        = undef,
   String[1] $options_template                                      = 'chrony/chronyd.epp',
   Optional[Integer[0]] $ptpport                                    = undef,
   Optional[Integer[0,255]] $ptpdomain                              = undef,
