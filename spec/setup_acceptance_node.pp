@@ -3,3 +3,8 @@ if fact('os.family') == 'redhat' {
     ensure => directory,
   }
 }
+if fact('os.family') == 'Archlinux' {
+  file { '/etc/sysconfig':
+    ensure => directory,
+  }
+}

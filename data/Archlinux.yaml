@@ -8,3 +8,4 @@ chrony::config: /etc/chrony.conf
 chrony::dumpdir: /var/lib/chrony
 chrony::rtconutc: true
 chrony::wait_manage: true
+chrony::options_file: /etc/sysconfig/chronyd
