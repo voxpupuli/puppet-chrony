@@ -5,7 +5,9 @@ require 'spec_helper_acceptance'
 describe 'chrony class:' do
   it 'works idempotently with no errors' do
     pp = <<-EOS
-    class { 'chrony': }
+    class { 'chrony':
+      options => '-F 0 -x',
+    }
     EOS
 
     # Run it twice and test for idempotency
@@ -45,6 +47,7 @@ describe 'chrony class:' do
       class { 'chrony':
         wait_ensure => 'running',
         wait_enable => true,
+        options     => '-F 0 -x',
       }
       EOS
 
