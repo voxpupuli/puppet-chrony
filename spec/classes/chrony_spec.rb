@@ -415,6 +415,10 @@ describe 'chrony' do
             )
           end
 
+          it 'does not create /etc/default/chrony' do
+            is_expected.not_to contain_file('/etc/default/chrony')
+          end
+
           if (facts[:os]['release']['major'] = '8')
             context 'on RedHat 8 family with default parameters' do
               it 'contains an empty OPTIONS line' do
@@ -439,9 +443,33 @@ describe 'chrony' do
                 with_content(%r{^OPTIONS="-4 -u chrony"$})
             end
           end
-        else
-          it 'on non-RedHat families' do
+        when 'Debian'
+          it 'does not create /etc/sysconfig/chronyd' do
             is_expected.not_to contain_file('/etc/sysconfig/chronyd')
+          end
+
+          context 'with no options parameter' do
+            it {
+              is_expected.not_to contain_file('/etc/default/chrony')
+            }
+          end
+
+          context 'with custom options parameter' do
+            let(:params) { { options: '-4 -u chrony' } }
+
+            it 'contains the custom OPTIONS line' do
+              is_expected.to contain_file('/etc/default/chrony').
+                with_content(%r{^DAEMON_OPTS="-4 -u chrony"$}).
+                with_ensure('file').
+                with_owner('0').
+                with_group('0').
+                with_mode('0644')
+            end
+          end
+        else
+          it 'on non-RedHat/Debian families' do
+            is_expected.not_to contain_file('/etc/sysconfig/chronyd')
+            is_expected.not_to contain_file('/etc/default/chrony')
           end
         end
       end

@@ -5,3 +5,5 @@ chrony::leapsectz: right/UTC
 chrony::makestep_seconds: 1
 chrony::maxupdateskew: 100.0
 chrony::ntsdumpdir: /var/lib/chrony
+chrony::options_template: chrony/chronyd_default.epp
+chrony::options_file: /etc/default/chrony

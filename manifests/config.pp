@@ -36,7 +36,7 @@ class chrony::config {
     }
   }
 
-  if $chrony::options_file {
+  if $chrony::options_file and $chrony::options {
     file { $chrony::options_file:
       ensure  => file,
       owner   => 0,

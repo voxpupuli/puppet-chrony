@@ -256,11 +256,11 @@
 # @param acquisitionport
 #   Sets the acquisitionport for client queries
 # @param options_file
-#   The full path to the chronyd options file, typically /etc/sysconfig/chronyd
+#   The full path to the chronyd options file, typically /etc/sysconfig/chronyd on RedHat, /etc/default/chrony on Debian
 # @param options
-#   Options to pass to the chrony daemon via /etc/sysconfig/chronyd file.
+#   Options to pass to the chrony daemon via $options_file file.
 # @param options_template
-#   This determines which template puppet should use for the chrony options (sysconfig) file.
+#   This determines which template puppet should use for the chrony options (sysconfig|default) file.
 # @param ptpport
 #   open port to send and receive NTP messages contained in PTP event messages (NTP-over-PTP)
 # @param ptpdomain
@@ -348,7 +348,7 @@ class chrony (
   Optional[Integer[0]] $ntsrotate                                  = undef,
   Optional[Integer[1,65535]] $acquisitionport                      = undef,
   Optional[Stdlib::Absolutepath] $options_file                     = undef,
-  Optional[String[1]] $options                                     = undef,
+  Optional[String] $options                                        = undef,
   String[1] $options_template                                      = 'chrony/chronyd.epp',
   Optional[Integer[0]] $ptpport                                    = undef,
   Optional[Integer[0,255]] $ptpdomain                              = undef,
