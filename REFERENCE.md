@@ -880,15 +880,15 @@ Default value: `undef`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
-The full path to the chronyd options file, typically /etc/sysconfig/chronyd
+The full path to the chronyd options file, typically /etc/sysconfig/chronyd on RedHat, /etc/default/chrony on Debian
 
 Default value: `undef`
 
 ##### <a name="-chrony--options"></a>`options`
 
-Data type: `Optional[String[1]]`
+Data type: `Optional[String]`
 
-Options to pass to the chrony daemon via /etc/sysconfig/chronyd file.
+Options to pass to the chrony daemon via $options_file file.
 
 Default value: `undef`
 
@@ -896,7 +896,7 @@ Default value: `undef`
 
 Data type: `String[1]`
 
-This determines which template puppet should use for the chrony options (sysconfig) file.
+This determines which template puppet should use for the chrony options (sysconfig|default) file.
 
 Default value: `'chrony/chronyd.epp'`
 
