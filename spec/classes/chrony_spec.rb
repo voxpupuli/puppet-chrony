@@ -118,9 +118,18 @@ describe 'chrony' do
             ['0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org'].each do |s|
               it { is_expected.to contain_file(config_file).with_content(%r{^\s*server #{s} iburst$}) }
             end
+
             it { is_expected.to contain_file(config_file).with_content(%r{^\s*driftfile /var/lib/chrony/chrony.drift$}) }
             it { is_expected.to contain_file(config_file).with_content(%r{^\s*rtcsync$}) }
-            it { is_expected.to contain_file(config_file).with_content(%r{^\s*leapsectz right/UTC$}) }
+
+            if facts[:os]['release']['major'].to_i < 13 || (facts[:os]['name'] == 'Ubuntu' && facts[:os]['release']['major'].to_i < 26)
+              context 'older than 13 and Ubuntu older than 26.04' do
+                it { is_expected.to contain_file(config_file).with_content(%r{^\s*leapsectz right/UTC$}) }
+              end
+            else
+              it { is_expected.to contain_file(config_file).with_content(%r{^\s*leapseclist /usr/share/zoneinfo/leap-seconds.list$}) }
+            end
+
             it { is_expected.to contain_file(config_file).with_content(%r{^\s*makestep 1 3$}) }
             it { is_expected.to contain_file(config_file).with_content(%r{^\s*maxupdateskew 100.0$}) }
 
