@@ -34,6 +34,7 @@ describe 'chrony' do
         it { is_expected.to contain_class('chrony::install').that_comes_before('Class[chrony::config]') }
         it { is_expected.to contain_class('chrony::config').that_notifies('Class[chrony::service]') }
         it { is_expected.to contain_class('chrony::service') }
+        it { is_expected.to contain_file(config_file).without_content(%r{^\s*acquisitionport}) }
       end
 
       context 'chrony::package' do
