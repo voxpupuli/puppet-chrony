@@ -85,7 +85,7 @@ bindcmdaddress <%= $addr %>
 bindaddress <%= $addr %>
 <%   } -%>
 <% } -%>
-<% unless $chrony::acquisitionport.empty { -%>
+<% if $chrony::acquisitionport { -%>
 acquisitionport <%= $chrony::acquisitionport %>
 <% } -%>
 <% if $chrony::initstepslew { -%>
