@@ -4,6 +4,47 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v5.0.0](https://github.com/voxpupuli/puppet-chrony/tree/v5.0.0) (2025-11-27)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-chrony/compare/v4.0.0...v5.0.0)
+
+**Breaking changes:**
+
+- Drop puppet, update openvox minimum version to 8.19 [\#213](https://github.com/voxpupuli/puppet-chrony/pull/213) ([TheMeier](https://github.com/TheMeier))
+- Drop support for EOL Ubuntu 20.04 [\#210](https://github.com/voxpupuli/puppet-chrony/pull/210) ([kenyon](https://github.com/kenyon))
+- Add Debian hiera data to match package defaults [\#177](https://github.com/voxpupuli/puppet-chrony/pull/177) ([kenyon](https://github.com/kenyon))
+
+**Implemented enhancements:**
+
+- Manage `/etc/sysconfig/chronyd` file [\#154](https://github.com/voxpupuli/puppet-chrony/issues/154)
+- Allow to specify options on Debian systems [\#228](https://github.com/voxpupuli/puppet-chrony/pull/228) ([trefzer](https://github.com/trefzer))
+- add parameter for leapseclist [\#226](https://github.com/voxpupuli/puppet-chrony/pull/226) ([trefzer](https://github.com/trefzer))
+- add parameters for ptpport and ptpdomain [\#225](https://github.com/voxpupuli/puppet-chrony/pull/225) ([trefzer](https://github.com/trefzer))
+- Add `/etc/sysconfig/chronyd` management on RedHat-family [\#223](https://github.com/voxpupuli/puppet-chrony/pull/223) ([bschonec](https://github.com/bschonec))
+- Add support for Debian 13 [\#218](https://github.com/voxpupuli/puppet-chrony/pull/218) ([kenyon](https://github.com/kenyon))
+- Add unix mode option for chrony configuration [\#216](https://github.com/voxpupuli/puppet-chrony/pull/216) ([BlivionIaG](https://github.com/BlivionIaG))
+
+**Fixed bugs:**
+
+- `chrony.keys` group owner should be `_chrony` on Debian based systems [\#217](https://github.com/voxpupuli/puppet-chrony/issues/217)
+- Warning when defining an `acquisitionport` [\#209](https://github.com/voxpupuli/puppet-chrony/issues/209)
+- disable local clock sync for acceptance tests / fix options\_file on Arch Linux [\#229](https://github.com/voxpupuli/puppet-chrony/pull/229) ([trefzer](https://github.com/trefzer))
+
+**Closed issues:**
+
+- Parameter to allow unix mode change on chrony configuration. [\#215](https://github.com/voxpupuli/puppet-chrony/issues/215)
+- Cannot configure refclocks [\#189](https://github.com/voxpupuli/puppet-chrony/issues/189)
+
+**Merged pull requests:**
+
+- `chrony_spec`: check for lack of `acquisitionport` when no argument provided [\#233](https://github.com/voxpupuli/puppet-chrony/pull/233) ([kenyon](https://github.com/kenyon))
+- Avoid warning when `acquisitionport` is defined [\#232](https://github.com/voxpupuli/puppet-chrony/pull/232) ([kenyon](https://github.com/kenyon))
+- Debian 13: use `leapseclist` instead of `leapsectz` to match package default [\#230](https://github.com/voxpupuli/puppet-chrony/pull/230) ([kenyon](https://github.com/kenyon))
+- README: replace Travis status badge with GitHub Actions status [\#221](https://github.com/voxpupuli/puppet-chrony/pull/221) ([kenyon](https://github.com/kenyon))
+- Debian: set `config_keys_group` to `_chrony` to match package configuration [\#219](https://github.com/voxpupuli/puppet-chrony/pull/219) ([kenyon](https://github.com/kenyon))
+- init: fix `sourcedir` and `confdir` docs [\#208](https://github.com/voxpupuli/puppet-chrony/pull/208) ([kenyon](https://github.com/kenyon))
+- init: correct `refclocks` documentation [\#207](https://github.com/voxpupuli/puppet-chrony/pull/207) ([kenyon](https://github.com/kenyon))
+
 ## [v4.0.0](https://github.com/voxpupuli/puppet-chrony/tree/v4.0.0) (2025-04-04)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-chrony/compare/v3.0.0...v4.0.0)
