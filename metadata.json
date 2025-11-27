@@ -1,6 +1,6 @@
 {
   "name": "puppet-chrony",
-  "version": "5.0.0",
+  "version": "5.0.1-rc0",
   "author": "Vox Pupuli",
   "summary": "Manage chrony daemon on Linux",
   "license": "Apache-2.0",
