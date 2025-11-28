@@ -234,6 +234,16 @@
 #           clients.
 # @param ntsrotate
 #   This directive specifies the rotation interval (in seconds) of the server key which encrypts the NTS cookies.
+# @param ntstrustedcerts
+#   This directive specifies a file containing certificates (in the PEM format) of trusted certificate authorities (CAs) which can be
+#           used to validate certificates of NTS servers.
+# @param nocerttimecheck
+#   This directive disables the checks of the activation and expiration times of certificates for the specified number of clock updates.
+# @param nosystemcert
+#   This directive disables the system's default certificate authorities.
+# @param authselectmode
+#   NTS and NTP authentication can be mixed on the network and on server/pool sources. This directive determines which authentication is
+#           selected for synchronisation.
 # @param clientlog
 #   Determines whether to log client accesses.
 # @param clientloglimit
@@ -346,6 +356,10 @@ class chrony (
   Optional[Stdlib::Absolutepath]  $ntsdumpdir                      = undef,
   Optional[String]  $ntsntpserver                                  = undef,
   Optional[Integer[0]] $ntsrotate                                  = undef,
+  Optional[Stdlib::Absolutepath] $ntstrustedcerts                  = undef,
+  Optional[Integer[0]] $nocerttimecheck                            = undef,
+  Optional[Boolean] $nosystemcert                                  = undef,
+  Optional[Enum['require','prefer','mix','ignore']] $authselectmode = undef,
   Optional[Integer[1,65535]] $acquisitionport                      = undef,
   Optional[Stdlib::Absolutepath] $options_file                     = undef,
   Optional[String] $options                                        = undef,

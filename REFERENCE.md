@@ -194,6 +194,10 @@ The following parameters are available in the `chrony` class:
 * [`ntsdumpdir`](#-chrony--ntsdumpdir)
 * [`ntsntpserver`](#-chrony--ntsntpserver)
 * [`ntsrotate`](#-chrony--ntsrotate)
+* [`ntstrustedcerts`](#-chrony--ntstrustedcerts)
+* [`nocerttimecheck`](#-chrony--nocerttimecheck)
+* [`nosystemcert`](#-chrony--nosystemcert)
+* [`authselectmode`](#-chrony--authselectmode)
 * [`clientlog`](#-chrony--clientlog)
 * [`clientloglimit`](#-chrony--clientloglimit)
 * [`rtcsync`](#-chrony--rtcsync)
@@ -804,6 +808,40 @@ Default value: `undef`
 Data type: `Optional[Integer[0]]`
 
 This directive specifies the rotation interval (in seconds) of the server key which encrypts the NTS cookies.
+
+Default value: `undef`
+
+##### <a name="-chrony--ntstrustedcerts"></a>`ntstrustedcerts`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+This directive specifies a file containing certificates (in the PEM format) of trusted certificate authorities (CAs) which can be
+        used to validate certificates of NTS servers.
+
+Default value: `undef`
+
+##### <a name="-chrony--nocerttimecheck"></a>`nocerttimecheck`
+
+Data type: `Optional[Integer[0]]`
+
+This directive disables the checks of the activation and expiration times of certificates for the specified number of clock updates.
+
+Default value: `undef`
+
+##### <a name="-chrony--nosystemcert"></a>`nosystemcert`
+
+Data type: `Optional[Boolean]`
+
+This directive disables the system's default certificate authorities.
+
+Default value: `undef`
+
+##### <a name="-chrony--authselectmode"></a>`authselectmode`
+
+Data type: `Optional[Enum['require','prefer','mix','ignore']]`
+
+NTS and NTP authentication can be mixed on the network and on server/pool sources. This directive determines which authentication is
+        selected for synchronisation.
 
 Default value: `undef`
 
