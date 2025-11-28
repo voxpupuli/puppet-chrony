@@ -204,7 +204,11 @@ describe 'chrony' do
             ntsprocesses: 5,
             ntsdumpdir: '/tmp/ntsdump',
             ntsntpserver: 'foo.bar',
-            ntsrotate: 8
+            ntsrotate: 8,
+            ntstrustedcerts: '/tmp/trusted_certs.pem',
+            nocerttimecheck: 5,
+            nosystemcert: true,
+            authselectmode: 'prefer'
           }
         end
 
@@ -245,6 +249,10 @@ describe 'chrony' do
         it { is_expected.to contain_file(config_file).with_content(%r{^\s*ntsdumpdir /tmp/ntsdump$}) }
         it { is_expected.to contain_file(config_file).with_content(%r{^\s*ntsntpserver foo.bar$}) }
         it { is_expected.to contain_file(config_file).with_content(%r{^\s*ntsrotate 8$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*ntstrustedcerts /tmp/trusted_certs.pem$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*nocerttimecheck 5$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*nosystemcert$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*authselectmode prefer$}) }
         it { is_expected.to contain_file(config_file).with_content(%r{^\s*confdir /tmp/chroconf$}) }
         it { is_expected.to contain_file(config_file).with_content(%r{^\s*sourcedir /tmp/chrosources$}) }
         it { is_expected.to contain_file(config_file).with_content(%r{^\s*log statistics refclocks$}) }
