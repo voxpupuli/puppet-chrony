@@ -1,0 +1,49 @@
+<%- |
+  String[1] $srv_record,
+  String[1] $sources_file,
+  Integer[0, 24] $poll_interval,
+| -%>
+#!/usr/bin/env bash
+# Managed by Puppet - DO NOT EDIT
+#
+# Updates chrony sources file from DNS SRV record: <%= $srv_record %>
+
+set -euo pipefail
+
+SRV_RECORD='<%= $srv_record %>'
+SOURCES_FILE='<%= $sources_file %>'
+TEMP_FILE="${SOURCES_FILE}.tmp"
+POLL_INTERVAL=<%= $poll_interval %>
+
+# Query DNS SRV records and extract server names
+# SRV records return: priority weight port target
+# We extract the target (4th field)
+SERVERS=$(dig +short SRV "${SRV_RECORD}" | awk '{print $4}')
+
+if [ -z "${SERVERS}" ]; then
+  echo "Warning: No servers found for SRV record ${SRV_RECORD}" >&2
+  exit 1
+fi
+
+{
+  echo "# Generated from DNS SRV record: ${SRV_RECORD}"
+  echo "# Updated: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+  echo ""
+  echo "${SERVERS}" | while read -r server; do
+    [ -n "${server}" ] && echo "server ${server} iburst minpoll ${POLL_INTERVAL}"
+  done
+} > "${TEMP_FILE}"
+
+if [ ! -s "${TEMP_FILE}" ]; then
+  echo "Error: Generated sources file is empty" >&2
+  rm -f "${TEMP_FILE}"
+  exit 1
+fi
+
+# Atomically replace the sources file
+mv "${TEMP_FILE}" "${SOURCES_FILE}"
+
+# Reload chrony sources (ignore errors if chrony is not running)
+chronyc reload sources 2>/dev/null || true
+
+exit 0
