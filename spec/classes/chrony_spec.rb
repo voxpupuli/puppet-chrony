@@ -263,6 +263,60 @@ describe 'chrony' do
         it { is_expected.to contain_file(config_file).with_content(%r{^\s*minsamples 33$}) }
       end
 
+      describe 'confdir' do
+        context 'by default' do
+          it { is_expected.not_to contain_file(config_file).with_content(%r{confdir}) }
+        end
+
+        context 'when set to a single path' do
+          let(:params) do
+            {
+              confdir: '/etc/chrony.d'
+            }
+          end
+
+          it { is_expected.to contain_file(config_file).with_content(%r{^confdir /etc/chrony\.d$}) }
+        end
+
+        context 'when set to an array of paths' do
+          let(:params) do
+            {
+              confdir: ['/etc/chrony.d', '/etc/chrony.d.local']
+            }
+          end
+
+          it { is_expected.to contain_file(config_file).with_content(%r{^confdir /etc/chrony\.d$}) }
+          it { is_expected.to contain_file(config_file).with_content(%r{^confdir /etc/chrony\.d\.local$}) }
+        end
+      end
+
+      describe 'sourcedir' do
+        context 'by default' do
+          it { is_expected.not_to contain_file(config_file).with_content(%r{sourcedir}) }
+        end
+
+        context 'when set to a single path' do
+          let(:params) do
+            {
+              sourcedir: '/var/run/chrony-dhcp'
+            }
+          end
+
+          it { is_expected.to contain_file(config_file).with_content(%r{^sourcedir /var/run/chrony-dhcp$}) }
+        end
+
+        context 'when set to an array of paths' do
+          let(:params) do
+            {
+              sourcedir: ['/var/run/chrony-dhcp', '/etc/chrony.d.sources']
+            }
+          end
+
+          it { is_expected.to contain_file(config_file).with_content(%r{^sourcedir /var/run/chrony-dhcp$}) }
+          it { is_expected.to contain_file(config_file).with_content(%r{^sourcedir /etc/chrony\.d\.sources$}) }
+        end
+      end
+
       describe 'stratumweight' do
         context 'by default' do
           it { is_expected.not_to contain_file(config_file).with_content(%r{stratumweight}) }

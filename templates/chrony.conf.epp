@@ -25,12 +25,16 @@ peer <%= $peer %> <%= $peers[$peer].join(' ') %>
 <% if $chrony::sourcedir { -%>
 
 # The sourcedir directive is identical to the confdir directive, except the configuration files have the .sources suffix, they can only specify NTP sources.
-sourcedir <%= $chrony::sourcedir %>
+<%   Array($chrony::sourcedir, true).each |$dir| { -%>
+sourcedir <%= $dir %>
+<%   } -%>
 <% } -%>
 <% if $chrony::confdir { -%>
 
 # The confdir directive includes configuration files with the .conf suffix from a directory.
-confdir <%= $chrony::confdir %>
+<%   Array($chrony::confdir, true).each |$dir| { -%>
+confdir <%= $dir %>
+<%   } -%>
 <% } -%>
 <% if $chrony::stratumweight { -%>
 
