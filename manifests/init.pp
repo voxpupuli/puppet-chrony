@@ -63,7 +63,8 @@
 # @param confdir
 #   The confdir directive includes configuration files with the .conf suffix from a directory.
 # @param sourcedir
-#   The sourcedir directive is identical to the confdir directive, except the configuration files have the .sources suffix, they can only specify NTP sources.
+#   The sourcedir directive is identical to the confdir directive, except the configuration
+#   files have the .sources suffix and can only specify NTP sources.
 # @param cmdacl
 #   An array of ACLs for monitoring access. This expects a list of directives, for
 #   example: `['cmdallow 1.2.3.4', 'cmddeny 1.2.3']`. The order will be respected at
@@ -284,8 +285,8 @@ class chrony (
   NotUndef $commandkey                                             = 0,
   Stdlib::Unixpath $config                                         = '/etc/chrony/chrony.conf',
   Stdlib::Filemode $config_mode                                    = '0644',
-  Optional[Stdlib::Absolutepath] $confdir                          = undef,
-  Optional[Stdlib::Absolutepath] $sourcedir                        = undef,
+  Optional[Variant[Stdlib::Absolutepath, Array[Stdlib::Absolutepath, 1]]] $confdir = undef,
+  Optional[Variant[Stdlib::Absolutepath, Array[Stdlib::Absolutepath, 1]]] $sourcedir = undef,
   String[1] $config_template                                       = 'chrony/chrony.conf.epp',
   Variant[Stdlib::Unixpath,String[0,0]] $config_keys               = '/etc/chrony/chrony.keys',
   String[1] $config_keys_template                                  = 'chrony/chrony.keys.epp',

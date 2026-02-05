@@ -240,7 +240,7 @@ Default value: `undef`
 
 ##### <a name="-chrony--confdir"></a>`confdir`
 
-Data type: `Optional[Stdlib::Absolutepath]`
+Data type: `Optional[Variant[Stdlib::Absolutepath, Array[Stdlib::Absolutepath, 1]]]`
 
 The confdir directive includes configuration files with the .conf suffix from a directory.
 
@@ -248,9 +248,10 @@ Default value: `undef`
 
 ##### <a name="-chrony--sourcedir"></a>`sourcedir`
 
-Data type: `Optional[Stdlib::Absolutepath]`
+Data type: `Optional[Variant[Stdlib::Absolutepath, Array[Stdlib::Absolutepath, 1]]]`
 
-The sourcedir directive is identical to the confdir directive, except the configuration files have the .sources suffix, they can only specify NTP sources.
+The sourcedir directive is identical to the confdir directive, except the configuration
+files have the .sources suffix and can only specify NTP sources.
 
 Default value: `undef`
 
