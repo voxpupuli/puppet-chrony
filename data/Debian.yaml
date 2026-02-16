@@ -1,4 +1,5 @@
 ---
+chrony::confdir: /etc/chrony/conf.d
 chrony::config_keys_group: _chrony
 chrony::driftfile: /var/lib/chrony/chrony.drift
 chrony::leapseclist: /usr/share/zoneinfo/leap-seconds.list
@@ -7,3 +8,6 @@ chrony::maxupdateskew: 100.0
 chrony::ntsdumpdir: /var/lib/chrony
 chrony::options_template: chrony/chronyd_default.epp
 chrony::options_file: /etc/default/chrony
+chrony::sourcedir:
+  - /run/chrony-dhcp
+  - /etc/chrony/sources.d
