@@ -116,8 +116,12 @@ describe 'chrony' do
             it { is_expected.to contain_file(config_file).with_content(%r{^\s*bindcmdaddress 127\.0\.0\.1$}) }
             it { is_expected.not_to contain_file(config_file).with_content(%r{^\s*cmdallow.*$}) }
 
-            ['0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org'].each do |s|
-              it { is_expected.to contain_file(config_file).with_content(%r{^\s*server #{s} iburst$}) }
+            it { is_expected.not_to contain_file(config_file).with_content(%r{^\s*server }) }
+
+            if facts[:os]['name'] == 'Ubuntu'
+              it { is_expected.to contain_file(config_file).with_content(%r{^\s*pool ntp.ubuntu.com iburst maxsources 4$}) }
+            else
+              it { is_expected.to contain_file(config_file).with_content(%r{^\s*pool 2.debian.pool.ntp.org iburst$}) }
             end
 
             it { is_expected.to contain_file(config_file).with_content(%r{^\s*driftfile /var/lib/chrony/chrony.drift$}) }
@@ -335,14 +339,19 @@ describe 'chrony' do
 
       describe 'servers' do
         context 'by default' do
-          it do
-            expected_lines = [
-              'server 0.pool.ntp.org iburst',
-              'server 1.pool.ntp.org iburst',
-              'server 2.pool.ntp.org iburst',
-              'server 3.pool.ntp.org iburst'
-            ]
-            expect(config_file_contents.split("\n") & expected_lines).to eq(expected_lines)
+          case facts[:os]['family']
+          when 'Debian'
+            it { expect(config_file_contents).not_to match(%r{^server }) }
+          else
+            it do
+              expected_lines = [
+                'server 0.pool.ntp.org iburst',
+                'server 1.pool.ntp.org iburst',
+                'server 2.pool.ntp.org iburst',
+                'server 3.pool.ntp.org iburst'
+              ]
+              expect(config_file_contents.split("\n") & expected_lines).to eq(expected_lines)
+            end
           end
         end
 
@@ -388,7 +397,16 @@ describe 'chrony' do
 
       describe 'pools' do
         context 'by default' do
-          it { expect(config_file_contents).not_to match(%r{^pool}) }
+          case facts[:os]['family']
+          when 'Debian'
+            if facts[:os]['name'] == 'Ubuntu'
+              it { expect(config_file_contents).to match(%r{^pool ntp.ubuntu.com iburst maxsources 4$}) }
+            else
+              it { expect(config_file_contents).to match(%r{^pool 2.debian.pool.ntp.org iburst$}) }
+            end
+          else
+            it { expect(config_file_contents).not_to match(%r{^pool}) }
+          end
         end
 
         context 'when pools is an array' do
@@ -400,8 +418,8 @@ describe 'chrony' do
 
           it do
             expected_lines = [
-              'server 0.pool.ntp.org iburst',
-              'server 1.pool.ntp.org iburst',
+              'pool 0.pool.ntp.org iburst',
+              'pool 1.pool.ntp.org iburst',
             ]
             expect(config_file_contents.split("\n") & expected_lines).to eq(expected_lines)
           end

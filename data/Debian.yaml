@@ -7,3 +7,7 @@ chrony::maxupdateskew: 100.0
 chrony::ntsdumpdir: /var/lib/chrony
 chrony::options_template: chrony/chronyd_default.epp
 chrony::options_file: /etc/default/chrony
+chrony::pools:
+  2.debian.pool.ntp.org:
+    - iburst
+chrony::servers: {}
