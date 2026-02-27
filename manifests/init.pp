@@ -276,6 +276,8 @@
 #   open port to send and receive NTP messages contained in PTP event messages (NTP-over-PTP)
 # @param ptpdomain
 #   sets the PTP domain number of transmitted and accepted NTP-over-PTP messages
+# @param dnssrv_records
+#   Array of DNS Service records containing the NTP service records for dynamic configuration.
 class chrony (
   Array[Stdlib::IP::Address] $bindaddress                          = [],
   Array[String] $bindcmdaddress                                    = ['127.0.0.1', '::1'],
@@ -367,6 +369,7 @@ class chrony (
   String[1] $options_template                                      = 'chrony/chronyd.epp',
   Optional[Integer[0]] $ptpport                                    = undef,
   Optional[Integer[0,255]] $ptpdomain                              = undef,
+  Array[String[1]] $dnssrv_records                                 = [],
 ) {
   if ! $config_keys_manage and $chrony_password != 'unset' {
     fail("Setting \$config_keys_manage false and \$chrony_password at same time in ${module_name} is not possible.")
@@ -379,4 +382,24 @@ class chrony (
   Class['chrony::install']
   -> Class['chrony::config']
   ~> Class['chrony::service']
+
+  # Manage DNS Service records for dynamic configuration
+  if !empty($dnssrv_records) {
+    if !$sourcedir {
+      fail('$sourcedir must be set when using $dnssrv_records')
+    }
+
+    file { $sourcedir:
+      ensure => directory,
+      owner  => root,
+      group  => root,
+      mode   => '0755',
+    }
+
+    $dnssrv_records.each |String $srv_record| {
+      chrony::dnssrv { $srv_record:
+        sourcedir => $sourcedir,
+      }
+    }
+  }
 }

@@ -16,6 +16,10 @@
 * `chrony::install`: Installs chrony
 * `chrony::service`: Manages the chrony service
 
+### Defined types
+
+* [`chrony::dnssrv`](#chrony--dnssrv): Manages chrony DNS Service records for dynamic NTP configuration
+
 ### Functions
 
 #### Private Functions
@@ -211,6 +215,7 @@ The following parameters are available in the `chrony` class:
 * [`options_template`](#-chrony--options_template)
 * [`ptpport`](#-chrony--ptpport)
 * [`ptpdomain`](#-chrony--ptpdomain)
+* [`dnssrv_records`](#-chrony--dnssrv_records)
 
 ##### <a name="-chrony--bindaddress"></a>`bindaddress`
 
@@ -952,6 +957,116 @@ Default value: `undef`
 Data type: `Optional[Integer[0,255]]`
 
 sets the PTP domain number of transmitted and accepted NTP-over-PTP messages
+
+Default value: `undef`
+
+##### <a name="-chrony--dnssrv_records"></a>`dnssrv_records`
+
+Data type: `Array[String[1]]`
+
+Array of DNS Service records containing the NTP service records for dynamic configuration.
+
+Default value: `[]`
+
+## Defined types
+
+### <a name="chrony--dnssrv"></a>`chrony::dnssrv`
+
+This defined type manages the configuration of DNS Service records for chrony using
+chrony's native sourcedir functionality. It uses a script to query DNS SRV records
+and writes the resolved servers to a .sources file that chrony can reload dynamically.
+Uses systemd timers for periodic DNS SRV record updates.
+
+#### Examples
+
+##### Enable a DNS Service record
+
+```puppet
+chrony::dnssrv { '_ntp._udp.example.com': }
+```
+
+##### Explicitly set the SRV record
+
+```puppet
+chrony::dnssrv { 'example-ntp':
+  srv_record => '_ntp._udp.example.com',
+}
+```
+
+##### Remove a DNS Service record
+
+```puppet
+chrony::dnssrv { '_ntp._udp.example.com':
+  ensure => absent,
+}
+```
+
+##### Custom refresh interval (every hour)
+
+```puppet
+chrony::dnssrv { '_ntp._udp.example.com':
+  timer_oncalendar => 'hourly',
+}
+```
+
+#### Parameters
+
+The following parameters are available in the `chrony::dnssrv` defined type:
+
+* [`srv_record`](#-chrony--dnssrv--srv_record)
+* [`ensure`](#-chrony--dnssrv--ensure)
+* [`sourcedir`](#-chrony--dnssrv--sourcedir)
+* [`poll_interval`](#-chrony--dnssrv--poll_interval)
+* [`timer_oncalendar`](#-chrony--dnssrv--timer_oncalendar)
+* [`timer_randomized_delay`](#-chrony--dnssrv--timer_randomized_delay)
+
+##### <a name="-chrony--dnssrv--srv_record"></a>`srv_record`
+
+Data type: `String[1]`
+
+The DNS Service record to query (e.g., '_ntp._udp.example.com').
+
+Default value: `$title`
+
+##### <a name="-chrony--dnssrv--ensure"></a>`ensure`
+
+Data type: `Enum['present', 'absent']`
+
+Whether the DNS SRV record should be enabled or disabled.
+
+Default value: `'present'`
+
+##### <a name="-chrony--dnssrv--sourcedir"></a>`sourcedir`
+
+Data type: `Stdlib::Absolutepath`
+
+The directory where chrony sources files are stored.
+
+Default value: `'/var/run/chrony-dnssrv'`
+
+##### <a name="-chrony--dnssrv--poll_interval"></a>`poll_interval`
+
+Data type: `Integer[0, 24]`
+
+The polling interval for the NTP servers (as a power of 2).
+
+Default value: `6`
+
+##### <a name="-chrony--dnssrv--timer_oncalendar"></a>`timer_oncalendar`
+
+Data type: `String[1]`
+
+The OnCalendar setting for the systemd timer.
+See systemd.time(7) for valid values.
+
+Default value: `'*:0/30'`
+
+##### <a name="-chrony--dnssrv--timer_randomized_delay"></a>`timer_randomized_delay`
+
+Data type: `Optional[String[1]]`
+
+The RandomizedDelaySec setting for the systemd timer.
+Adds a random delay between 0 and the specified duration.
 
 Default value: `undef`
 

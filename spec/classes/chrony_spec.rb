@@ -717,6 +717,28 @@ describe 'chrony' do
 
         it { expect(config_file_contents.split("\n")).to include('logchange 0.0001') }
       end
+
+      context 'with dnssrv_records' do
+        let(:params) do
+          {
+            sourcedir: '/var/run/chrony-dnssrv',
+            dnssrv_records: ['_ntp._udp.example.com', '_ntp._udp.backup.example.com']
+          }
+        end
+
+        it { is_expected.to compile.with_all_deps }
+        it { is_expected.to contain_file('/var/run/chrony-dnssrv').with_ensure('directory') }
+        it { is_expected.to contain_chrony__dnssrv('_ntp._udp.example.com') }
+        it { is_expected.to contain_chrony__dnssrv('_ntp._udp.backup.example.com') }
+        it { is_expected.to contain_file('/var/run/chrony-dnssrv/_ntp._udp.example.com.sh') }
+        it { is_expected.to contain_file('/var/run/chrony-dnssrv/_ntp._udp.backup.example.com.sh') }
+        it { is_expected.to contain_file('/var/run/chrony-dnssrv/_ntp._udp.example.com.sources') }
+        it { is_expected.to contain_file('/var/run/chrony-dnssrv/_ntp._udp.backup.example.com.sources') }
+        it { is_expected.to contain_exec('dnssrv-initial-_ntp._udp.example.com') }
+        it { is_expected.to contain_exec('dnssrv-initial-_ntp._udp.backup.example.com') }
+        it { is_expected.to contain_systemd__timer('chrony-dnssrv-_ntp__udp_example_com.timer') }
+        it { is_expected.to contain_systemd__timer('chrony-dnssrv-_ntp__udp_backup_example_com.timer') }
+      end
     end
   end
 end
