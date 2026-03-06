@@ -67,27 +67,27 @@ describe 'chrony' do
         when 'Gentoo'
           context 'using defaults' do
             it do
-              is_expected.to contain_file(config_file).
-                without_content(%r{^\s*cmdallow}).
-                with_content(%r{^\s*server 0.pool.ntp.org iburst$}).
-                with_content(%r{^\s*server 1.pool.ntp.org iburst$}).
-                with_content(%r{^\s*server 2.pool.ntp.org iburst$}).
-                with_content(%r{^\s*server 3.pool.ntp.org iburst$}).
-                with_content(%r{^\s*rtconutc$}).
-                with_content(%r{^\s*driftfile /var/lib/chrony/drift$}).
-                with_content(%r{^\s*rtcsync$}).
-                without_content(%r{^\s*dumpdir}).
-                without_content(%r{^\s*ntpsigndsocket}).
-                without_content(%r{^\s*\n\s*$})
+              is_expected.to contain_file(config_file)
+                .without_content(%r{^\s*cmdallow})
+                .with_content(%r{^\s*server 0.pool.ntp.org iburst$})
+                .with_content(%r{^\s*server 1.pool.ntp.org iburst$})
+                .with_content(%r{^\s*server 2.pool.ntp.org iburst$})
+                .with_content(%r{^\s*server 3.pool.ntp.org iburst$})
+                .with_content(%r{^\s*rtconutc$})
+                .with_content(%r{^\s*driftfile /var/lib/chrony/drift$})
+                .with_content(%r{^\s*rtcsync$})
+                .without_content(%r{^\s*dumpdir})
+                .without_content(%r{^\s*ntpsigndsocket})
+                .without_content(%r{^\s*\n\s*$})
             end
 
             it do
-              is_expected.to contain_file(keys_file).
-                with_mode('0644').
-                with_owner('0').
-                with_group('0').
-                with_replace(true).
-                with_content(sensitive("0 xyzzy\n"))
+              is_expected.to contain_file(keys_file)
+                .with_mode('0644')
+                .with_owner('0')
+                .with_group('0')
+                .with_replace(true)
+                .with_content(sensitive("0 xyzzy\n"))
             end
           end
         when 'RedHat'
@@ -151,7 +151,7 @@ describe 'chrony' do
       context 'with empty config_keys' do
         let :params do
           {
-            config_keys: ''
+            config_keys: '',
           }
         end
 
@@ -208,7 +208,7 @@ describe 'chrony' do
             ntstrustedcerts: '/tmp/trusted_certs.pem',
             nocerttimecheck: 5,
             nosystemcert: true,
-            authselectmode: 'prefer'
+            authselectmode: 'prefer',
           }
         end
 
@@ -271,7 +271,7 @@ describe 'chrony' do
         context 'when set to a single path' do
           let(:params) do
             {
-              confdir: '/etc/chrony.d'
+              confdir: '/etc/chrony.d',
             }
           end
 
@@ -281,7 +281,7 @@ describe 'chrony' do
         context 'when set to an array of paths' do
           let(:params) do
             {
-              confdir: ['/etc/chrony.d', '/etc/chrony.d.local']
+              confdir: ['/etc/chrony.d', '/etc/chrony.d.local'],
             }
           end
 
@@ -298,7 +298,7 @@ describe 'chrony' do
         context 'when set to a single path' do
           let(:params) do
             {
-              sourcedir: '/var/run/chrony-dhcp'
+              sourcedir: '/var/run/chrony-dhcp',
             }
           end
 
@@ -308,7 +308,7 @@ describe 'chrony' do
         context 'when set to an array of paths' do
           let(:params) do
             {
-              sourcedir: ['/var/run/chrony-dhcp', '/etc/chrony.d.sources']
+              sourcedir: ['/var/run/chrony-dhcp', '/etc/chrony.d.sources'],
             }
           end
 
@@ -325,7 +325,7 @@ describe 'chrony' do
         context 'when set' do
           let(:params) do
             {
-              stratumweight: 0
+              stratumweight: 0,
             }
           end
 
@@ -340,7 +340,7 @@ describe 'chrony' do
               'server 0.pool.ntp.org iburst',
               'server 1.pool.ntp.org iburst',
               'server 2.pool.ntp.org iburst',
-              'server 3.pool.ntp.org iburst'
+              'server 3.pool.ntp.org iburst',
             ]
             expect(config_file_contents.split("\n") & expected_lines).to eq(expected_lines)
           end
@@ -370,7 +370,7 @@ describe 'chrony' do
                 'ntp1.corp.com' => ['key 25', 'iburst'],
                 'ntp4.corp.com' => :undef,
                 'ntp2.corp.com' => ['key 25', 'iburst'],
-              }
+              },
             }
           end
 
@@ -394,7 +394,7 @@ describe 'chrony' do
         context 'when pools is an array' do
           let(:params) do
             {
-              pools: ['0.pool.ntp.org', '1.pool.ntp.org']
+              pools: ['0.pool.ntp.org', '1.pool.ntp.org'],
             }
           end
 
@@ -415,7 +415,7 @@ describe 'chrony' do
                 '0.pool.ntp.org' => ['maxsources 4'],
                 '1.pool.ntp.org' => ['maxsources 4'],
                 '2.pool.ntp.org' => ['maxsources 4'],
-              }
+              },
             }
           end
 
@@ -439,7 +439,7 @@ describe 'chrony' do
         context 'when peers is an array' do
           let(:params) do
             {
-              peers: ['peer1.example.com', 'peer2.example.com']
+              peers: ['peer1.example.com', 'peer2.example.com'],
             }
           end
 
@@ -459,7 +459,7 @@ describe 'chrony' do
                 'peer1.example.com' => [],
                 'peer2.example.com' => ['maxpoll 6'],
                 'peer3.example.com' => :undef,
-              }
+              },
             }
           end
 
@@ -483,7 +483,7 @@ describe 'chrony' do
               ensure: 'file',
               owner: '0',
               group: '0',
-              mode: '0644'
+              mode: '0644',
             )
           end
 
@@ -494,15 +494,13 @@ describe 'chrony' do
           if (facts[:os]['release']['major'] = '8')
             context 'on RedHat 8 family with default parameters' do
               it 'contains an empty OPTIONS line' do
-                is_expected.to contain_file('/etc/sysconfig/chronyd').
-                  with_content(%r{^OPTIONS=""$})
+                is_expected.to contain_file('/etc/sysconfig/chronyd').with_content(%r{^OPTIONS=""$})
               end
             end
           else
             context 'on RedHat 9 and greater family with default parameters' do
               it 'contains an empty OPTIONS line' do
-                is_expected.to contain_file('/etc/sysconfig/chronyd').
-                  with_content(%r{^OPTIONS="-F 2"$})
+                is_expected.to contain_file('/etc/sysconfig/chronyd').with_content(%r{^OPTIONS="-F 2"$})
               end
             end
           end
@@ -511,8 +509,7 @@ describe 'chrony' do
             let(:params) { { options: '-4 -u chrony' } }
 
             it 'contains the custom OPTIONS line' do
-              is_expected.to contain_file('/etc/sysconfig/chronyd').
-                with_content(%r{^OPTIONS="-4 -u chrony"$})
+              is_expected.to contain_file('/etc/sysconfig/chronyd').with_content(%r{^OPTIONS="-4 -u chrony"$})
             end
           end
         when 'Debian'
@@ -521,21 +518,19 @@ describe 'chrony' do
           end
 
           context 'with no options parameter' do
-            it {
-              is_expected.not_to contain_file('/etc/default/chrony')
-            }
+            it { is_expected.not_to contain_file('/etc/default/chrony') }
           end
 
           context 'with custom options parameter' do
             let(:params) { { options: '-4 -u chrony' } }
 
             it 'contains the custom OPTIONS line' do
-              is_expected.to contain_file('/etc/default/chrony').
-                with_content(%r{^DAEMON_OPTS="-4 -u chrony"$}).
-                with_ensure('file').
-                with_owner('0').
-                with_group('0').
-                with_mode('0644')
+              is_expected.to contain_file('/etc/default/chrony')
+                .with_content(%r{^DAEMON_OPTS="-4 -u chrony"$})
+                .with_ensure('file')
+                .with_owner('0')
+                .with_group('0')
+                .with_mode('0644')
             end
           end
         else
@@ -562,7 +557,7 @@ describe 'chrony' do
         let(:params) do
           {
             config_keys_manage: false,
-            chrony_password: 'unset'
+            chrony_password: 'unset',
           }
         end
 
@@ -573,7 +568,7 @@ describe 'chrony' do
       context 'hwtimestamps as hash' do
         let(:params) do
           {
-            hwtimestamps: { 'eth0' => ['minpoll 1', 'maxpoll 7'] }
+            hwtimestamps: { 'eth0' => ['minpoll 1', 'maxpoll 7'] },
           }
         end
 
@@ -583,7 +578,7 @@ describe 'chrony' do
       context 'unmanaged chrony.keys file and password' do
         let(:params) do
           {
-            config_keys_manage: false
+            config_keys_manage: false,
           }
         end
 
@@ -595,7 +590,7 @@ describe 'chrony' do
           {
             service_ensure: 'running',
             service_enable: true,
-            service_manage: true
+            service_manage: true,
           }
         end
 
@@ -605,7 +600,7 @@ describe 'chrony' do
             it do
               is_expected.to contain_service('chrony-wait.service').with(
                 ensure: 'stopped',
-                enable: false
+                enable: false,
               )
             end
           end
@@ -621,7 +616,7 @@ describe 'chrony' do
           it do
             is_expected.to contain_service('chronyd').with(
               ensure: 'running',
-              enable: true
+              enable: true,
             )
           end
         end
@@ -647,7 +642,7 @@ describe 'chrony' do
           it do
             is_expected.to contain_service('chrony-wait.service').with(
               ensure: 'stopped',
-              enable: true
+              enable: true,
             )
           end
         else
@@ -667,7 +662,7 @@ describe 'chrony' do
           it do
             is_expected.to contain_service('chrony-wait.service').with(
               ensure: 'running',
-              enable: false
+              enable: false,
             )
           end
         else
@@ -680,7 +675,7 @@ describe 'chrony' do
       context 'disable local_stratum' do
         let(:params) do
           {
-            local_stratum: false
+            local_stratum: false,
           }
         end
 
@@ -690,7 +685,7 @@ describe 'chrony' do
       context 'local orphan default' do
         let(:params) do
           {
-            local_stratum: 10
+            local_stratum: 10,
           }
         end
 
@@ -701,7 +696,7 @@ describe 'chrony' do
         let(:params) do
           {
             local_stratum: 10,
-            local_orphan: true
+            local_orphan: true,
           }
         end
 
@@ -711,7 +706,7 @@ describe 'chrony' do
       context 'with sub-millisecond value for logchange' do
         let(:params) do
           {
-            logchange: 0.0001
+            logchange: 0.0001,
           }
         end
 

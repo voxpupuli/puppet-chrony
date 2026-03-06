@@ -12,8 +12,8 @@ describe 'Chrony::Servers' do
     {},
     [],
     {
-      'ntp1.example.com' => :undef
-    }
+      'ntp1.example.com' => :undef,
+    },
   ].each do |value|
     describe value.inspect do
       it { is_expected.to allow_value(value) }
