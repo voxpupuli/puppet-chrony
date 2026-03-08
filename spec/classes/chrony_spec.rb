@@ -265,7 +265,12 @@ describe 'chrony' do
 
       describe 'confdir' do
         context 'by default' do
-          it { is_expected.not_to contain_file(config_file).with_content(%r{confdir}) }
+          case facts[:os]['family']
+          when 'Debian'
+            it { is_expected.to contain_file(config_file).with_content(%r{^confdir /etc/chrony/conf\.d$}) }
+          else
+            it { is_expected.not_to contain_file(config_file).with_content(%r{confdir}) }
+          end
         end
 
         context 'when set to a single path' do
@@ -292,7 +297,13 @@ describe 'chrony' do
 
       describe 'sourcedir' do
         context 'by default' do
-          it { is_expected.not_to contain_file(config_file).with_content(%r{sourcedir}) }
+          case facts[:os]['family']
+          when 'Debian'
+            it { is_expected.to contain_file(config_file).with_content(%r{^sourcedir /etc/chrony/sources\.d$}) }
+            it { is_expected.to contain_file(config_file).with_content(%r{^sourcedir /run/chrony-dhcp$}) }
+          else
+            it { is_expected.not_to contain_file(config_file).with_content(%r{sourcedir}) }
+          end
         end
 
         context 'when set to a single path' do
