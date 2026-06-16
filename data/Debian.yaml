@@ -1,4 +1,5 @@
 ---
+chrony::confdir: /etc/chrony/conf.d
 chrony::config_keys_group: _chrony
 chrony::driftfile: /var/lib/chrony/chrony.drift
 chrony::leapseclist: /usr/share/zoneinfo/leap-seconds.list
@@ -11,3 +12,6 @@ chrony::pools:
   2.debian.pool.ntp.org:
     - iburst
 chrony::servers: {}
+chrony::sourcedir:
+  - /run/chrony-dhcp
+  - /etc/chrony/sources.d
