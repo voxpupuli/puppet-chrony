@@ -35,6 +35,7 @@ describe 'chrony' do
         it { is_expected.to contain_class('chrony::config').that_notifies('Class[chrony::service]') }
         it { is_expected.to contain_class('chrony::service') }
         it { is_expected.to contain_file(config_file).without_content(%r{^\s*acquisitionport}) }
+        it { is_expected.to contain_file(config_file).without_content(%r{^\s*bindacqaddress}) }
       end
 
       context 'chrony::package' do
@@ -175,6 +176,7 @@ describe 'chrony' do
             sourcedir: '/tmp/chrosources',
             chrony_password: sensitive('sunny'),
             bindaddress: ['10.0.0.1', '::1'],
+            bindacqaddress: ['10.0.0.2', '::2'],
             bindcmdaddress: ['10.0.0.1'],
             initstepslew: '600',
             cmdacl: ['cmdallow 1.2.3.4', 'cmddeny 1.2.3', 'cmdallow all 1.2'],
@@ -225,6 +227,8 @@ describe 'chrony' do
         it { is_expected.to contain_file(config_file).with_content(%r{^s*deny 10\.0/16$}) }
         it { is_expected.to contain_file(config_file).with_content(%r{^\s*bindaddress 10\.0\.0\.1$}) }
         it { is_expected.to contain_file(config_file).with_content(%r{^\s*bindaddress ::1$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*bindacqaddress 10\.0\.0\.2$}) }
+        it { is_expected.to contain_file(config_file).with_content(%r{^\s*bindacqaddress ::2$}) }
         it { is_expected.to contain_file(config_file).with_content(%r{^\s*initstepslew 600$}) }
         it { is_expected.to contain_file(config_file).with_content(%r{^\s*bindcmdaddress 10\.0\.0\.1$}) }
         it { is_expected.to contain_file(config_file).with_content(%r{^\s*cmdallow 1\.2\.3\.4$}) }

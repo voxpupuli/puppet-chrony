@@ -127,6 +127,7 @@ class { 'chrony':
 The following parameters are available in the `chrony` class:
 
 * [`bindaddress`](#-chrony--bindaddress)
+* [`bindacqaddress`](#-chrony--bindacqaddress)
 * [`bindcmdaddress`](#-chrony--bindcmdaddress)
 * [`initstepslew`](#-chrony--initstepslew)
 * [`confdir`](#-chrony--confdir)
@@ -218,6 +219,14 @@ Data type: `Array[Stdlib::IP::Address]`
 
 Array of addresses of interfaces on which chronyd will listen for NTP traffic.
 Listens on all addresses if left empty.
+
+Default value: `[]`
+
+##### <a name="-chrony--bindacqaddress"></a>`bindacqaddress`
+
+Data type: `Array[Stdlib::IP::Address,0,2]`
+
+Array of addresses of interfaces on which chronyd will bind NTP and NTS-KE client sockets.
 
 Default value: `[]`
 

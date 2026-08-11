@@ -55,6 +55,8 @@
 # @param bindaddress
 #   Array of addresses of interfaces on which chronyd will listen for NTP traffic.
 #   Listens on all addresses if left empty.
+# @param bindacqaddress
+#   Array of addresses of interfaces on which chronyd will bind NTP and NTS-KE client sockets.
 # @param bindcmdaddress
 #   Array of addresses of interfaces on which chronyd will listen for monitoring command packets.
 # @param initstepslew
@@ -278,6 +280,7 @@
 #   sets the PTP domain number of transmitted and accepted NTP-over-PTP messages
 class chrony (
   Array[Stdlib::IP::Address] $bindaddress                          = [],
+  Array[Stdlib::IP::Address,0,2] $bindacqaddress                   = [],
   Array[String] $bindcmdaddress                                    = ['127.0.0.1', '::1'],
   Optional[String] $initstepslew                                   = undef,
   Array[String] $cmdacl                                            = [],
