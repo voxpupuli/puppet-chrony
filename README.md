@@ -23,11 +23,11 @@
 
 ### Chrony Puppet Module
 
-Manage chrony time daemon on Archlinux and Redhat
+Manage chrony time daemon on operating systems supported in this modules metadata.json
 
 ## Module Description
 
-The Chrony module handles running chrony in Archlinux and Redhat systems
+The Chrony module handles running chrony on supported operating systems
 with systemd.
 
 ## Setup

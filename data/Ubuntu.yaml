@@ -1,5 +1,4 @@
-chrony::leapseclist: ~
-chrony::leapsectz: right/UTC
+chrony::leapseclist: /usr/share/zoneinfo/leap-seconds.list
 chrony::pools:
   ntp.ubuntu.com:
     - iburst
