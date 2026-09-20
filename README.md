@@ -43,6 +43,8 @@ with systemd.
 
 Please review `metadata.json` for a list of requirements.
 
+The DNS Service records feature requires the `dig` command to be installed on the target system.
+
 ### Beginning with chrony
 
 `include 'chrony'` is all you need to get it running. If you
@@ -136,6 +138,23 @@ class { 'chrony':
 }
 ```
 
+### Use DNS Service records for dynamic NTP configuration
+
+You can configure chrony to use DNS Service records for dynamic NTP server discovery:
+
+```puppet
+class { 'chrony':
+  dnssrv_records => [
+    '_ntp._udp.example.com',
+    '_ntp._udp.backup.example.com',
+  ],
+}
+```
+
+This enables the `chrony-dnssrv@.timer` unit shipped with the chrony package,
+which resolves each record hourly and feeds the servers to `chronyd` over
+chronyc. Only records below `_ntp._udp` are accepted.
+
 ## Reference
 
 Reference documentation for the chrony module is generated using
@@ -145,6 +164,9 @@ available in [REFERENCE.md](REFERENCE.md)
 ## Limitations
 
 See `metadata.json` for supported and tested operating systems.
+
+`dnssrv_records` relies on `chrony-helper`, which Archlinux and Gentoo do not
+package, so the feature is unavailable there.
 
 ## Copyright and License
 

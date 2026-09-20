@@ -278,6 +278,9 @@
 #   open port to send and receive NTP messages contained in PTP event messages (NTP-over-PTP)
 # @param ptpdomain
 #   sets the PTP domain number of transmitted and accepted NTP-over-PTP messages
+# @param dnssrv_records
+#   Array of DNS Service records containing the NTP service records for dynamic configuration.
+#   Requires chrony-helper, which Archlinux and Gentoo do not package.
 class chrony (
   Array[Stdlib::IP::Address] $bindaddress                          = [],
   Array[Stdlib::IP::Address,0,2] $bindacqaddress                   = [],
@@ -370,6 +373,7 @@ class chrony (
   String[1] $options_template                                      = 'chrony/chronyd.epp',
   Optional[Integer[0]] $ptpport                                    = undef,
   Optional[Integer[0,255]] $ptpdomain                              = undef,
+  Array[Chrony::Srvrecord] $dnssrv_records                         = [],
 ) {
   if ! $config_keys_manage and $chrony_password != 'unset' {
     fail("Setting \$config_keys_manage false and \$chrony_password at same time in ${module_name} is not possible.")
@@ -382,4 +386,8 @@ class chrony (
   Class['chrony::install']
   -> Class['chrony::config']
   ~> Class['chrony::service']
+
+  $dnssrv_records.each |Chrony::Srvrecord $srv_record| {
+    chrony::dnssrv { $srv_record: }
+  }
 }
