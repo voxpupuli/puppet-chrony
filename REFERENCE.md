@@ -16,6 +16,10 @@
 * `chrony::install`: Installs chrony
 * `chrony::service`: Manages the chrony service
 
+### Defined types
+
+* [`chrony::dnssrv`](#chrony--dnssrv): Manages a chrony DNS Service record for dynamic NTP configuration
+
 ### Functions
 
 #### Private Functions
@@ -25,6 +29,7 @@
 ### Data types
 
 * [`Chrony::Servers`](#Chrony--Servers): Type for the `servers`, `pools` and `peers` parameters.
+* [`Chrony::Srvrecord`](#Chrony--Srvrecord): Type for DNS SRV records holding NTP servers.
 
 ## Classes
 
@@ -212,6 +217,7 @@ The following parameters are available in the `chrony` class:
 * [`options_template`](#-chrony--options_template)
 * [`ptpport`](#-chrony--ptpport)
 * [`ptpdomain`](#-chrony--ptpdomain)
+* [`dnssrv_records`](#-chrony--dnssrv_records)
 
 ##### <a name="-chrony--bindaddress"></a>`bindaddress`
 
@@ -964,6 +970,70 @@ sets the PTP domain number of transmitted and accepted NTP-over-PTP messages
 
 Default value: `undef`
 
+##### <a name="-chrony--dnssrv_records"></a>`dnssrv_records`
+
+Data type: `Array[Chrony::Srvrecord]`
+
+Array of DNS Service records containing the NTP service records for dynamic configuration.
+Requires chrony-helper, which Archlinux and Gentoo do not package.
+
+Default value: `[]`
+
+## Defined types
+
+### <a name="chrony--dnssrv"></a>`chrony::dnssrv`
+
+Enables the `chrony-dnssrv@.timer` unit shipped with the chrony package, which
+periodically resolves the record with `dig` and feeds the servers to a running
+chronyd over chronyc.
+
+#### Examples
+
+##### Enable a DNS Service record
+
+```puppet
+chrony::dnssrv { '_ntp._udp.example.com': }
+```
+
+##### Explicitly set the SRV record
+
+```puppet
+chrony::dnssrv { 'example-ntp':
+  srv_record => '_ntp._udp.example.com',
+}
+```
+
+##### Remove a DNS Service record
+
+```puppet
+chrony::dnssrv { '_ntp._udp.example.com':
+  ensure => absent,
+}
+```
+
+#### Parameters
+
+The following parameters are available in the `chrony::dnssrv` defined type:
+
+* [`srv_record`](#-chrony--dnssrv--srv_record)
+* [`ensure`](#-chrony--dnssrv--ensure)
+
+##### <a name="-chrony--dnssrv--srv_record"></a>`srv_record`
+
+Data type: `Chrony::Srvrecord`
+
+The DNS Service record to query.
+
+Default value: `$title`
+
+##### <a name="-chrony--dnssrv--ensure"></a>`ensure`
+
+Data type: `Enum['present', 'absent']`
+
+Whether the DNS SRV record should be enabled or disabled.
+
+Default value: `'present'`
+
 ## Data types
 
 ### <a name="Chrony--Servers"></a>`Chrony::Servers`
@@ -998,4 +1068,25 @@ This type is for the `servers`, `pools` and `peers` parameters.
 ```
 
 Alias of `Variant[Hash[Stdlib::Host, Optional[Array[String]]], Array[Stdlib::Host]]`
+
+### <a name="Chrony--Srvrecord"></a>`Chrony::Srvrecord`
+
+chrony-helper only accepts names below `_ntp._udp`. The domain may be omitted
+to let the resolver append its search list.
+
+#### Examples
+
+##### A DNS SRV record
+
+```puppet
+'_ntp._udp.example.com'
+```
+
+##### A DNS SRV record resolved against the search domain
+
+```puppet
+'_ntp._udp'
+```
+
+Alias of `Pattern[/\A_ntp\._udp(\.[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?)*\.?\z/]`
 

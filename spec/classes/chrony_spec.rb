@@ -745,6 +745,46 @@ describe 'chrony' do
 
         it { expect(config_file_contents.split("\n")).to include('logchange 0.0001') }
       end
+
+      context 'with dnssrv_records' do
+        let(:params) do
+          {
+            dnssrv_records: ['_ntp._udp.example.com', '_ntp._udp.backup.example.com'],
+          }
+        end
+
+        if %w[Archlinux Gentoo].include?(facts[:os]['family'])
+          it { is_expected.to compile.and_raise_error(%r{does not package}) }
+        else
+          it { is_expected.to compile.with_all_deps }
+          it { is_expected.to contain_chrony__dnssrv('_ntp._udp.example.com') }
+          it { is_expected.to contain_chrony__dnssrv('_ntp._udp.backup.example.com') }
+
+          it do
+            is_expected.to contain_service('chrony-dnssrv@_ntp._udp.example.com.timer').with(
+              ensure: 'running',
+              enable: true,
+            )
+          end
+
+          it do
+            is_expected.to contain_service('chrony-dnssrv@_ntp._udp.backup.example.com.timer').with(
+              ensure: 'running',
+              enable: true,
+            )
+          end
+        end
+      end
+
+      context 'with an invalid dnssrv_records entry' do
+        let(:params) do
+          {
+            dnssrv_records: ['_ntp._tcp.example.com'],
+          }
+        end
+
+        it { is_expected.not_to compile }
+      end
     end
   end
 end
