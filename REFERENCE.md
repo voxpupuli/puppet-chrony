@@ -998,4 +998,3 @@ This type is for the `servers`, `pools` and `peers` parameters.
 ```
 
 Alias of `Variant[Hash[Stdlib::Host, Optional[Array[String]]], Array[Stdlib::Host]]`
-
