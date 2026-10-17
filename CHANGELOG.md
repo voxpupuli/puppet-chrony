@@ -4,6 +4,38 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v6.0.0](https://github.com/voxpupuli/puppet-chrony/tree/v6.0.0) (2026-10-17)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-chrony/compare/v5.0.0...v6.0.0)
+
+**Breaking changes:**
+
+- Drop support for EOL Debian 11 [\#256](https://github.com/voxpupuli/puppet-chrony/pull/256) ([kenyon](https://github.com/kenyon))
+- Add Debian family defaults for `confdir` and `sourcedir` [\#242](https://github.com/voxpupuli/puppet-chrony/pull/242) ([bwitt](https://github.com/bwitt))
+
+**Implemented enhancements:**
+
+- Add missing NTS parameters [\#203](https://github.com/voxpupuli/puppet-chrony/issues/203)
+- Add support for Amazon Linux 2 and 2023 [\#137](https://github.com/voxpupuli/puppet-chrony/issues/137)
+- Update requirements to allow OpenVox 9 [\#258](https://github.com/voxpupuli/puppet-chrony/pull/258) ([sebastianrakel](https://github.com/sebastianrakel))
+- Add bindacqaddress option [\#255](https://github.com/voxpupuli/puppet-chrony/pull/255) ([djuarezg](https://github.com/djuarezg))
+- Add EL10 and Ubuntu 26.04 support to `metadata.json` [\#254](https://github.com/voxpupuli/puppet-chrony/pull/254) ([ikonia](https://github.com/ikonia))
+- Allow multiple `sourcedir` and `confdir` entries [\#240](https://github.com/voxpupuli/puppet-chrony/pull/240) ([bwitt](https://github.com/bwitt))
+
+**Closed issues:**
+
+- Module defaults for the servers used for Ubuntu and Debian differ from OS defaults [\#243](https://github.com/voxpupuli/puppet-chrony/issues/243)
+- Module defaults for Ubuntu for `confdir` and `sourcedir` are different from Ubuntu package defaults [\#241](https://github.com/voxpupuli/puppet-chrony/issues/241)
+- `sourcedir` and `confdir` only accept one path each [\#239](https://github.com/voxpupuli/puppet-chrony/issues/239)
+
+**Merged pull requests:**
+
+- puppetlabs/stdlib: Allow 10.x [\#260](https://github.com/voxpupuli/puppet-chrony/pull/260) ([silug](https://github.com/silug))
+- Add `os.name` hiera data layer and deduplicate Ubuntu data [\#245](https://github.com/voxpupuli/puppet-chrony/pull/245) ([bwitt](https://github.com/bwitt))
+- Set default pool for Ubuntu and Debian [\#244](https://github.com/voxpupuli/puppet-chrony/pull/244) ([bwitt](https://github.com/bwitt))
+- Add nts params [\#235](https://github.com/voxpupuli/puppet-chrony/pull/235) ([bwitt](https://github.com/bwitt))
+- Add amazon linux support [\#234](https://github.com/voxpupuli/puppet-chrony/pull/234) ([bwitt](https://github.com/bwitt))
+
 ## [v5.0.0](https://github.com/voxpupuli/puppet-chrony/tree/v5.0.0) (2025-11-27)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-chrony/compare/v4.0.0...v5.0.0)
@@ -18,8 +50,8 @@ These should not affect the functionality of the module.
 
 - Manage `/etc/sysconfig/chronyd` file [\#154](https://github.com/voxpupuli/puppet-chrony/issues/154)
 - Allow to specify options on Debian systems [\#228](https://github.com/voxpupuli/puppet-chrony/pull/228) ([trefzer](https://github.com/trefzer))
-- add parameter for leapseclist [\#226](https://github.com/voxpupuli/puppet-chrony/pull/226) ([trefzer](https://github.com/trefzer))
-- add parameters for ptpport and ptpdomain [\#225](https://github.com/voxpupuli/puppet-chrony/pull/225) ([trefzer](https://github.com/trefzer))
+- Add parameter for `leapseclist` [\#226](https://github.com/voxpupuli/puppet-chrony/pull/226) ([trefzer](https://github.com/trefzer))
+- Add parameters for `ptpport` and `ptpdomain` [\#225](https://github.com/voxpupuli/puppet-chrony/pull/225) ([trefzer](https://github.com/trefzer))
 - Add `/etc/sysconfig/chronyd` management on RedHat-family [\#223](https://github.com/voxpupuli/puppet-chrony/pull/223) ([bschonec](https://github.com/bschonec))
 - Add support for Debian 13 [\#218](https://github.com/voxpupuli/puppet-chrony/pull/218) ([kenyon](https://github.com/kenyon))
 - Add unix mode option for chrony configuration [\#216](https://github.com/voxpupuli/puppet-chrony/pull/216) ([BlivionIaG](https://github.com/BlivionIaG))
